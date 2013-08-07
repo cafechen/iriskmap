@@ -51,6 +51,8 @@
     self.scrollView.hidden = NO ;
     self.maxX = 0 ;
     self.maxY = 0 ;
+    self.minX = 0 ;
+    self.minY = 0 ;
     //先绘制线
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
@@ -65,6 +67,12 @@
             }
             if(self.maxY < imageView.frame.origin.y + imageView.frame.size.height){
                 self.maxY = imageView.frame.origin.y + imageView.frame.size.height ;
+            }
+            if(self.minX > imageView.frame.origin.x + imageView.frame.size.width || i == 0){
+                self.minX = imageView.frame.origin.x + imageView.frame.size.width ;
+            }
+            if(self.minY > imageView.frame.origin.y + imageView.frame.size.height || i == 0){
+                self.minY = imageView.frame.origin.y + imageView.frame.size.height ;
             }
             [self.mapView addSubview:imageView] ;
         }
@@ -98,6 +106,12 @@
             if(self.maxY < button.frame.origin.y + button.frame.size.height){
                 self.maxY = button.frame.origin.y + button.frame.size.height ;
             }
+            if(self.minX > button.frame.origin.x + button.frame.size.width || i == 0){
+                self.minX = button.frame.origin.x + button.frame.size.width ;
+            }
+            if(self.minY > button.frame.origin.y + button.frame.size.height || i == 0){
+                self.minY = button.frame.origin.y + button.frame.size.height ;
+            }
             
             //添加风险卡片
             if(pm.cardPic != nil && ![@"" isEqualToString:pm.cardPic]){
@@ -118,14 +132,28 @@
     
     int width = ScreenWidth ;
     
-    if(self.maxX > width){
-        width = self.maxX + 20;
+    if(self.maxX - self.minX > width){
+        width = self.maxX - self.minX  + 20;
     }
     
     int height = ScreenHeight - 44 ;
     
-    if(self.maxY > height){
-        height = self.maxY + 20;
+    if(self.maxY - self.minY > height){
+        height = self.maxY - self.minY + 20 ;
+    }
+    
+    NSLog(@"#### %d %d %d %d", self.maxX, self.minX, self.maxY, self.minY) ;
+    
+    self.offsetX = width/2 - (self.maxX + self.minX)/2 + 5;
+    self.offsetY = height/2 - (self.maxY + self.minY)/2 + 5;
+    
+    NSLog(@"#### %d %d", self.offsetX, self.offsetY) ;
+    
+    //偏移
+    NSArray *views = [self.mapView subviews] ;
+    for(int i = 0; i < views.count; i++){
+        UIView *v = (UIView *)[views objectAtIndex:i] ;
+        v.frame = CGRectOffset(v.frame, self.offsetX, self.offsetY) ;
     }
     
     self.scrollView.contentSize = CGSizeMake(width, height) ;
@@ -271,7 +299,7 @@
             UIImage *image1 = [UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.picEmz]] ;
             UIImage *image2 = [self whiteToTranparent:image1] ;
             UIImageView *imageView = [[[UIImageView alloc] initWithImage:image2] autorelease] ;
-            imageView.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
+            imageView.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2 + self.offsetX, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2 + self.offsetY, pm.width*self.mSize, pm.height*self.mSize) ;
             [self.mapView insertSubview:imageView atIndex:0] ;
         }
     }

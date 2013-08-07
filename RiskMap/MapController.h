@@ -20,6 +20,10 @@
 @property (nonatomic, readwrite) int target;
 @property (nonatomic, readwrite) int maxX;
 @property (nonatomic, readwrite) int maxY;
+@property (nonatomic, readwrite) int minX;
+@property (nonatomic, readwrite) int minY;
+@property (nonatomic, readwrite) int offsetX;
+@property (nonatomic, readwrite) int offsetY;
 @property (nonatomic, readwrite) int mSize;
 
 @end
