@@ -62,6 +62,9 @@ int MAX_SIZE = 40 ;
     }
     
     NSString *title = [self.matrixTitleArray objectAtIndex:self.currMatrix] ;
+    
+    NSLog(@"################ %@", title) ;
+    
     self.maxX = 0 ;
     self.maxY = 0 ;
     
@@ -81,7 +84,11 @@ int MAX_SIZE = 40 ;
     self.maxY++ ;
     
     //绘制矩阵 先计算矩阵的大小
-    self.mSize = 280/self.maxY ;
+    if(isIpad){
+        self.mSize = 600/self.maxY ;
+    }else{
+        self.mSize = 280/self.maxY ;
+    }
     if(self.mSize > MAX_SIZE){
         self.mSize = MAX_SIZE ;
     }
@@ -92,6 +99,7 @@ int MAX_SIZE = 40 ;
         if([title isEqualToString:matrix.matrix_title]){
             int xIndex = [matrix.xIndex intValue] ;
             int yIndex = [matrix.yIndex intValue] ;
+            yIndex = self.maxY - yIndex  - 1;
             int x = 50 + self.mSize*xIndex + xIndex;
             int y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - yIndex*self.mSize - yIndex - self.mSize;
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -114,10 +122,11 @@ int MAX_SIZE = 40 ;
                 //最左边的矩阵
                 NSMutableArray *yVector = [DBUtils getProjectVectorDetail:matrix.matrix_y] ;
                 VectorDetail *yv = [yVector objectAtIndex:yIndex] ;
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, y + self.mSize/2 - 10, 40, 20)];
-                [label setText:yv.score] ;
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, y + self.mSize/2 - 20, 40, 40)];
+                label.numberOfLines = 2;
+                label.textAlignment = UITextAlignmentCenter;
+                [label setText:[NSString stringWithFormat:@"%@\n%@", yv.score, yv.levelTitle]] ;
                 [label setFont:[UIFont fontWithName:@"Arial" size:10]] ;
-                label.textAlignment = UITextAlignmentLeft ;
                 [label setBackgroundColor:[UIColor clearColor]] ;
                 [self.scrollView addSubview:label] ;
             }
@@ -125,8 +134,10 @@ int MAX_SIZE = 40 ;
                 //最下边的矩阵
                 NSMutableArray *xVector = [DBUtils getProjectVectorDetail:matrix.matrix_x] ;
                 VectorDetail *xv = [xVector objectAtIndex:xIndex] ;
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y + self.mSize + 5, self.mSize, 20)];
-                [label setText:xv.score] ;
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y + self.mSize + 5 - 10, self.mSize, 40)];
+                label.numberOfLines = 2;
+                label.textAlignment = UITextAlignmentCenter;
+                [label setText:[NSString stringWithFormat:@"%@\n%@", xv.score, xv.levelTitle]] ;
                 [label setFont:[UIFont fontWithName:@"Arial" size:10]] ;
                 label.textAlignment = UITextAlignmentCenter;
                 [label setBackgroundColor:[UIColor clearColor]] ;
@@ -147,17 +158,64 @@ int MAX_SIZE = 40 ;
         double x = 0 ;
         double y = 0 ;
         if(self.isManage){
-            x = 50 + self.maxX*self.mSize*xScore.scoreEnd ;
-            y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - self.maxY*self.mSize*yScore.scoreEnd ;
+            //遍历找该属于的点
+            NSMutableArray *xVector = [DBUtils getProjectVectorDetail:matrix.matrix_x] ;
+            NSMutableArray *yVector = [DBUtils getProjectVectorDetail:matrix.matrix_y] ;
+            for(int i = 0; i < xVector.count; i++){
+                VectorDetail *xv = [xVector objectAtIndex:i] ;
+                NSArray *scores = [xv.score componentsSeparatedByString:@"-"] ;
+                double begin = [[scores objectAtIndex:0] doubleValue] ;
+                double end = [[scores objectAtIndex:1] doubleValue] ;
+                if(xScore.scoreEnd < end && xScore.scoreEnd >= begin){
+                    x = 50 + self.mSize*([xv.sort intValue] - 1) + [xv.sort intValue] - 1 + self.mSize*((xScore.scoreEnd - begin)/(end - begin));
+                    NSLog(@"####SCORE x [%d][%d][%f]", [xv.sort intValue], self.mSize, (xScore.scoreEnd - begin)/(end - begin)) ;
+                    NSLog(@"####SCORE x [%f][%f][%f][%@][%f]", xScore.scoreEnd, begin, end, xv.sort, x) ;
+                }
+            }
+            for(int i = 0; i < yVector.count; i++){
+                VectorDetail *yv = [yVector objectAtIndex:i] ;
+                NSArray *scores = [yv.score componentsSeparatedByString:@"-"] ;
+                double begin = [[scores objectAtIndex:0] doubleValue] ;
+                double end = [[scores objectAtIndex:1] doubleValue] ;
+                if(yScore.scoreEnd < end && yScore.scoreEnd >= begin){
+                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreEnd - begin)/(end - begin))) ;
+                    NSLog(@"####SCORE y [%d][%d][%f]", [yv.sort intValue], self.mSize, (yScore.scoreEnd - begin)/(end - begin)) ;
+                    NSLog(@"####SCORE y [%f][%f][%f][%@][%f]", yScore.scoreEnd, begin, end, yv.sort, y) ;
+                }
+            }
         }else{
-            x = self.maxX*self.mSize*xScore.scoreBefore ;
-            y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - self.maxY*self.mSize*yScore.scoreBefore ;
+            //遍历找该属于的点
+            NSMutableArray *xVector = [DBUtils getProjectVectorDetail:matrix.matrix_x] ;
+            NSMutableArray *yVector = [DBUtils getProjectVectorDetail:matrix.matrix_y] ;
+            for(int i = 0; i < xVector.count; i++){
+                VectorDetail *xv = [xVector objectAtIndex:i] ;
+                NSArray *scores = [xv.score componentsSeparatedByString:@"-"] ;
+                double begin = [[scores objectAtIndex:0] doubleValue] ;
+                double end = [[scores objectAtIndex:1] doubleValue] ;
+                if(xScore.scoreBefore < end && xScore.scoreBefore >= begin){
+                    x = 50 + self.mSize*([xv.sort intValue] - 1) + [xv.sort intValue] - 1 + self.mSize*((xScore.scoreBefore - begin)/(end - begin));
+                    NSLog(@"####SCORE x [%d][%d][%f]", [xv.sort intValue], self.mSize, (xScore.scoreBefore - begin)/(end - begin)) ;
+                    NSLog(@"####SCORE x [%f][%f][%f][%@][%f]", xScore.scoreBefore, begin, end, xv.sort, x) ;
+                }
+            }
+            for(int i = 0; i < yVector.count; i++){
+                VectorDetail *yv = [yVector objectAtIndex:i] ;
+                NSArray *scores = [yv.score componentsSeparatedByString:@"-"] ;
+                double begin = [[scores objectAtIndex:0] doubleValue] ;
+                double end = [[scores objectAtIndex:1] doubleValue] ;
+                if(yScore.scoreBefore < end && yScore.scoreBefore >= begin){
+                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreBefore - begin)/(end - begin))) ;
+                    NSLog(@"####SCORE y [%d][%d][%f]", [yv.sort intValue], self.mSize, (yScore.scoreBefore - begin)/(end - begin)) ;
+                    NSLog(@"####SCORE y [%f][%f][%f][%@][%f]", yScore.scoreBefore, begin, end, yv.sort, y) ;
+                }
+            }
         }
         //绘制Y
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x - 5, y - 5, 10, 10) ;
         [button setBackgroundImage:[UIImage imageNamed:@"redball.png"] forState:UIControlStateNormal] ;
         [button setEnabled:NO] ;
+        [button setTitle:[NSString stringWithFormat:@"%d", i] forState:UIControlStateNormal] ;
         [self.scrollView addSubview:button] ;
     }
 }
@@ -168,6 +226,14 @@ int MAX_SIZE = 40 ;
     [appDelegate gotoLastPage] ;
 }
 
+- (IBAction) gotoRiskSortButtonAction:(id)sender
+{
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    appDelegate.currMatrix = self.currMatrix ;
+    appDelegate.isManage = self.isManage ;
+    [appDelegate gotoRiskSortPage] ;
+}
+
 - (IBAction) switchButtonAction:(id)sender
 {
     self.isManage = !self.isManage ;
@@ -176,6 +242,7 @@ int MAX_SIZE = 40 ;
     }else{
         [self.switchButton setTitle:@"管理前" forState:UIControlStateNormal] ;
     }
+    [self showMatrixMap] ;
 }
 
 - (IBAction) selectHotButtonAction:(id)sender

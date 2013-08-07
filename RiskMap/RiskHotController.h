@@ -14,10 +14,10 @@
 @property (nonatomic, retain) IBOutlet UIButton *switchButton;
 @property (nonatomic, retain) NSMutableArray *matrixArray;
 @property (nonatomic, retain) NSMutableArray *matrixTitleArray;
-@property (nonatomic, readwrite) int currMatrix;
 @property (nonatomic, readwrite) int maxX;
 @property (nonatomic, readwrite) int maxY;
 @property (nonatomic, readwrite) int mSize;
+@property (nonatomic, readwrite) int currMatrix;
 @property (nonatomic, readwrite) BOOL isManage;
 
 @end

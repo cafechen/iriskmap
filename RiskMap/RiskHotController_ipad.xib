@@ -48,6 +48,10 @@
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="143265826"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<object class="NSColor" key="IBUIBackgroundColor" id="960774631">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -65,7 +69,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">风险排序</string>
+						<string key="IBUINormalTitle">管理前</string>
 						<object class="NSColor" key="IBUIHighlightedTitleColor" id="1060877624">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MQA</bytes>
@@ -74,10 +78,7 @@
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
-						<object class="NSColor" key="IBUINormalTitleShadowColor" id="960774631">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
+						<reference key="IBUINormalTitleShadowColor" ref="960774631"/>
 						<object class="IBUIFontDescription" key="IBUIFontDescription" id="246808587">
 							<int key="type">1</int>
 							<double key="pointSize">14</double>
@@ -101,7 +102,7 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<int key="IBUIButtonType">1</int>
-						<string key="IBUINormalTitle">管理前</string>
+						<string key="IBUINormalTitle">风险排序</string>
 						<reference key="IBUIHighlightedTitleColor" ref="1060877624"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -184,9 +185,9 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">switchButton</string>
 						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="869706832"/>
+						<reference key="destination" ref="143265826"/>
 					</object>
-					<int key="connectionID">22</int>
+					<int key="connectionID">30</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -206,21 +207,21 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">selectHotButtonAction:</string>
+						<string key="label">switchButtonAction:</string>
 						<reference key="source" ref="143265826"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">24</int>
+					<int key="connectionID">25</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">switchButtonAction:</string>
+						<string key="label">gotoRiskSortButtonAction:</string>
 						<reference key="source" ref="869706832"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">23</int>
+					<int key="connectionID">28</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -287,13 +288,13 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">17</int>
-						<reference key="object" ref="143265826"/>
+						<int key="objectID">21</int>
+						<reference key="object" ref="869706832"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">21</int>
-						<reference key="object" ref="869706832"/>
+						<int key="objectID">17</int>
+						<reference key="object" ref="143265826"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
@@ -316,7 +317,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">24</int>
+			<int key="maxID">30</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -325,12 +326,17 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="gotoLastPageButtonAction:">id</string>
+						<string key="gotoRiskSortButtonAction:">id</string>
 						<string key="selectHotButtonAction:">id</string>
 						<string key="switchButtonAction:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
 						<object class="IBActionInfo" key="gotoLastPageButtonAction:">
 							<string key="name">gotoLastPageButtonAction:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="gotoRiskSortButtonAction:">
+							<string key="name">gotoRiskSortButtonAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="selectHotButtonAction:">

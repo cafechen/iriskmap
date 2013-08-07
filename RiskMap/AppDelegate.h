@@ -16,6 +16,10 @@
 
 @property (nonatomic, retain) NSString *currProjectMap;
 
+@property (nonatomic, readwrite) int currMatrix;
+
+@property (nonatomic, readwrite) BOOL isManage;
+
 - (void) gotoMainPage ;
 - (void) gotoMapPage ;
 - (void) gotoLastPage ;

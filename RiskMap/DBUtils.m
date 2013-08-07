@@ -1094,7 +1094,7 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id, riskid, scoreVectorId, scoreBefore, scoreEnd from riskScore where scoreVectorId = '%@'", vectorId] ;
+        sql = [NSString stringWithFormat:@"SELECT id, riskid, scoreVectorId, scoreBefore, scoreEnd from riskScore where scoreVectorId = '%@' order by riskid", vectorId] ;
         
         //NSLog(@"SQL: %@", sql) ;
         
