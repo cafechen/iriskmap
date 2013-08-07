@@ -762,6 +762,8 @@
 		AD5828D9177B314C008A61FC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Tech-Leap Information Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Tech-Leap Information Technology Co., Ltd.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "RiskMap/RiskMap-Prefix.pch";
 				GCC_VERSION = "";
@@ -770,6 +772,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "644084DE-E282-4274-8434-CC2ADE8B738A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "644084DE-E282-4274-8434-CC2ADE8B738A";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
