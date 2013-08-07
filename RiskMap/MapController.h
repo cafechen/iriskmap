@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MapController : UIViewController <UIAlertViewDelegate>
+@interface MapController : UIViewController <UIAlertViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, retain) NSMutableArray *objectArray;
 @property (nonatomic, retain) IBOutlet UIView *toolView;

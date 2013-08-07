@@ -180,16 +180,15 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:@"风险矩阵列表"
                                   delegate:self
-                                  cancelButtonTitle:nil
+                                  cancelButtonTitle:@"返回"
                                   destructiveButtonTitle:nil
                                   otherButtonTitles:nil];
-    
+    actionSheet.delegate = self ;
     for(int i = 0; i < self.matrixTitleArray.count; i++){
         [actionSheet addButtonWithTitle:[self.matrixTitleArray objectAtIndex:i]] ;
     }
-    [actionSheet addButtonWithTitle:@"返回"];
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    actionSheet.cancelButtonIndex = actionSheet.numberOfButtons;
+    //actionSheet.cancelButtonIndex = actionSheet.numberOfButtons;
     [actionSheet showInView:self.view];
 }
 
@@ -198,20 +197,21 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSLog(@"#### actionSheet") ;
+    NSLog(@"#### actionSheet [%d]", buttonIndex) ;
     if(buttonIndex < self.matrixTitleArray.count){
         self.currMatrix = buttonIndex ;
+        [self showMatrixMap] ;
     }
-    [self showMatrixMap] ;
-    //NSLog(@"#### %d", buttonIndex) ;
 }
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet{
-    //NSLog(@"#### actionSheetCancel") ;
+    NSLog(@"#### actionSheetCancel") ;
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    //NSLog(@"#### didDismissWithButtonIndex") ;
+    NSLog(@"#### didDismissWithButtonIndex") ;
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex{
-    //NSLog(@"#### willDismissWithButtonIndex") ;
+    NSLog(@"#### willDismissWithButtonIndex") ;
 }
 
 @end

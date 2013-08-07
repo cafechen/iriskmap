@@ -387,11 +387,6 @@
     [appDelegate gotoRiskCostPage] ;
 }
 
-- (IBAction)showToolViewAction:(id)sender
-{
-    [ASDepthModalViewController presentView:self.toolView withBackgroundColor:nil popupAnimationStyle:ASDepthModalAnimationGrow];
-}
-
 - (IBAction)closeToolViewAction:(id)sender
 {
     [ASDepthModalViewController dismiss];
@@ -423,5 +418,54 @@
     }
     return self.mapView;
 }
+
+- (IBAction) showToolViewAction:(id)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:@"功能列表"
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:@"返回地图", @"风险热图", @"风险列表", @"分类统计", @"风险成本", nil] ;
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionSheet showInView:self.view];
+}
+
+#pragma mark -
+#pragma mark UIActionSheetDelegate Methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"#### %d", buttonIndex) ;
+    switch (buttonIndex) {
+        case 0:
+            [self draw01:nil];
+            break;
+        case 1:
+            [self draw02:nil];
+            break;
+        case 2:
+            [self gotoRiskList:nil];
+            break;
+        case 3:
+            [self gotoRiskStatis:nil];
+            break;
+        case 4:
+            [self gotoRiskCost:nil];
+            break;
+        default:
+            break;
+    }
+}
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet{
+    NSLog(@"#### actionSheetCancel") ;
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    NSLog(@"#### didDismissWithButtonIndex") ;
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex{
+    NSLog(@"#### willDismissWithButtonIndex") ;
+}
+
 
 @end

@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1072</int>
-		<string key="IBDocument.SystemVersion">12D78</string>
+		<string key="IBDocument.SystemVersion">12C54</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.37</string>
-		<string key="IBDocument.HIToolboxVersion">626.00</string>
+		<string key="IBDocument.AppKitVersion">1187.34</string>
+		<string key="IBDocument.HIToolboxVersion">625.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -58,6 +58,7 @@
 						</array>
 						<string key="NSFrame">{{0, 44}, {320, 416}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSNextKeyView" ref="89900564"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
@@ -73,7 +74,6 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrameSize">{320, 416}</string>
 								<reference key="NSSuperview" ref="423600259"/>
-								<reference key="NSNextKeyView" ref="382858371"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="270501788">
 									<int key="NSColorSpace">3</int>
@@ -97,7 +97,7 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView" ref="89900564"/>
+						<reference key="NSNextKeyView" ref="382858371"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<array key="IBUIItems">
@@ -391,7 +391,7 @@
 						<reference key="source" ref="549784308"/>
 						<reference key="destination" ref="372490531"/>
 					</object>
-					<int key="connectionID">17</int>
+					<int key="connectionID">45</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -515,13 +515,13 @@
 						<int key="objectID">10</int>
 						<reference key="object" ref="195376587"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="117457547"/>
 							<reference ref="490497846"/>
 							<reference ref="804514155"/>
 							<reference ref="238437227"/>
 							<reference ref="682383833"/>
 							<reference ref="731681728"/>
 							<reference ref="637065870"/>
+							<reference ref="117457547"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -615,7 +615,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">43</int>
+			<int key="maxID">45</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes"/>
 		<int key="IBDocument.localizationMode">0</int>
