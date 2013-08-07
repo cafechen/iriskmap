@@ -302,8 +302,24 @@
 
 - (IBAction)draw01:(id)sender
 {
-    self.scrollView.hidden = NO ;
-    self.imageView.hidden = YES ;
+    //删除所有的对象
+    NSArray *views = [self.mapView subviews] ;
+    for(int i = 0; i < views.count; i++){
+        UIView *v = (UIView *)[views objectAtIndex:i] ;
+        [v removeFromSuperview] ;
+    }
+    
+    //将所有的线重置
+    for(int i = 0; i < self.objectArray.count; i++){
+        ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
+        if(pm.isline){
+            pm.willShow = NO ;
+        }else{
+            pm.isShow = NO ;
+        }
+    }
+    
+    [self initMap] ;
     [self closeToolViewAction:nil];
 }
 
