@@ -14,6 +14,7 @@
 @property (nonatomic, retain) IBOutlet UIView *toolView;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet UIScrollView *scrollView2;
 @property (nonatomic, retain) IBOutlet UIView *mapView;
 @property (nonatomic, retain) NSArray *currLinked;
 @property (nonatomic, readwrite) int target;

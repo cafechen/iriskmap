@@ -40,13 +40,14 @@
     }else{
         self.mSize = 15 ;
     }
+    self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self initMap] ;
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void) initMap
 {
-    self.imageView.hidden = YES ;
+    self.scrollView2.hidden = YES ;
     self.scrollView.hidden = NO ;
     self.maxX = 0 ;
     self.maxY = 0 ;
@@ -148,7 +149,7 @@
     NSLog(@"showCardPic [%d][%@]", [sender tag], pm.cardPic) ;
     [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.cardPic]]] ;
     self.scrollView.hidden = YES ;
-    self.imageView.hidden = NO ;
+    self.scrollView2.hidden = NO ;
     
 }
 
@@ -283,7 +284,7 @@
         NSLog(@"alertView %@", linkedPage) ;
         [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:linkedPage]]] ;
         self.scrollView.hidden = YES ;
-        self.imageView.hidden = NO ;
+        self.scrollView2.hidden = NO ;
         //self.imageView.contentMode= UIViewContentModeScaleAspectFit ;
     }
 }
@@ -389,6 +390,9 @@
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
+    if(scrollView == self.scrollView2){
+        return self.imageView ;
+    }
     return self.mapView;
 }
 
