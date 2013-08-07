@@ -13,7 +13,7 @@
 #import "VectorDetail.h"
 #import "Score.h"
 
-#define MAX_SIZE 40
+int MAX_SIZE = 40 ;
 
 @interface RiskHotController ()
 
@@ -37,6 +37,9 @@
     self.matrixArray = [DBUtils getProjectMatrix:appDelegate.currProjectMap] ;
     self.matrixTitleArray = [DBUtils getProjectMatrixTitle:appDelegate.currProjectMap] ;
     self.currMatrix = 0 ;
+    if(isIpad){
+        MAX_SIZE = 100 ;
+    }
     self.isManage = NO ;
     [self showMatrixMap] ;
     // Do any additional setup after loading the view from its nib.
@@ -96,11 +99,11 @@
             [button setEnabled:NO] ;
             //NSLog(@"#### %@", matrix.levelType) ;
             if(matrix.Color == -65536){
-                [button setBackgroundColor:[UIColor greenColor]] ;
+                [button setBackgroundColor:[UIColor redColor]] ;
             }else if(matrix.Color == -256){
                 [button setBackgroundColor:[UIColor yellowColor]] ;
             }else if(matrix.Color == -16744448){
-                [button setBackgroundColor:[UIColor redColor]] ;
+                [button setBackgroundColor:[UIColor greenColor]] ;
             }else {
                 [button setBackgroundColor:[UIColor grayColor]] ;
             }
@@ -153,7 +156,7 @@
         //绘制Y
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x - 5, y - 5, 10, 10) ;
-        [button setBackgroundColor:[UIColor whiteColor]] ;
+        [button setBackgroundImage:[UIImage imageNamed:@"redball.png"] forState:UIControlStateNormal] ;
         [button setEnabled:NO] ;
         [self.scrollView addSubview:button] ;
     }
@@ -180,7 +183,7 @@
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:@"风险矩阵列表"
                                   delegate:self
-                                  cancelButtonTitle:@"返回"
+                                  cancelButtonTitle:nil
                                   destructiveButtonTitle:nil
                                   otherButtonTitles:nil];
     actionSheet.delegate = self ;
