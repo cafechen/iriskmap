@@ -136,7 +136,7 @@
         width = self.maxX - self.minX  + 20;
     }
     
-    int height = ScreenHeight - 44 ;
+    int height = ScreenHeight - 44 - StateBarHeight;
     
     if(self.maxY - self.minY > height){
         height = self.maxY - self.minY + 20 ;
