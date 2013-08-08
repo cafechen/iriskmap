@@ -143,13 +143,13 @@
 
 - (void) gotoLastFilePage
 {
-    NSLog(@"Goto Last Page Start") ;
+    NSLog(@"Goto Last File Page Start") ;
     [self.navController popViewControllerAnimated:YES];
     UIViewController *fileController = [self.navController.childViewControllers objectAtIndex:0] ;
     if([fileController isKindOfClass:[FileController class]]){
         [(FileController *)fileController reloadFile] ;
     }
-    NSLog(@"Goto Login Page End") ;
+    NSLog(@"Goto Last File Page End") ;
 }
 
 - (void) gotoRiskListPage
