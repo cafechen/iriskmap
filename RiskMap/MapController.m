@@ -310,7 +310,7 @@
     if(buttonIndex > 0){
         NSString *linkedPage = [self.currLinked objectAtIndex:(buttonIndex - 1)] ;
         NSLog(@"alertView %@", linkedPage) ;
-        [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:linkedPage]]] ;
+        [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:[linkedPage stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]] ;
         self.scrollView.hidden = YES ;
         self.scrollView2.hidden = NO ;
         //self.imageView.contentMode= UIViewContentModeScaleAspectFit ;

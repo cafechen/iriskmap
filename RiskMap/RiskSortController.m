@@ -114,7 +114,6 @@
                 if([risk.riskId isEqualToString:xScore.riskid]){
                     score = xScore.scoreBefore*yScore.scoreBefore ;
                     NSLog(@"#### score %d", i) ;
-                    score = xScore.scoreEnd*yScore.scoreEnd ;
                     button.frame = CGRectMake(left, top + (i)*height + height/2, self.widthImageView.frame.size.width*score, height/2) ;
                     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width + 5, button.frame.origin.y, self.widthImageView.frame.size.width - button.frame.size.width, height/2)] ;
                     label.text = [NSString stringWithFormat:@"%@ %@", risk.riskCode, risk.riskTitle] ;
