@@ -32,7 +32,7 @@
     [super viewDidLoad];
     self.riskArray = [DBUtils getRiskCost] ;
     NSLog(@"#### %d", self.riskArray.count) ;
-    self.scrollView.contentSize = CGSizeMake(1479, ScreenHeight - 135) ;
+    self.scrollView.contentSize = CGSizeMake(1836, ScreenHeight - 135) ;
     // Do any additional setup after loading the view from its nib.
 }
 
