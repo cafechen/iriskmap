@@ -163,9 +163,9 @@
 - (void)handleLongPress:(MyLongPressGestureRecognizer *)gestureRecognizer{
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         self.currLinked = [gestureRecognizer.context componentsSeparatedByString:@"|"] ;
-        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:[self.currLinked objectAtIndex:0], nil];
-        for(int i = 1; i < self.currLinked.count; i++){
-            [alert addButtonWithTitle:[self.currLinked objectAtIndex:i]] ;
+        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+        for(int i = 0; i < self.currLinked.count; i++){
+            [alert addButtonWithTitle:[[self.currLinked objectAtIndex:i] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] ;
         }
         [alert show];
     }
@@ -310,7 +310,7 @@
     if(buttonIndex > 0){
         NSString *linkedPage = [self.currLinked objectAtIndex:(buttonIndex - 1)] ;
         NSLog(@"alertView %@", linkedPage) ;
-        [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:[linkedPage stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]]] ;
+        [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:linkedPage]]] ;
         self.scrollView.hidden = YES ;
         self.scrollView2.hidden = NO ;
         //self.imageView.contentMode= UIViewContentModeScaleAspectFit ;

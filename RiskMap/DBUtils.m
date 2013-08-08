@@ -1222,12 +1222,14 @@
     
     NSDirectoryEnumerator *direnum = [[NSFileManager defaultManager]
                                       enumeratorAtPath:unzipto];
-    
     NSString *pname;
     
     while (pname = [direnum nextObject])
     {
-        if([pname hasSuffix: filename]){
+        if([pname hasSuffix: filename] ||
+           [pname hasSuffix: [filename uppercaseString]] ||
+            [pname isEqualToString: filename] ||
+            [[pname uppercaseString] isEqualToString: [filename uppercaseString]]){
             return [NSString stringWithFormat:@"%@/%@", unzipto, pname] ;
         }
     }
