@@ -47,6 +47,8 @@
 
 - (void) initMap
 {
+    [self.scrollView setZoomScale:1.0 animated:NO] ;
+    [self.scrollView2 setZoomScale:1.0 animated:NO] ;
     self.scrollView2.hidden = YES ;
     self.scrollView.hidden = NO ;
     self.maxX = 0 ;
