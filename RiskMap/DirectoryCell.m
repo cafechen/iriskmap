@@ -63,6 +63,9 @@
 -(void)setDirectory:(NSString *) dir {
     if (![dir isEqualToString:directory]) {
         directory = [dir copy];
+        if([directory hasPrefix:@".risk"]){
+            directory = [directory substringToIndex: directory.length - 5] ;
+        }
         self.directoryLabel.text = directory;
     }
 }

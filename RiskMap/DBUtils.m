@@ -876,10 +876,10 @@
     return result ;
 }
 
-+(NSString *) getProject
++(NSMutableArray *) getProject
 {
     
-    NSString *result = nil ;
+    NSMutableArray *result = nil ;
     
     FMDatabase* db = [DBUtils getFMDB] ;
     
@@ -889,14 +889,23 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id from project"] ;
+        sql = [NSString stringWithFormat:@"SELECT id, title from project"] ;
         
         //NSLog(@"SQL: %@", sql) ;
         
         FMResultSet *rs = [db executeQuery:sql];
         
+        result = [[[NSMutableArray alloc] init] autorelease];
+        
         while ([rs next]) {
-            result = [rs stringForColumn:@"id"] ;
+            [rs stringForColumn:@"id"] ;
+            Directory *dir = [[Directory alloc] init] ;
+            dir.dirId = [rs stringForColumn:@"id"] ;
+            dir.fatherId = @"0" ;
+            dir.title = [rs stringForColumn:@"title"] ;
+            dir.isFile = YES ;
+            [result addObject:dir] ;
+            [dir release] ;
         }
         [db close];
     }else{

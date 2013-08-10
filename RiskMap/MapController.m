@@ -278,19 +278,21 @@
 {
     ProjectMap *targetPM = [self.objectArray objectAtIndex:self.target];
     NSLog(@"targetPM[%@]", targetPM.objectId) ;
-    //先找离这个pm最近的两条线
+    //先找离这个pm最近的线
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isline){
             if([thePM.objectId isEqualToString:pm.fromWho]){
                 pm.willShow = YES ;
-                NSLog(@"--------------after [%@]", pm.projectId) ;
+                NSLog(@"--------------after [%@]", pm.objectId) ;
                 [self markAfterLine:pm] ;
+                [self markBeforeLine:pm] ;
             }
             if([thePM.objectId isEqualToString:pm.toWho]){
                 pm.willShow = YES ;
-                NSLog(@"--------------before [%@]", pm.projectId) ;
+                NSLog(@"--------------before [%@]", pm.objectId) ;
                 [self markBeforeLine:pm] ;
+                [self markAfterLine:pm] ;
             }
         }
     }
@@ -299,11 +301,14 @@
 
 - (void) markBeforeLine:(ProjectMap *)thePM
 {
+    NSString *afterObjectId = [thePM.toWho copy];
     NSString *beforeObjectId = [thePM.fromWho copy];
+    NSLog(@"####5555 [%@][%@]", afterObjectId, beforeObjectId) ;
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
-        if([beforeObjectId isEqualToString:pm.objectId]){
+        if([afterObjectId isEqualToString:pm.objectId] || [beforeObjectId isEqualToString:pm.objectId]){
             UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            NSLog(@"####4321 [%@][%@]", pm.objectId, thePM.objectId) ;
             [v setAlpha:1.0] ;
         }
     }
@@ -329,11 +334,14 @@
 {
     ProjectMap *targetPM = [self.objectArray objectAtIndex:self.target];
     NSString *afterObjectId = [thePM.toWho copy];
+    NSString *beforeObjectId = [thePM.fromWho copy];
+    NSLog(@"####5555 [%@][%@]", afterObjectId, beforeObjectId) ;
     NSLog(@"markAfterLine [%@][%@]", afterObjectId, targetPM.objectId) ;
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
-        if([afterObjectId isEqualToString:pm.objectId]){
+        if([afterObjectId isEqualToString:pm.objectId] || [beforeObjectId isEqualToString:pm.objectId]){
             UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            NSLog(@"####4321 [%@][%@]", pm.objectId, thePM.objectId) ;
             [v setAlpha:1.0] ;
         }
     }

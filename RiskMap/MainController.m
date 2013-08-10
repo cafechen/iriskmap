@@ -44,7 +44,7 @@
 
 - (void) loadDirectory
 {
-    self.dirArray = [DBUtils getDirectory:@"0"] ;
+    self.dirArray = [DBUtils getProject] ;
     for(int i = 0; i < self.dirArray.count; i++){
         Directory* dir = [self.dirArray objectAtIndex:i] ;
         dir.level = 1 ;
@@ -82,6 +82,8 @@
     cell.isOpen = dir.isOpen;
     
     cell.level = dir.level;
+    
+    NSLog(@"################# %@", dir.title) ;
     
     cell.directory = dir.title ;
     

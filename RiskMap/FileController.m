@@ -156,9 +156,7 @@
             [DBUtils updateDictType] ;
             AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
             //直接跳转到地图
-            NSString *projectId = [DBUtils getProject] ;
-            appDelegate.currProjectMap = projectId ;
-            [appDelegate gotoMapPage] ;
+            [appDelegate gotoMainPage] ;
         }else{
             NSLog(@"解压失败");
         }
