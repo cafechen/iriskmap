@@ -25,5 +25,9 @@
 @synthesize shouyi;
 @synthesize jingshouyi;
 @synthesize bilv;
+@synthesize projectId;
+@synthesize pageid;
+@synthesize riskvecorid;
+@synthesize chanceVecorid;
 
 @end

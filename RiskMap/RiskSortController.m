@@ -70,6 +70,24 @@
     NSLog(@"#### heigth %f %d %d", height, xArray.count, yArray.count) ;
     
     double score = 0.0 ;
+    
+    int left = 41 ;
+    if(isIpad){
+        left = 61 ;
+    }
+    
+    int top = 63 ;
+    if(isIpad){
+        top = 63 ;
+    }
+    
+    float buttonheight = height/2 ;
+    if(buttonheight > 40){
+        buttonheight = 40 ;
+    }
+    
+    NSMutableArray *buttons = [[[NSMutableArray alloc] init] autorelease] ;
+    
     for(int i = 0; i < xArray.count; i++){
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         //button.frame = CGRectMake(20 + cellw*index + cellw/4, ScreenHeight - 20 - 20, cellw/2, -cellh*risk.statis) ;
@@ -79,21 +97,6 @@
         Score *xScore = [xArray objectAtIndex:i] ;
         Score *yScore = [yArray objectAtIndex:i] ;
         
-        int left = 41 ;
-        if(isIpad){
-            left = 61 ;
-        }
-        
-        int top = 63 ;
-        if(isIpad){
-            top = 63 ;
-        }
-        
-        float buttonheight = height/2 ;
-        if(buttonheight > 40){
-            buttonheight = 40 ;
-        }
-        
         if(self.isManage){
             for(int j = 0; j < self.riskArray.count; j++){
                 Risk *risk = [self.riskArray objectAtIndex:j] ;
@@ -101,16 +104,7 @@
                     score = xScore.scoreEnd*yScore.scoreEnd ;
                     NSLog(@"#### score %f %d %d", score, i , j) ;
                     button.frame = CGRectMake(left, top + (i)*height + height/2 - buttonheight/2, self.widthImageView.frame.size.width*score, buttonheight) ;
-                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width + 5, button.frame.origin.y, self.widthImageView.frame.size.width - button.frame.size.width, buttonheight)] ;
-                    label.text = [NSString stringWithFormat:@"%@ %@", risk.riskCode, risk.riskTitle] ;
-                    [self.view addSubview:label] ;
-                    label.textAlignment = UITextAlignmentLeft;
-                    if(isIpad){
-                        [label setFont:[UIFont fontWithName:@"Arial" size:12]] ;
-                    }else{
-                        [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
-                    }
-                    [self.view addSubview:label] ;
+                    [button setTitle:[NSString stringWithFormat:@"%.3f %@ %@", score, risk.riskCode, risk.riskTitle] forState:UIControlStateNormal] ;
                 }
             }
         }else{
@@ -120,21 +114,51 @@
                     score = xScore.scoreBefore*yScore.scoreBefore ;
                     NSLog(@"#### score %f %d %d", score, i, j) ;
                     button.frame = CGRectMake(left, top + (i)*height + height/2 - buttonheight/2, self.widthImageView.frame.size.width*score, buttonheight) ;
-                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width + 5, button.frame.origin.y, self.widthImageView.frame.size.width - button.frame.size.width, buttonheight)] ;
-                    label.text = [NSString stringWithFormat:@"%@ %@", risk.riskCode, risk.riskTitle] ;
-                    [self.view addSubview:label] ;
-                    label.textAlignment = UITextAlignmentLeft;
-                    if(isIpad){
-                        [label setFont:[UIFont fontWithName:@"Arial" size:12]] ;
-                    }else{
-                        [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
-                    }
-                    [self.view addSubview:label] ;
+                    [button setTitle:[NSString stringWithFormat:@"%.3f %@ %@", score, risk.riskCode, risk.riskTitle] forState:UIControlStateNormal] ;
                 }
             }
         }
+        
         NSLog(@"#### [%f][%f][%f][%f]", button.frame.origin.x, button.frame.origin.y, button.frame.size.width, button.frame.size.height) ;
-        [self.view addSubview:button] ;
+        button.tag = 100 + i ;
+        [buttons addObject:button] ;
+    }
+    
+    for(int i = 0; i < buttons.count; i++){
+        UIButton *b = (UIButton *)[buttons objectAtIndex:i] ;
+        NSLog(@"#### a [%f][%f][%f][%f]", b.frame.origin.x, b.frame.origin.y, b.frame.size.width, b.frame.size.height) ;
+        //[self.view addSubview:b] ;
+    }
+    
+    for(int i = 0; i < buttons.count; i++){
+        UIButton *b1 = (UIButton *)[buttons objectAtIndex:i] ;
+        for(int j = i; j < buttons.count; j++){
+            UIButton *b2 = (UIButton *)[buttons objectAtIndex:j] ;
+            if(b2.frame.size.width > b1.frame.size.width){
+                //对调
+                CGRect temp = b2.frame ;
+                b2.frame = b1.frame ;
+                b1.frame = temp ;
+            }
+        }
+    }
+    
+    for(int i = 0; i < buttons.count; i++){
+        UIButton *b = (UIButton *)[buttons objectAtIndex:i] ;
+        b.frame = CGRectMake(left, top + (i)*height + height/2 - buttonheight/2, b.frame.size.width, b.frame.size.height) ;
+        NSLog(@"#### b [%f][%f][%f][%f]", b.frame.origin.x, b.frame.origin.y, b.frame.size.width, b.frame.size.height) ;
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(b.frame.origin.x + b.frame.size.width + 5, b.frame.origin.y, self.widthImageView.frame.size.width - b.frame.size.width, buttonheight)] ;
+        label.text = b.titleLabel.text ;
+        [b setTitle:@"" forState:UIControlStateNormal] ;
+        label.textAlignment = UITextAlignmentLeft;
+        if(isIpad){
+            [label setFont:[UIFont fontWithName:@"Arial" size:12]] ;
+        }else{
+            [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
+        }
+        [self.view addSubview:label] ;
+        [self.view addSubview:label] ;
+        [self.view addSubview:b] ;
     }
 }
 

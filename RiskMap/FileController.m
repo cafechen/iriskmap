@@ -154,6 +154,7 @@
             [DBUtils updateRiskScore] ;
             [DBUtils updateRiskCost] ;
             [DBUtils updateDictType] ;
+            [DBUtils updateProjectVector] ;
             AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
             //直接跳转到地图
             [appDelegate gotoMainPage] ;

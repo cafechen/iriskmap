@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041250A517B6F9FF00A62112 /* Vector.m in Sources */ = {isa = PBXBuildFile; fileRef = 041250A417B6F9FF00A62112 /* Vector.m */; };
 		046A93B217B04FF200693F52 /* MainController_ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A93B117B04FF200693F52 /* MainController_ipad.xib */; };
 		046A93B417B050BA00693F52 /* MapController_ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A93B317B050BA00693F52 /* MapController_ipad.xib */; };
 		046A93B617B051DD00693F52 /* RiskListController_ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 046A93B517B051DD00693F52 /* RiskListController_ipad.xib */; };
@@ -104,6 +105,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		041250A317B6F9FF00A62112 /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
+		041250A417B6F9FF00A62112 /* Vector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vector.m; sourceTree = "<group>"; };
 		046A93B117B04FF200693F52 /* MainController_ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainController_ipad.xib; sourceTree = "<group>"; };
 		046A93B317B050BA00693F52 /* MapController_ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapController_ipad.xib; sourceTree = "<group>"; };
 		046A93B517B051DD00693F52 /* RiskListController_ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiskListController_ipad.xib; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 				B02224DA1792D5A0005C9CF7 /* Cost.m */,
 				B01A023E179D393C0065D347 /* Dictype.h */,
 				B01A023F179D393C0065D347 /* Dictype.m */,
+				041250A317B6F9FF00A62112 /* Vector.h */,
+				041250A417B6F9FF00A62112 /* Vector.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -672,6 +677,7 @@
 				04E0BF6E17AF686B002743EF /* zip.c in Sources */,
 				04E0BF7217AF68A6002743EF /* ZipArchive.m in Sources */,
 				04FFC5F617B6C66900A91F7C /* Project.m in Sources */,
+				041250A517B6F9FF00A62112 /* Vector.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

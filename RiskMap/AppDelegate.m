@@ -98,6 +98,7 @@
     [DBUtils updateRiskScore] ;
     [DBUtils updateRiskCost] ;
     [DBUtils updateDictType] ;
+    [DBUtils updateProjectVector] ;
 }
 
 - (void) gotoMainPage

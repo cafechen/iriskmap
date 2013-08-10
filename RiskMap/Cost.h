@@ -25,5 +25,9 @@
 @property (nonatomic, readwrite) double shouyi;
 @property (nonatomic, readwrite) double jingshouyi;
 @property (nonatomic, readwrite) double bilv;
+@property (copy, nonatomic) NSString  *projectId;
+@property (copy, nonatomic) NSString  *pageid;
+@property (copy, nonatomic) NSString  *riskvecorid;
+@property (copy, nonatomic) NSString  *chanceVecorid;
 
 @end

@@ -18,6 +18,7 @@
 #import "Cost.h"
 #import "Dictype.h"
 #import "Project.h"
+#import "Vector.h"
 
 @implementation DBUtils
 
@@ -124,6 +125,13 @@
 {
     [self checkDicTypeTable] ;
     [self updateDicTypeData] ;
+    return YES ;
+}
+
++(BOOL) updateProjectVector
+{
+    [self checkProjectVectorTable] ;
+    [self updateProjectVectorData] ;
     return YES ;
 }
 
@@ -561,6 +569,69 @@
     }
 }
 
++(void) checkProjectVectorTable
+{
+    //NSLog(@"#### checkProjectVectorDetailTable");
+    FMDatabase* db = [DBUtils getFMDB] ;
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        int isExist = 0 ;
+        
+        // 判断表是否存在
+        FMResultSet *rs = [db executeQuery:@"SELECT COUNT(*) as count FROM sqlite_master where type='table' and name='projectVector'"];
+        while ([rs next]) {
+            isExist = [rs intForColumn:@"count"] ;
+        }
+        
+        // 如果没有创建表
+        if(isExist == 0){
+            [db executeUpdate:@"create table projectVector(id varchar(255) primary key, title varchar(255), remark varchar(255), theType varchar(255), projectId varchar(255))"];
+        }
+        [db close];
+        
+    }else{
+        NSLog(@"Could not open db.");
+    }
+}
+
++ (void)updateProjectVectorData{
+    //NSLog(@"#### updateProjectVectorDetailData");
+    //获取工程目录的xml文件
+    NSString *filePath = [DBUtils findFilePath:@"project_vector.xml"] ;
+    
+    NSLog(@"%@", filePath) ;
+    
+    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
+    
+    //使用NSData对象初始化
+    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    
+    //获取根节点（Users）
+    GDataXMLElement *rootElement = [doc rootElement];
+    
+    //获取根节点下的节点（User）
+    NSArray *risks = [rootElement elementsForName:@"Risk"];
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        for (GDataXMLElement *risk in risks) {
+            [db executeUpdate:@"REPLACE INTO projectVector(id, title, remark, theType, projectId) VALUES(?, ?, ?, ?, ?)" ,
+             [[[risk elementsForName:@"id"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"title"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"remark"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"theType"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"projectId"] objectAtIndex:0] stringValue]
+             ];
+            //NSLog(@"UPDATE PROJECTMAP %d", succ) ;
+        }
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+}
+
 +(void) checkRiskScoreTable
 {
     //NSLog(@"#### checkProjectVectorDetailTable");
@@ -641,7 +712,7 @@
         
         // 如果没有创建表
         if(isExist == 0){
-            [db executeUpdate:@"create table riskCost(id varchar(255) primary key, riskName varchar(255), riskCode varchar(255), riskType varchar(255),beforeGailv varchar(255), beforeAffect varchar(255), beforeAffectQi varchar(255), manaChengben varchar(255), afterGailv varchar(255), afterAffect varchar(255), afterQi varchar(255), affectQi varchar(255), shouyi varchar(255), jingshouyi varchar(255), bilv varchar(255))"];
+            [db executeUpdate:@"create table riskCost(id varchar(255) primary key, riskName varchar(255), riskCode varchar(255), riskType varchar(255),beforeGailv varchar(255), beforeAffect varchar(255), beforeAffectQi varchar(255), manaChengben varchar(255), afterGailv varchar(255), afterAffect varchar(255), afterQi varchar(255), affectQi varchar(255), shouyi varchar(255), jingshouyi varchar(255), bilv varchar(255), projectId varchar(255), pageid varchar(255), riskvecorid varchar(255), chanceVecorid varchar(255))"];
         }
         [db close];
         
@@ -672,7 +743,7 @@
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         for (GDataXMLElement *risk in risks) {
-            [db executeUpdate:@"REPLACE INTO riskCost(id, riskName, riskCode, riskType, beforeGailv, beforeAffect, beforeAffectQi, manaChengben, afterGailv, afterAffect, afterQi, affectQi, shouyi, jingshouyi, bilv) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ,
+            [db executeUpdate:@"REPLACE INTO riskCost(id, riskName, riskCode, riskType, beforeGailv, beforeAffect, beforeAffectQi, manaChengben, afterGailv, afterAffect, afterQi, affectQi, shouyi, jingshouyi, bilv, projectId, pageid, riskvecorid, chanceVecorid) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ,
              [[[risk elementsForName:@"ID"] objectAtIndex:0] stringValue],
              [[[risk elementsForName:@"riskName"] objectAtIndex:0] stringValue],
              [[[risk elementsForName:@"riskCode"] objectAtIndex:0] stringValue],
@@ -687,7 +758,11 @@
              [[[risk elementsForName:@"affectQi"] objectAtIndex:0] stringValue],
              [[[risk elementsForName:@"shouyi"] objectAtIndex:0] stringValue],
              [[[risk elementsForName:@"jingshouyi"] objectAtIndex:0] stringValue],
-             [[[risk elementsForName:@"bilv"] objectAtIndex:0] stringValue]
+             [[[risk elementsForName:@"bilv"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"projectId"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"pageid"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"riskvecorid"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"chanceVecorid"] objectAtIndex:0] stringValue]
              ];
             //NSLog(@"UPDATE PROJECTMAP %d", succ) ;
         }
@@ -1230,7 +1305,7 @@
     
 }
 
-+(NSMutableArray *) getRiskCost
++(NSMutableArray *) getRiskCost: (NSString *) projectId
 {
     
     NSMutableArray *result = nil ;
@@ -1243,7 +1318,7 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id, riskName, riskCode, riskType, beforeGailv, beforeAffect, beforeAffectQi, manaChengben, afterGailv, afterAffect, afterQi, affectQi, shouyi, jingshouyi, bilv from riskCost order by id"] ;
+        sql = [NSString stringWithFormat:@"SELECT id, riskName, riskCode, riskType, beforeGailv, beforeAffect, beforeAffectQi, manaChengben, afterGailv, afterAffect, afterQi, affectQi, shouyi, jingshouyi, bilv, projectId, pageid, riskvecorid, chanceVecorid from riskCost where projectId = '%@' order by id", projectId] ;
         
         //NSLog(@"SQL: %@", sql) ;
         
@@ -1268,8 +1343,53 @@
             cost.shouyi = [[rs stringForColumn:@"shouyi"] doubleValue];
             cost.jingshouyi = [[rs stringForColumn:@"jingshouyi"] doubleValue];
             cost.bilv = [[rs stringForColumn:@"bilv"] doubleValue];
+            cost.projectId = [rs stringForColumn:@"projectId"] ;
+            cost.pageid = [rs stringForColumn:@"pageid"] ;
+            cost.riskvecorid = [rs stringForColumn:@"riskvecorid"] ;
+            cost.chanceVecorid = [rs stringForColumn:@"chanceVecorid"] ;
             [result addObject:cost] ;
             [cost release] ;
+        }
+        
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+    
+    return result ;
+    
+}
+
++(NSMutableArray *) getVector: (NSString *) projectId
+{
+    
+    NSMutableArray *result = nil ;
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        //拼写SQL
+        NSString *sql = nil ;
+        
+        sql = [NSString stringWithFormat:@"SELECT id, title, remark, theType, projectId from projectVector where projectId = '%@' order by id", projectId] ;
+        
+        //NSLog(@"SQL: %@", sql) ;
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        result = [[[NSMutableArray alloc] init] autorelease];
+        
+        while ([rs next]) {
+            Vector *vector = [[Vector alloc] init] ;
+            vector.vectorId = [rs stringForColumn:@"id"] ;
+            vector.title = [rs stringForColumn:@"title"] ;
+            vector.remark = [rs stringForColumn:@"remark"] ;
+            vector.theType = [rs stringForColumn:@"theType"] ;
+            vector.projectId = [rs stringForColumn:@"projectId"] ;
+            [result addObject:vector] ;
+            [vector release] ;
         }
         
         [db close];

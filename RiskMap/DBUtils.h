@@ -21,6 +21,7 @@
 +(BOOL) updateRiskScore ;
 +(BOOL) updateRiskCost ;
 +(BOOL) updateDictType ;
++(BOOL) updateProjectVector ;
 +(NSMutableArray *) getProject ;
 +(Project *) getProjectInfo:(NSString *) projectId ;
 +(NSString *) getRisk:(NSString *) projectId RiskId:(NSString *)riskId ;
@@ -32,8 +33,9 @@
 +(NSMutableArray *) getProjectMatrixTitle:(NSString *) projectId ;
 +(NSMutableArray *) getProjectVectorDetail: (NSString *) fatherid ;
 +(NSMutableArray *) getRiskScore: (NSString *) vectorId ;
-+(NSMutableArray *) getRiskCost ;
++(NSMutableArray *) getRiskCost: (NSString *) projectId ;
 +(NSMutableArray *) getDictype ;
++(NSMutableArray *) getVector: (NSString *) projectId ;
 +(NSString *) findFilePath: (NSString *) filename;
 
 @end
