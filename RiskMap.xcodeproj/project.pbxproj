@@ -66,6 +66,7 @@
 		04FEA304177F1FAE00872C34 /* Glass_Folder_002.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FEA301177F1FAE00872C34 /* Glass_Folder_002.png */; };
 		04FEA305177F1FAE00872C34 /* Glass_Folder_003.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FEA302177F1FAE00872C34 /* Glass_Folder_003.png */; };
 		04FEA308177F2A6600872C34 /* ProjectMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FEA307177F2A6600872C34 /* ProjectMap.m */; };
+		04FFC5F617B6C66900A91F7C /* Project.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FFC5F517B6C66900A91F7C /* Project.m */; };
 		AD5828B5177B314C008A61FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5828B4177B314C008A61FC /* UIKit.framework */; };
 		AD5828B7177B314C008A61FC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5828B6177B314C008A61FC /* Foundation.framework */; };
 		AD5828B9177B314C008A61FC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD5828B8177B314C008A61FC /* CoreGraphics.framework */; };
@@ -193,6 +194,8 @@
 		04FEA306177F2A6600872C34 /* ProjectMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectMap.h; sourceTree = "<group>"; };
 		04FEA307177F2A6600872C34 /* ProjectMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectMap.m; sourceTree = "<group>"; };
 		04FEA309177F3AD000872C34 /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Define.h; sourceTree = "<group>"; };
+		04FFC5F417B6C66900A91F7C /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		04FFC5F517B6C66900A91F7C /* Project.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project.m; sourceTree = "<group>"; };
 		AD5828B1177B314C008A61FC /* RiskMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiskMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD5828B4177B314C008A61FC /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AD5828B6177B314C008A61FC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -314,6 +317,8 @@
 			children = (
 				04FEA2D6177EE81B00872C34 /* Directory.h */,
 				04FEA2D7177EE81B00872C34 /* Directory.m */,
+				04FFC5F417B6C66900A91F7C /* Project.h */,
+				04FFC5F517B6C66900A91F7C /* Project.m */,
 				04FEA306177F2A6600872C34 /* ProjectMap.h */,
 				04FEA307177F2A6600872C34 /* ProjectMap.m */,
 				ADF66411178C5F520072973D /* Risk.h */,
@@ -666,6 +671,7 @@
 				04E0BF6D17AF686B002743EF /* unzip.c in Sources */,
 				04E0BF6E17AF686B002743EF /* zip.c in Sources */,
 				04E0BF7217AF68A6002743EF /* ZipArchive.m in Sources */,
+				04FFC5F617B6C66900A91F7C /* Project.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

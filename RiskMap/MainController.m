@@ -83,8 +83,6 @@
     
     cell.level = dir.level;
     
-    NSLog(@"################# %@", dir.title) ;
-    
     cell.directory = dir.title ;
     
 	return cell;

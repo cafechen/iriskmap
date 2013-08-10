@@ -106,7 +106,7 @@
                     [self.view addSubview:label] ;
                     label.textAlignment = UITextAlignmentLeft;
                     if(isIpad){
-                        [label setFont:[UIFont fontWithName:@"Arial" size:14]] ;
+                        [label setFont:[UIFont fontWithName:@"Arial" size:12]] ;
                     }else{
                         [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
                     }
@@ -125,7 +125,7 @@
                     [self.view addSubview:label] ;
                     label.textAlignment = UITextAlignmentLeft;
                     if(isIpad){
-                        [label setFont:[UIFont fontWithName:@"Arial" size:14]] ;
+                        [label setFont:[UIFont fontWithName:@"Arial" size:12]] ;
                     }else{
                         [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
                     }

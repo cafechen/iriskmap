@@ -17,6 +17,7 @@
 #import "Score.h"
 #import "Cost.h"
 #import "Dictype.h"
+#import "Project.h"
 
 @implementation DBUtils
 
@@ -915,6 +916,43 @@
     return result ;
 }
 
++(Project *) getProjectInfo:(NSString *) projectId
+{
+    
+    Project *result = nil ;
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        //拼写SQL
+        NSString *sql = nil ;
+        
+        sql = [NSString stringWithFormat:@"SELECT id, title, show_cart, show_hot, show_sort, show_chengben, show_static from project where projectId = '%@'", projectId] ;
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        result = [[[Project alloc] init] autorelease];
+        
+        while ([rs next]) {
+            result.projectId = [rs stringForColumn:@"id"] ;
+            result.title = [rs stringForColumn:@"title"] ;
+            result.show_cart = [rs intForColumn:@"show_cart"] ;
+            result.show_hot = [rs intForColumn:@"show_hot"] ;
+            result.show_sort = [rs intForColumn:@"show_sort"] ;
+            result.show_chengben = [rs intForColumn:@"show_chengben"] ;
+            result.show_static = [rs intForColumn:@"show_static"] ;
+        }
+        
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+    
+    return result ;
+}
+
 +(NSMutableArray *) getRisk:(NSString *) projectId
 {
     
@@ -971,14 +1009,14 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT riskCode from risk where projectId = '%@' and id = '%@'", projectId, riskId] ;
+        sql = [NSString stringWithFormat:@"SELECT riskCode, riskTitle from risk where projectId = '%@' and id = '%@'", projectId, riskId] ;
         
         //NSLog(@"SQL: %@", sql) ;
         
         FMResultSet *rs = [db executeQuery:sql];
         
         while ([rs next]) {
-            result = [rs stringForColumn:@"riskCode"];
+            result = [NSString stringWithFormat:@"%@ %@", [rs stringForColumn:@"riskCode"], [rs stringForColumn:@"riskTitle"]] ;
         }
         
         [db close];

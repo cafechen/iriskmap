@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Project.h"
 
 @interface DBUtils : NSObject
 
@@ -21,6 +22,7 @@
 +(BOOL) updateRiskCost ;
 +(BOOL) updateDictType ;
 +(NSMutableArray *) getProject ;
++(Project *) getProjectInfo:(NSString *) projectId ;
 +(NSString *) getRisk:(NSString *) projectId RiskId:(NSString *)riskId ;
 +(NSMutableArray *) getDirectory:(NSString *) fatherId ;
 +(NSMutableArray *) getProjectMap:(NSString *) projectId ;

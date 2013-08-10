@@ -43,6 +43,12 @@ int MAX_SIZE = 40 ;
         MAX_SIZE = 100 ;
     }
     self.isManage = NO ;
+    
+    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
+    if(!project.show_after){
+        self.switchButton.hidden = YES ;
+    }
+    
     [self showMatrixMap] ;
     // Do any additional setup after loading the view from its nib.
 }
@@ -265,11 +271,10 @@ int MAX_SIZE = 40 ;
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
         UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
         if(isIpad){
-            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 180*(i/20), (ScreenHeight - 44)/2 - 30*10 + 30*(i%20), 160, 20) ;
+            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 220*(i/20), (ScreenHeight - 44)/2 - 30*10 + 30*(i%20), 200, 20) ;
         }else{
             button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 120*(i/10), (ScreenHeight - 44)/2 - 25*5 + 25*(i%10), 100, 15) ;
         }
-        NSLog(@"123123 %d", self.mSize*self.maxX + 100 + 160*(i/20)) ;
         if(button2.frame.origin.x + button2.frame.size.width > maxWidth){
             maxWidth = button2.frame.origin.x + button2.frame.size.width ;
         }
@@ -281,6 +286,7 @@ int MAX_SIZE = 40 ;
         }
         [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal] ;
         [button2 setTitle:[DBUtils getRisk:appDelegate.currProjectMap RiskId:xScore.riskid] forState:UIControlStateNormal] ;
+        [button2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft] ;
         [button2 addTarget:self action:@selector(showRiskDot:) forControlEvents:UIControlEventTouchUpInside];
         [self.scrollView addSubview:button2] ;
         button2.tag = 200 + i ;

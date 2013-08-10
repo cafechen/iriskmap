@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 laka. All rights reserved.
 //
 #import "Define.h"
+#import "Project.h"
 #import "AppDelegate.h"
 #import "MapController.h"
 #import "ASDepthModalViewController.h"
@@ -225,12 +226,18 @@
 
 - (void)showCardPic:(id)sender
 {
-    ProjectMap *pm = [self.objectArray objectAtIndex:[sender tag]] ;
-    NSLog(@"showCardPic [%d][%@]", [sender tag], pm.cardPic) ;
-    [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.cardPic]]] ;
-    self.scrollView.hidden = YES ;
-    self.scrollView2.hidden = NO ;
-    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
+    if(!project.show_cart){
+        ProjectMap *pm = [self.objectArray objectAtIndex:[sender tag]] ;
+        NSLog(@"showCardPic [%d][%@]", [sender tag], pm.cardPic) ;
+        [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.cardPic]]] ;
+        self.scrollView.hidden = YES ;
+        self.scrollView2.hidden = NO ;
+    }else{
+        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"提示" message:@"导出文件中不包含风险卡片" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show] ;
+    }
 }
 
 - (void)showMapPic:(id)sender
@@ -432,23 +439,27 @@
 
 - (IBAction)draw02:(id)sender
 {
-    [self closeToolViewAction:nil];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
-    [appDelegate gotoRiskHotPage] ;
-}
-
-- (IBAction)gotoRiskSort:(id)sender
-{
-    [self closeToolViewAction:nil];
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
-    [appDelegate gotoRiskSortPage] ;
+    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
+    if(!project.show_hot){
+        [appDelegate gotoRiskHotPage] ;
+    }else{
+        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"提示" message:@"导出文件中不包含风险热图" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show] ;
+    }
 }
 
 - (IBAction)gotoRiskStatis:(id)sender
 {
     [self closeToolViewAction:nil];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
-    [appDelegate gotoRiskStatisPage] ;
+    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
+    if(!project.show_static){
+        [appDelegate gotoRiskStatisPage] ;
+    }else{
+        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"提示" message:@"导出文件中不包含分类统计" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show] ;
+    }
 }
 
 - (IBAction)gotoRiskList:(id)sender
@@ -460,9 +471,14 @@
 
 - (IBAction)gotoRiskCost:(id)sender
 {
-    [self closeToolViewAction:nil];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
-    [appDelegate gotoRiskCostPage] ;
+    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
+    if(!project.show_chengben){
+        [appDelegate gotoRiskCostPage] ;
+    }else{
+        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"提示" message:@"导出文件中不包含风险成本" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show] ;
+    }
 }
 
 - (IBAction)closeToolViewAction:(id)sender
@@ -499,6 +515,7 @@
 
 - (IBAction) showToolViewAction:(id)sender
 {
+    //获取权限列表
     UIActionSheet *actionSheet = [[UIActionSheet alloc]
                                   initWithTitle:@"功能列表"
                                   delegate:self
