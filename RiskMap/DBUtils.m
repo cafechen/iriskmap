@@ -1267,7 +1267,7 @@
             cost.affectQi = [[rs stringForColumn:@"affectQi"] doubleValue];
             cost.shouyi = [[rs stringForColumn:@"shouyi"] doubleValue];
             cost.jingshouyi = [[rs stringForColumn:@"jingshouyi"] doubleValue];
-            cost.shouyi = [[rs stringForColumn:@"bilv"] doubleValue];
+            cost.bilv = [[rs stringForColumn:@"bilv"] doubleValue];
             [result addObject:cost] ;
             [cost release] ;
         }

@@ -268,6 +268,19 @@
     [self findLine] ;
 }
 
+- (void) showRiskStar: (ProjectMap *)proj
+{
+    NSLog(@"####222 obj_other1 [%@]", proj.Obj_db_id) ;
+    for(int i = 0; i < self.objectArray.count; i++){
+        ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
+        if([proj.Obj_db_id isEqualToString:pm.Obj_other1]){
+            NSLog(@"#### obj_other1 [%@]", pm.Obj_other1) ;
+            UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            [v setAlpha:1.0] ;
+        }
+    }
+}
+
 - (void) findLine
 {
     //首先计算哪些线需要显示
@@ -276,6 +289,7 @@
         if(pm.isShow){
             UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
             [v setAlpha:1.0] ;
+            [self showRiskStar:pm] ;
             [self markLine:pm] ;
         }
     }
@@ -317,6 +331,7 @@
             UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
             NSLog(@"####4321 [%@][%@]", pm.objectId, thePM.objectId) ;
             [v setAlpha:1.0] ;
+            [self showRiskStar:pm] ;
         }
     }
     for(int i = 0; i < self.objectArray.count; i++){
@@ -350,6 +365,7 @@
             UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
             NSLog(@"####4321 [%@][%@]", pm.objectId, thePM.objectId) ;
             [v setAlpha:1.0] ;
+            [self showRiskStar:pm] ;
         }
     }
     if([afterObjectId isEqualToString:targetPM.objectId]){

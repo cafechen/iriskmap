@@ -76,11 +76,10 @@
     
     if(row > 0){
         Cost *cost = (Cost *)[self.riskArray objectAtIndex:(row - 1)];
-        cell.costIdLabel.text = cost.costId ;
         cell.riskNameLabel.text = cost.riskName ;
         cell.riskCodeLabel.text = cost.riskCode ;
         cell.riskTypeLabel.text = cost.riskType ;
-        cell.riskTypeLabel.text = [NSString stringWithFormat:@"%.2f", cost.beforeGailv] ;
+        cell.beforeGailvLabel.text = [NSString stringWithFormat:@"%.2f", cost.beforeGailv] ;
         cell.beforeAffectLabel.text = [NSString stringWithFormat:@"%.2f", cost.beforeAffect] ;
         cell.beforeAffectQiLabel.text = [NSString stringWithFormat:@"%.2f", cost.beforeAffectQi] ;
         cell.manaChengbenLabel.text = [NSString stringWithFormat:@"%.2f", cost.manaChengben] ;

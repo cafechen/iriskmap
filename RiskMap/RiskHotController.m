@@ -12,6 +12,7 @@
 #import "Matrix.h"
 #import "VectorDetail.h"
 #import "Score.h"
+#import "MyLongPressGestureRecognizer.h"
 
 int MAX_SIZE = 40 ;
 
@@ -288,6 +289,13 @@ int MAX_SIZE = 40 ;
         [button2 setTitle:[DBUtils getRisk:appDelegate.currProjectMap RiskId:xScore.riskid] forState:UIControlStateNormal] ;
         [button2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft] ;
         [button2 addTarget:self action:@selector(showRiskDot:) forControlEvents:UIControlEventTouchUpInside];
+        
+        //添加长按事件
+        MyLongPressGestureRecognizer *gr =  [[MyLongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:) context:xScore.riskid];
+        [button2 addGestureRecognizer:gr];
+        gr.context = [xScore.riskid copy] ;
+        [gr release];
+        
         [self.scrollView addSubview:button2] ;
         button2.tag = 200 + i ;
     }
@@ -297,9 +305,20 @@ int MAX_SIZE = 40 ;
 
 - (IBAction) showRiskDot:(id)sender
 {
+    //先重置所有的BUTTON
+    Matrix *matrix = [self.matrixArray objectAtIndex:self.currMatrix] ;
+    NSMutableArray *xArray = [DBUtils getRiskScore:matrix.matrix_x] ;
+    for(int i = 0; i < xArray.count; i++){
+        UIButton *b1 = (UIButton *)[self.scrollView viewWithTag:(i + 100)] ;
+        UIButton *b2 = (UIButton *)[self.scrollView viewWithTag:(i + 200)] ;
+        [b1 setBackgroundImage:self.redImage forState:UIControlStateNormal] ;
+        [b2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal] ;
+    }
+    
     UIButton *button1 = (UIButton *)sender ;
     UIButton *button2 = (UIButton *)[self.scrollView viewWithTag:(button1.tag - 100)] ;
     UIImage *currImage = [button2 backgroundImageForState:UIControlStateNormal] ;
+    [button1 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal] ;
     if(currImage == self.redImage){
         [button2 setBackgroundImage:self.blueImage forState:UIControlStateNormal] ;
     }else{
@@ -347,6 +366,14 @@ int MAX_SIZE = 40 ;
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     //actionSheet.cancelButtonIndex = actionSheet.numberOfButtons;
     [actionSheet showInView:self.view];
+}
+
+- (void)handleLongPress:(MyLongPressGestureRecognizer *)gestureRecognizer{
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        
+        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:gestureRecognizer.context message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 #pragma mark -
