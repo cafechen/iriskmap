@@ -60,14 +60,14 @@
     NSString *title = [self.matrixTitleArray objectAtIndex:self.currMatrix] ;
     NSLog(@"################ %@", title) ;
     //开始绘制点
-    Matrix *matrix = [self.matrixArray objectAtIndex:0] ;
+    Matrix *matrix = [self.matrixArray objectAtIndex:self.currMatrix] ;
     NSMutableArray *xArray = [DBUtils getRiskScore:matrix.matrix_x] ;
     NSMutableArray *yArray = [DBUtils getRiskScore:matrix.matrix_y] ;
     
     //首先计算button的高度
-    int height = self.heightImageView.frame.size.height/(xArray.count + 1) ;
+    float height = self.heightImageView.frame.size.height/(xArray.count) ;
     
-    NSLog(@"#### heigth %d", height) ;
+    NSLog(@"#### heigth %f %d %d", height, xArray.count, yArray.count) ;
     
     double score = 0.0 ;
     for(int i = 0; i < xArray.count; i++){
@@ -84,19 +84,24 @@
             left = 61 ;
         }
         
-        int top = 64 ;
+        int top = 63 ;
         if(isIpad){
-            top = 84 ;
+            top = 63 ;
+        }
+        
+        float buttonheight = height/2 ;
+        if(buttonheight > 40){
+            buttonheight = 40 ;
         }
         
         if(self.isManage){
-            for(int i = 0; i < self.riskArray.count; i++){
-                Risk *risk = [self.riskArray objectAtIndex:i] ;
+            for(int j = 0; j < self.riskArray.count; j++){
+                Risk *risk = [self.riskArray objectAtIndex:j] ;
                 if([risk.riskId isEqualToString:xScore.riskid]){
                     score = xScore.scoreEnd*yScore.scoreEnd ;
-                    NSLog(@"#### score %d", i) ;
-                    button.frame = CGRectMake(left, top + (i)*height + height/2, self.widthImageView.frame.size.width*score, height/2) ;
-                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width + 5, button.frame.origin.y, self.widthImageView.frame.size.width - button.frame.size.width, height/2)] ;
+                    NSLog(@"#### score %f %d %d", score, i , j) ;
+                    button.frame = CGRectMake(left, top + (i)*height + height/2 - buttonheight/2, self.widthImageView.frame.size.width*score, buttonheight) ;
+                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width + 5, button.frame.origin.y, self.widthImageView.frame.size.width - button.frame.size.width, buttonheight)] ;
                     label.text = [NSString stringWithFormat:@"%@ %@", risk.riskCode, risk.riskTitle] ;
                     [self.view addSubview:label] ;
                     label.textAlignment = UITextAlignmentLeft;
@@ -109,13 +114,13 @@
                 }
             }
         }else{
-            for(int i = 0; i < self.riskArray.count; i++){
-                Risk *risk = [self.riskArray objectAtIndex:i] ;
+            for(int j = 0; j < self.riskArray.count; j++){
+                Risk *risk = [self.riskArray objectAtIndex:j] ;
                 if([risk.riskId isEqualToString:xScore.riskid]){
                     score = xScore.scoreBefore*yScore.scoreBefore ;
-                    NSLog(@"#### score %d", i) ;
-                    button.frame = CGRectMake(left, top + (i)*height + height/2, self.widthImageView.frame.size.width*score, height/2) ;
-                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width + 5, button.frame.origin.y, self.widthImageView.frame.size.width - button.frame.size.width, height/2)] ;
+                    NSLog(@"#### score %f %d %d", score, i, j) ;
+                    button.frame = CGRectMake(left, top + (i)*height + height/2 - buttonheight/2, self.widthImageView.frame.size.width*score, buttonheight) ;
+                    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width + 5, button.frame.origin.y, self.widthImageView.frame.size.width - button.frame.size.width, buttonheight)] ;
                     label.text = [NSString stringWithFormat:@"%@ %@", risk.riskCode, risk.riskTitle] ;
                     [self.view addSubview:label] ;
                     label.textAlignment = UITextAlignmentLeft;

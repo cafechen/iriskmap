@@ -94,6 +94,7 @@
 		B02224DB1792D5A0005C9CF7 /* Cost.m in Sources */ = {isa = PBXBuildFile; fileRef = B02224DA1792D5A0005C9CF7 /* Cost.m */; };
 		B02224DE1792DC5C005C9CF7 /* RiskCostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02224DD1792DC5B005C9CF7 /* RiskCostCell.m */; };
 		B02224E01792DC71005C9CF7 /* RiskCostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02224DF1792DC70005C9CF7 /* RiskCostCell.xib */; };
+		B039916D17B498EA00A64DE0 /* blueball.png in Resources */ = {isa = PBXBuildFile; fileRef = B039916C17B498EA00A64DE0 /* blueball.png */; };
 		B088F6A5179E4EE10053806C /* redball.png in Resources */ = {isa = PBXBuildFile; fileRef = B088F6A4179E4EE10053806C /* redball.png */; };
 		B0AE3C491797DB9B00B36295 /* RiskSortController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AE3C471797DB9B00B36295 /* RiskSortController.m */; };
 		B0AE3C4A1797DB9B00B36295 /* RiskSortController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0AE3C481797DB9B00B36295 /* RiskSortController.xib */; };
@@ -237,6 +238,7 @@
 		B02224DC1792DC5B005C9CF7 /* RiskCostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiskCostCell.h; sourceTree = "<group>"; };
 		B02224DD1792DC5B005C9CF7 /* RiskCostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiskCostCell.m; sourceTree = "<group>"; };
 		B02224DF1792DC70005C9CF7 /* RiskCostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiskCostCell.xib; sourceTree = "<group>"; };
+		B039916C17B498EA00A64DE0 /* blueball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueball.png; sourceTree = "<group>"; };
 		B088F6A4179E4EE10053806C /* redball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redball.png; sourceTree = "<group>"; };
 		B0AE3C461797DB9B00B36295 /* RiskSortController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiskSortController.h; sourceTree = "<group>"; };
 		B0AE3C471797DB9B00B36295 /* RiskSortController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiskSortController.m; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		04FEA2FF177F1FAD00872C34 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B039916C17B498EA00A64DE0 /* blueball.png */,
 				B088F6A4179E4EE10053806C /* redball.png */,
 				B02224D21792CDC8005C9CF7 /* whiteball.png */,
 				04FEA300177F1FAE00872C34 /* Glass_Folder_001.png */,
@@ -606,6 +609,7 @@
 				046A93D217B059C300693F52 /* RiskListController_iphone5.xib in Resources */,
 				046A93D317B059C300693F52 /* RiskSortController_iphone5.xib in Resources */,
 				046A93D417B059C300693F52 /* RiskStatisController_iphone5.xib in Resources */,
+				B039916D17B498EA00A64DE0 /* blueball.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

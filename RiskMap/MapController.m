@@ -82,22 +82,25 @@
             self.target = i ;
         }
     }
+    
     //后绘制风险
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
-        if(pm.isline == NO){
+        if(pm.isline == NO && (pm.cardPic == nil || [@"" isEqualToString:pm.cardPic])){
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
             UIImage *image1 = [UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.picEmz]] ;
             UIImage *image2 = [self whiteToTranparent:image1] ;
             [button setBackgroundImage:image2 forState:UIControlStateNormal] ;
+            [button setBackgroundImage:image2 forState:UIControlStateDisabled] ;
             //button.backgroundColor = [UIColor redColor] ;
+            
+            button.tag = i ;
             
             //添加长按事件
             if(![@"" isEqualToString:pm.linkPics]){
                 MyLongPressGestureRecognizer *gr =  [[MyLongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:) context:pm.linkPics];
                 [button addGestureRecognizer:gr];
-                button.tag = 3 ;
                 gr.context = [pm.linkPics copy] ;
                 [gr release];
             }
@@ -119,13 +122,60 @@
             if(pm.cardPic != nil && ![@"" isEqualToString:pm.cardPic]){
                 NSLog(@"添加风险卡片 %@", pm.cardPic) ;
                 [button addTarget:self action:@selector(showCardPic:) forControlEvents:UIControlEventTouchUpInside];
-                button.tag = i ;
             }else{
                 if(i != self.target){
                     NSLog(@"添加风险卡片 %@", pm.cardPic) ;
                     [button addTarget:self action:@selector(showMapPic:) forControlEvents:UIControlEventTouchUpInside];
                 }
-                button.tag = i ;
+            }
+            
+            [self.mapView addSubview:button] ;
+        }
+    }
+    
+    for(int i = 0; i < self.objectArray.count; i++){
+        ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
+        if(pm.isline == NO && !(pm.cardPic == nil || [@"" isEqualToString:pm.cardPic])){
+            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
+            UIImage *image1 = [UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.picEmz]] ;
+            UIImage *image2 = [self whiteToTranparent:image1] ;
+            [button setBackgroundImage:image2 forState:UIControlStateNormal] ;
+            [button setBackgroundImage:image2 forState:UIControlStateDisabled] ;
+            //button.backgroundColor = [UIColor redColor] ;
+            
+            button.tag = i ;
+            
+            //添加长按事件
+            if(![@"" isEqualToString:pm.linkPics]){
+                MyLongPressGestureRecognizer *gr =  [[MyLongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:) context:pm.linkPics];
+                [button addGestureRecognizer:gr];
+                gr.context = [pm.linkPics copy] ;
+                [gr release];
+            }
+            
+            if(self.maxX < button.frame.origin.x + button.frame.size.width){
+                self.maxX = button.frame.origin.x + button.frame.size.width ;
+            }
+            if(self.maxY < button.frame.origin.y + button.frame.size.height){
+                self.maxY = button.frame.origin.y + button.frame.size.height ;
+            }
+            if(self.minX > button.frame.origin.x + button.frame.size.width || i == 0){
+                self.minX = button.frame.origin.x + button.frame.size.width ;
+            }
+            if(self.minY > button.frame.origin.y + button.frame.size.height || i == 0){
+                self.minY = button.frame.origin.y + button.frame.size.height ;
+            }
+            
+            //添加风险卡片
+            if(pm.cardPic != nil && ![@"" isEqualToString:pm.cardPic]){
+                NSLog(@"添加风险卡片 %@", pm.cardPic) ;
+                [button addTarget:self action:@selector(showCardPic:) forControlEvents:UIControlEventTouchUpInside];
+            }else{
+                if(i != self.target){
+                    NSLog(@"添加风险卡片 %@", pm.cardPic) ;
+                    [button addTarget:self action:@selector(showMapPic:) forControlEvents:UIControlEventTouchUpInside];
+                }
             }
             
             [self.mapView addSubview:button] ;
@@ -187,12 +237,14 @@
 {
     ProjectMap *pm = [self.objectArray objectAtIndex:[sender tag]] ;
     NSLog(@"showMapPic [%d][%@]", [sender tag], pm.projectId) ;
-    //删除所有的线
+    //所有试图变透明
     NSArray *views = [self.mapView subviews] ;
     for(int i = 0; i < views.count; i++){
         UIView *v = (UIView *)[views objectAtIndex:i] ;
-        if([v isKindOfClass:[UIImageView class]]){
-            [v removeFromSuperview] ;
+        [v setAlpha:0.3] ;
+        if([v isKindOfClass:[UIButton class]]){
+            UIButton *b = (UIButton *)v ;
+            b.enabled = NO ;
         }
     }
     
@@ -215,6 +267,8 @@
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isShow){
+            UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            [v setAlpha:1.0] ;
             [self markLine:pm] ;
         }
     }
@@ -248,6 +302,13 @@
     NSString *beforeObjectId = [thePM.fromWho copy];
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
+        if([beforeObjectId isEqualToString:pm.objectId]){
+            UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            [v setAlpha:1.0] ;
+        }
+    }
+    for(int i = 0; i < self.objectArray.count; i++){
+        ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isline){
             if([beforeObjectId isEqualToString:pm.toWho]){
                 pm.willShow = YES ;
@@ -269,6 +330,13 @@
     ProjectMap *targetPM = [self.objectArray objectAtIndex:self.target];
     NSString *afterObjectId = [thePM.toWho copy];
     NSLog(@"markAfterLine [%@][%@]", afterObjectId, targetPM.objectId) ;
+    for(int i = 0; i < self.objectArray.count; i++){
+        ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
+        if([afterObjectId isEqualToString:pm.objectId]){
+            UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            [v setAlpha:1.0] ;
+        }
+    }
     if([afterObjectId isEqualToString:targetPM.objectId]){
         NSLog(@"--------------RETUEN") ;
         return ;

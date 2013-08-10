@@ -20,6 +20,8 @@
 +(BOOL) updateRiskScore ;
 +(BOOL) updateRiskCost ;
 +(BOOL) updateDictType ;
++(NSString *) getProject ;
++(NSString *) getRisk:(NSString *) projectId RiskId:(NSString *)riskId ;
 +(NSMutableArray *) getDirectory:(NSString *) fatherId ;
 +(NSMutableArray *) getProjectMap:(NSString *) projectId ;
 +(NSMutableArray *) getRisk:(NSString *) projectId ;

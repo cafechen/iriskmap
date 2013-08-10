@@ -19,5 +19,7 @@
 @property (nonatomic, readwrite) int mSize;
 @property (nonatomic, readwrite) int currMatrix;
 @property (nonatomic, readwrite) BOOL isManage;
+@property (nonatomic, retain) UIImage *redImage;
+@property (nonatomic, retain) UIImage *blueImage;
 
 @end

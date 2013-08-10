@@ -46,7 +46,7 @@
 							<object class="IBUITableView" id="153710818">
 								<reference key="NSNextResponder" ref="15407572"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{1836, 960}</string>
+								<string key="NSFrame">{{0, -0.5}, {1549, 960}}</string>
 								<reference key="NSSuperview" ref="15407572"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView"/>

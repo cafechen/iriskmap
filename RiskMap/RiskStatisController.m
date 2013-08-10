@@ -84,11 +84,16 @@
     
     //绘制纵坐标
     for(int i = 0; i < self.maxHeight; i++){
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, ScreenHeight - 50 - (i + 1)*cellh, 20, 20)] ;
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, ScreenHeight - 50 - (i + 1)*cellh, 20, 20)] ;
         label.text = [NSString stringWithFormat:@"%d", i + 1] ;
         [label setBackgroundColor:[UIColor clearColor]] ;
         [self.view addSubview:label] ;
-        [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
+        label.textAlignment = UITextAlignmentCenter;
+        if(isIpad){
+            [label setFont:[UIFont fontWithName:@"Arial" size:14]] ;
+        }else{
+            [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
+        }
     }
     
     // Do any additional setup after loading the view from its nib.

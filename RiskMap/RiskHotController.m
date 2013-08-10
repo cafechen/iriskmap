@@ -33,6 +33,8 @@ int MAX_SIZE = 40 ;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.redImage = [UIImage imageNamed:@"redball.png"] ;
+    self.blueImage = [UIImage imageNamed:@"blueball.png"] ;
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     self.matrixArray = [DBUtils getProjectMatrix:appDelegate.currProjectMap] ;
     self.matrixTitleArray = [DBUtils getProjectMatrixTitle:appDelegate.currProjectMap] ;
@@ -62,8 +64,6 @@ int MAX_SIZE = 40 ;
     }
     
     NSString *title = [self.matrixTitleArray objectAtIndex:self.currMatrix] ;
-    
-    NSLog(@"################ %@", title) ;
     
     self.maxX = 0 ;
     self.maxY = 0 ;
@@ -101,7 +101,7 @@ int MAX_SIZE = 40 ;
             int yIndex = [matrix.yIndex intValue] ;
             yIndex = self.maxY - yIndex  - 1;
             int x = 50 + self.mSize*xIndex + xIndex;
-            int y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - yIndex*self.mSize - yIndex - self.mSize;
+            int y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - yIndex*self.mSize - yIndex;
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(x, y, self.mSize, self.mSize) ;
             [button setEnabled:NO] ;
@@ -117,41 +117,84 @@ int MAX_SIZE = 40 ;
             }
             //[button setTitle:matrix.levelType forState:UIControlStateNormal] ;
             [self.scrollView addSubview:button] ;
-            
+            int fontSize = 10 ;
+            if(isIpad){
+                fontSize = 12 ;
+            }
             if(xIndex == 0){
                 //最左边的矩阵
                 NSMutableArray *yVector = [DBUtils getProjectVectorDetail:matrix.matrix_y] ;
                 VectorDetail *yv = [yVector objectAtIndex:yIndex] ;
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, y + self.mSize/2 - 20, 40, 40)];
-                label.numberOfLines = 2;
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, y + self.mSize/2 - 10, 40, 20)];
+                label.numberOfLines = 1;
                 label.textAlignment = UITextAlignmentCenter;
-                [label setText:[NSString stringWithFormat:@"%@\n%@", yv.score, yv.levelTitle]] ;
-                [label setFont:[UIFont fontWithName:@"Arial" size:10]] ;
+                [label setText:[NSString stringWithFormat:@"%@", yv.levelTitle]] ;
+                [label setTextColor:[UIColor blueColor]] ;
+                [label setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                 [label setBackgroundColor:[UIColor clearColor]] ;
                 [self.scrollView addSubview:label] ;
+                
+                NSArray *scores = [yv.score componentsSeparatedByString:@"-"] ;
+                UILabel *label01 = [[UILabel alloc] initWithFrame:CGRectMake(10, y + self.mSize - 10, 40, 20)];
+                label01.numberOfLines = 1;
+                label01.textAlignment = UITextAlignmentCenter;
+                [label01 setText:[NSString stringWithFormat:@"%@", scores[0]]] ;
+                [label01 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
+                [label01 setBackgroundColor:[UIColor clearColor]] ;
+                [self.scrollView addSubview:label01] ;
+                
+                UILabel *label02 = [[UILabel alloc] initWithFrame:CGRectMake(10, y - 10, 40, 20)];
+                label02.numberOfLines = 1;
+                label02.textAlignment = UITextAlignmentCenter;
+                [label02 setText:[NSString stringWithFormat:@"%@", scores[1]]] ;
+                [label02 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
+                [label02 setBackgroundColor:[UIColor clearColor]] ;
+                [self.scrollView addSubview:label02] ;
+
             }
             if(yIndex == 0){
                 //最下边的矩阵
                 NSMutableArray *xVector = [DBUtils getProjectVectorDetail:matrix.matrix_x] ;
                 VectorDetail *xv = [xVector objectAtIndex:xIndex] ;
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(x, y + self.mSize + 5 - 10, self.mSize, 40)];
-                label.numberOfLines = 2;
+                label.numberOfLines = 1;
                 label.textAlignment = UITextAlignmentCenter;
-                [label setText:[NSString stringWithFormat:@"%@\n%@", xv.score, xv.levelTitle]] ;
-                [label setFont:[UIFont fontWithName:@"Arial" size:10]] ;
+                [label setText:[NSString stringWithFormat:@"%@", xv.levelTitle]] ;
+                [label setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
+                [label setTextColor:[UIColor blueColor]] ;
                 label.textAlignment = UITextAlignmentCenter;
                 [label setBackgroundColor:[UIColor clearColor]] ;
                 [self.scrollView addSubview:label] ;
+                
+                NSArray *scores = [xv.score componentsSeparatedByString:@"-"] ;
+                UILabel *label01 = [[UILabel alloc] initWithFrame:CGRectMake(x - self.mSize/2, y + self.mSize + 5 - 10, self.mSize, 40)];
+                label01.numberOfLines = 1;
+                label01.textAlignment = UITextAlignmentCenter;
+                [label01 setText:[NSString stringWithFormat:@"%@", scores[0]]] ;
+                [label01 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
+                label01.textAlignment = UITextAlignmentCenter;
+                [label01 setBackgroundColor:[UIColor clearColor]] ;
+                [self.scrollView addSubview:label01] ;
+                
+                UILabel *label02 = [[UILabel alloc] initWithFrame:CGRectMake(x + self.mSize/2, y + self.mSize + 5 - 10, self.mSize, 40)];
+                label02.numberOfLines = 1;
+                label02.textAlignment = UITextAlignmentCenter;
+                [label02 setText:[NSString stringWithFormat:@"%@", scores[1]]] ;
+                [label02 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
+                label02.textAlignment = UITextAlignmentCenter;
+                [label02 setBackgroundColor:[UIColor clearColor]] ;
+                [self.scrollView addSubview:label02] ;
             }
         }
     }
     
     //开始绘制点
-    Matrix *matrix = [self.matrixArray objectAtIndex:0] ;
+    Matrix *matrix = [self.matrixArray objectAtIndex:self.currMatrix] ;
     NSMutableArray *xArray = [DBUtils getRiskScore:matrix.matrix_x] ;
     NSLog(@"#### [%d][%@]", xArray.count, matrix.matrix_x) ;
     NSMutableArray *yArray = [DBUtils getRiskScore:matrix.matrix_y] ;
     NSLog(@"#### [%d][%@]", yArray.count, matrix.matrix_y) ;
+    int maxWidth = ScreenWidth ;
     for(int i = 0; i < xArray.count; i++){
         Score *xScore = [xArray objectAtIndex:i] ;
         Score *yScore = [yArray objectAtIndex:i] ;
@@ -178,7 +221,7 @@ int MAX_SIZE = 40 ;
                 double begin = [[scores objectAtIndex:0] doubleValue] ;
                 double end = [[scores objectAtIndex:1] doubleValue] ;
                 if(yScore.scoreEnd < end && yScore.scoreEnd >= begin){
-                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreEnd - begin)/(end - begin))) ;
+                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreEnd - begin)/(end - begin))) + self.mSize;
                     NSLog(@"####SCORE y [%d][%d][%f]", [yv.sort intValue], self.mSize, (yScore.scoreEnd - begin)/(end - begin)) ;
                     NSLog(@"####SCORE y [%f][%f][%f][%@][%f]", yScore.scoreEnd, begin, end, yv.sort, y) ;
                 }
@@ -204,7 +247,7 @@ int MAX_SIZE = 40 ;
                 double begin = [[scores objectAtIndex:0] doubleValue] ;
                 double end = [[scores objectAtIndex:1] doubleValue] ;
                 if(yScore.scoreBefore < end && yScore.scoreBefore >= begin){
-                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreBefore - begin)/(end - begin))) ;
+                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreBefore - begin)/(end - begin))) + self.mSize;
                     NSLog(@"####SCORE y [%d][%d][%f]", [yv.sort intValue], self.mSize, (yScore.scoreBefore - begin)/(end - begin)) ;
                     NSLog(@"####SCORE y [%f][%f][%f][%@][%f]", yScore.scoreBefore, begin, end, yv.sort, y) ;
                 }
@@ -213,10 +256,48 @@ int MAX_SIZE = 40 ;
         //绘制Y
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(x - 5, y - 5, 10, 10) ;
-        [button setBackgroundImage:[UIImage imageNamed:@"redball.png"] forState:UIControlStateNormal] ;
+        [button setBackgroundImage:self.redImage forState:UIControlStateNormal] ;
         [button setEnabled:NO] ;
         [button setTitle:[NSString stringWithFormat:@"%d", i] forState:UIControlStateNormal] ;
         [self.scrollView addSubview:button] ;
+        button.tag = 100 + i ;
+        
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+        UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
+        if(isIpad){
+            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 180*(i/20), (ScreenHeight - 44)/2 - 30*10 + 30*(i%20), 160, 20) ;
+        }else{
+            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 120*(i/10), (ScreenHeight - 44)/2 - 25*5 + 25*(i%10), 100, 15) ;
+        }
+        NSLog(@"123123 %d", self.mSize*self.maxX + 100 + 160*(i/20)) ;
+        if(button2.frame.origin.x + button2.frame.size.width > maxWidth){
+            maxWidth = button2.frame.origin.x + button2.frame.size.width ;
+        }
+        [button2 setEnabled:YES] ;
+        if(isIpad){
+            button2.titleLabel.font = [UIFont systemFontOfSize:14];
+        }else{
+            button2.titleLabel.font = [UIFont systemFontOfSize:10];
+        }
+        [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal] ;
+        [button2 setTitle:[DBUtils getRisk:appDelegate.currProjectMap RiskId:xScore.riskid] forState:UIControlStateNormal] ;
+        [button2 addTarget:self action:@selector(showRiskDot:) forControlEvents:UIControlEventTouchUpInside];
+        [self.scrollView addSubview:button2] ;
+        button2.tag = 200 + i ;
+    }
+    NSLog(@"123123 %d", maxWidth) ;
+    self.scrollView.contentSize = CGSizeMake(maxWidth, ScreenHeight - 135) ;
+}
+
+- (IBAction) showRiskDot:(id)sender
+{
+    UIButton *button1 = (UIButton *)sender ;
+    UIButton *button2 = (UIButton *)[self.scrollView viewWithTag:(button1.tag - 100)] ;
+    UIImage *currImage = [button2 backgroundImageForState:UIControlStateNormal] ;
+    if(currImage == self.redImage){
+        [button2 setBackgroundImage:self.blueImage forState:UIControlStateNormal] ;
+    }else{
+        [button2 setBackgroundImage:self.redImage forState:UIControlStateNormal] ;
     }
 }
 

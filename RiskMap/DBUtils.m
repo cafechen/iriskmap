@@ -876,6 +876,36 @@
     return result ;
 }
 
++(NSString *) getProject
+{
+    
+    NSString *result = nil ;
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        //拼写SQL
+        NSString *sql = nil ;
+        
+        sql = [NSString stringWithFormat:@"SELECT id from project"] ;
+        
+        //NSLog(@"SQL: %@", sql) ;
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        while ([rs next]) {
+            result = [rs stringForColumn:@"id"] ;
+        }
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+    
+    return result ;
+}
+
 +(NSMutableArray *) getRisk:(NSString *) projectId
 {
     
@@ -909,6 +939,37 @@
             risk.pageId = [rs stringForColumn:@"pageId"];
             [result addObject:risk] ;
             [risk release] ;
+        }
+        
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+    
+    return result ;
+}
+
++(NSString *) getRisk:(NSString *) projectId RiskId:(NSString *)riskId
+{
+    
+    NSString *result = nil ;
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        //拼写SQL
+        NSString *sql = nil ;
+        
+        sql = [NSString stringWithFormat:@"SELECT riskCode from risk where projectId = '%@' and id = '%@'", projectId, riskId] ;
+        
+        //NSLog(@"SQL: %@", sql) ;
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        while ([rs next]) {
+            result = [rs stringForColumn:@"riskCode"];
         }
         
         [db close];
