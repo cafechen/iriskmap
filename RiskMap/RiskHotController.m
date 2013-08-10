@@ -174,6 +174,10 @@ int MAX_SIZE = 40 ;
                 [self.scrollView addSubview:label] ;
                 
                 NSArray *scores = [xv.score componentsSeparatedByString:@"-"] ;
+                
+                if(![@"0" isEqualToString:scores[0]]){
+                }
+                
                 UILabel *label01 = [[UILabel alloc] initWithFrame:CGRectMake(x - self.mSize/2, y + self.mSize + 5 - 10, self.mSize, 40)];
                 label01.numberOfLines = 1;
                 label01.textAlignment = UITextAlignmentCenter;
@@ -181,7 +185,9 @@ int MAX_SIZE = 40 ;
                 [label01 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                 label01.textAlignment = UITextAlignmentCenter;
                 [label01 setBackgroundColor:[UIColor clearColor]] ;
-                [self.scrollView addSubview:label01] ;
+                if(![@"0" isEqualToString:scores[0]]){
+                    [self.scrollView addSubview:label01] ;
+                }
                 
                 UILabel *label02 = [[UILabel alloc] initWithFrame:CGRectMake(x + self.mSize/2, y + self.mSize + 5 - 10, self.mSize, 40)];
                 label02.numberOfLines = 1;

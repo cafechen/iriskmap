@@ -234,6 +234,7 @@
         [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.cardPic]]] ;
         self.scrollView.hidden = YES ;
         self.scrollView2.hidden = NO ;
+        [self.backItem setTitle:@"返回地图"] ;
     }else{
         UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"提示" message:@"导出文件中不包含风险卡片" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show] ;
@@ -242,6 +243,8 @@
 
 - (void)showMapPic:(id)sender
 {
+    [self.backItem setTitle:@"返回地图"] ;
+    
     ProjectMap *pm = [self.objectArray objectAtIndex:[sender tag]] ;
     NSLog(@"showMapPic [%d][%@]", [sender tag], pm.projectId) ;
     //所有试图变透明
@@ -414,6 +417,7 @@
         [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:linkedPage]]] ;
         self.scrollView.hidden = YES ;
         self.scrollView2.hidden = NO ;
+        [self.backItem setTitle:@"返回地图"] ;
         //self.imageView.contentMode= UIViewContentModeScaleAspectFit ;
     }
 }
@@ -426,8 +430,13 @@
 
 - (IBAction) gotoLastPageButtonAction:(id)sender
 {
-    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
-    [appDelegate gotoLastPage] ;
+    if([self.backItem.title isEqualToString:@"返回地图"]){
+        [self draw01:nil] ;
+        [self.backItem setTitle:@"返回"] ;
+    }else{
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+        [appDelegate gotoLastPage] ;
+    }
 }
 
 - (IBAction)draw01:(id)sender
