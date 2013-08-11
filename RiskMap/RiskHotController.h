@@ -14,6 +14,7 @@
 @property (nonatomic, retain) IBOutlet UIView *hotView;
 @property (nonatomic, retain) IBOutlet UIButton *switchButton;
 @property (nonatomic, retain) NSMutableArray *matrixArray;
+@property (nonatomic, retain) NSMutableArray *vectorArray;
 @property (nonatomic, retain) NSMutableArray *matrixTitleArray;
 @property (nonatomic, readwrite) int maxX;
 @property (nonatomic, readwrite) int maxY;

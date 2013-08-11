@@ -12,6 +12,7 @@
 #import "Matrix.h"
 #import "VectorDetail.h"
 #import "Score.h"
+#import "Vector.h"
 #import "MyLongPressGestureRecognizer.h"
 
 int MAX_SIZE = 40 ;
@@ -38,6 +39,7 @@ int MAX_SIZE = 40 ;
     self.blueImage = [UIImage imageNamed:@"blueball.png"] ;
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     self.matrixArray = [DBUtils getProjectMatrix:appDelegate.currProjectMap] ;
+    self.vectorArray = [DBUtils getVector:appDelegate.currProjectMap] ;
     self.matrixTitleArray = [DBUtils getProjectMatrixTitle:appDelegate.currProjectMap] ;
     self.currMatrix = 0 ;
     if(isIpad){
@@ -107,8 +109,8 @@ int MAX_SIZE = 40 ;
             int xIndex = [matrix.xIndex intValue] ;
             int yIndex = [matrix.yIndex intValue] ;
             yIndex = self.maxY - yIndex  - 1;
-            int x = 50 + self.mSize*xIndex + xIndex;
-            int y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - yIndex*self.mSize - yIndex;
+            int x = 80 + self.mSize*xIndex + xIndex;
+            int y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - yIndex*self.mSize - yIndex - 30;
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(x, y, self.mSize, self.mSize) ;
             [button setEnabled:NO] ;
@@ -131,8 +133,9 @@ int MAX_SIZE = 40 ;
             if(xIndex == 0){
                 //最左边的矩阵
                 NSMutableArray *yVector = [DBUtils getProjectVectorDetail:matrix.matrix_y] ;
+                NSLog(@"---- %@", matrix.matrix_y) ;
                 VectorDetail *yv = [yVector objectAtIndex:yIndex] ;
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, y + self.mSize/2 - 10, 40, 20)];
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(40, y + self.mSize/2 - 10, 40, 20)];
                 label.numberOfLines = 1;
                 label.textAlignment = UITextAlignmentCenter;
                 [label setText:[NSString stringWithFormat:@"%@", yv.levelTitle]] ;
@@ -142,21 +145,46 @@ int MAX_SIZE = 40 ;
                 [self.hotView addSubview:label] ;
                 
                 NSArray *scores = [yv.score componentsSeparatedByString:@"-"] ;
-                UILabel *label01 = [[UILabel alloc] initWithFrame:CGRectMake(10, y + self.mSize - 10, 40, 20)];
+                UILabel *label01 = [[UILabel alloc] initWithFrame:CGRectMake(40, y + self.mSize - 10, 40, 20)];
                 label01.numberOfLines = 1;
                 label01.textAlignment = UITextAlignmentCenter;
                 [label01 setText:[NSString stringWithFormat:@"%@", scores[0]]] ;
                 [label01 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                 [label01 setBackgroundColor:[UIColor clearColor]] ;
+                if([@"0" isEqualToString:scores[0]]){
+                    if(isIpad){
+                        label01.frame = CGRectOffset(label01.frame, 0, self.mSize/5) ;
+                    }else{
+                        label01.frame = CGRectOffset(label01.frame, 0, self.mSize/3) ;
+                    }
+                }
                 [self.hotView addSubview:label01] ;
                 
-                UILabel *label02 = [[UILabel alloc] initWithFrame:CGRectMake(10, y - 10, 40, 20)];
+                UILabel *label02 = [[UILabel alloc] initWithFrame:CGRectMake(40, y - 10, 40, 20)];
                 label02.numberOfLines = 1;
                 label02.textAlignment = UITextAlignmentCenter;
                 [label02 setText:[NSString stringWithFormat:@"%@", scores[1]]] ;
                 [label02 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                 [label02 setBackgroundColor:[UIColor clearColor]] ;
                 [self.hotView addSubview:label02] ;
+                
+                
+                NSLog(@"---- %d, %d", yIndex, self.maxX) ;
+                if(yIndex == (int)(self.maxY/2)){
+                    UILabel *label03 = [[UILabel alloc] initWithFrame:CGRectMake(5 , y + self.mSize/2 - 10, 40, 20)];
+                    label03.textAlignment = UITextAlignmentCenter;
+                    NSString *title = @"" ;
+                    for(int m = 0; m < self.vectorArray.count; m++){
+                        Vector *v = [self.vectorArray objectAtIndex:m] ;
+                        if([v.vectorId isEqualToString:matrix.matrix_y]){
+                            title = v.title ;
+                        }
+                    }
+                    [label03 setText:[NSString stringWithFormat:@"%@", title]] ;
+                    [label03 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
+                    [label03 setBackgroundColor:[UIColor clearColor]] ;
+                    [self.hotView addSubview:label03] ;
+                }
 
             }
             if(yIndex == 0){
@@ -197,6 +225,22 @@ int MAX_SIZE = 40 ;
                 label02.textAlignment = UITextAlignmentCenter;
                 [label02 setBackgroundColor:[UIColor clearColor]] ;
                 [self.hotView addSubview:label02] ;
+                
+                if(xIndex == (int)(self.maxX/2)){
+                    UILabel *label03 = [[UILabel alloc] initWithFrame:CGRectMake(x, y + self.mSize + 5 + 10, self.mSize, 40)];
+                    label03.textAlignment = UITextAlignmentCenter;
+                    NSString *title = @"" ;
+                    for(int m = 0; m < self.vectorArray.count; m++){
+                        Vector *v = [self.vectorArray objectAtIndex:m] ;
+                        if([v.vectorId isEqualToString:matrix.matrix_x]){
+                            title = v.title ;
+                        }
+                    }
+                    [label03 setText:[NSString stringWithFormat:@"%@", title]] ;
+                    [label03 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
+                    [label03 setBackgroundColor:[UIColor clearColor]] ;
+                    [self.hotView addSubview:label03] ;
+                }
             }
         }
     }
@@ -223,7 +267,7 @@ int MAX_SIZE = 40 ;
                 double begin = [[scores objectAtIndex:0] doubleValue] ;
                 double end = [[scores objectAtIndex:1] doubleValue] ;
                 if(xScore.scoreEnd < end && xScore.scoreEnd >= begin){
-                    x = 50 + self.mSize*([xv.sort intValue] - 1) + [xv.sort intValue] - 1 + self.mSize*((xScore.scoreEnd - begin)/(end - begin));
+                    x = 80 + self.mSize*([xv.sort intValue] - 1) + [xv.sort intValue] - 1 + self.mSize*((xScore.scoreEnd - begin)/(end - begin));
                     NSLog(@"####SCORE x [%d][%d][%f]", [xv.sort intValue], self.mSize, (xScore.scoreEnd - begin)/(end - begin)) ;
                     NSLog(@"####SCORE x [%f][%f][%f][%@][%f]", xScore.scoreEnd, begin, end, xv.sort, x) ;
                 }
@@ -234,7 +278,7 @@ int MAX_SIZE = 40 ;
                 double begin = [[scores objectAtIndex:0] doubleValue] ;
                 double end = [[scores objectAtIndex:1] doubleValue] ;
                 if(yScore.scoreEnd < end && yScore.scoreEnd >= begin){
-                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreEnd - begin)/(end - begin))) + self.mSize;
+                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreEnd - begin)/(end - begin))) + self.mSize - 30;
                     NSLog(@"####SCORE y [%d][%d][%f]", [yv.sort intValue], self.mSize, (yScore.scoreEnd - begin)/(end - begin)) ;
                     NSLog(@"####SCORE y [%f][%f][%f][%@][%f]", yScore.scoreEnd, begin, end, yv.sort, y) ;
                 }
@@ -249,7 +293,7 @@ int MAX_SIZE = 40 ;
                 double begin = [[scores objectAtIndex:0] doubleValue] ;
                 double end = [[scores objectAtIndex:1] doubleValue] ;
                 if(xScore.scoreBefore < end && xScore.scoreBefore >= begin){
-                    x = 50 + self.mSize*([xv.sort intValue] - 1) + [xv.sort intValue] - 1 + self.mSize*((xScore.scoreBefore - begin)/(end - begin));
+                    x = 80 + self.mSize*([xv.sort intValue] - 1) + [xv.sort intValue] - 1 + self.mSize*((xScore.scoreBefore - begin)/(end - begin));
                     NSLog(@"####SCORE x [%d][%d][%f]", [xv.sort intValue], self.mSize, (xScore.scoreBefore - begin)/(end - begin)) ;
                     NSLog(@"####SCORE x [%f][%f][%f][%@][%f]", xScore.scoreBefore, begin, end, xv.sort, x) ;
                 }
@@ -260,7 +304,7 @@ int MAX_SIZE = 40 ;
                 double begin = [[scores objectAtIndex:0] doubleValue] ;
                 double end = [[scores objectAtIndex:1] doubleValue] ;
                 if(yScore.scoreBefore < end && yScore.scoreBefore >= begin){
-                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreBefore - begin)/(end - begin))) + self.mSize;
+                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreBefore - begin)/(end - begin))) + self.mSize - 30;
                     NSLog(@"####SCORE y [%d][%d][%f]", [yv.sort intValue], self.mSize, (yScore.scoreBefore - begin)/(end - begin)) ;
                     NSLog(@"####SCORE y [%f][%f][%f][%@][%f]", yScore.scoreBefore, begin, end, yv.sort, y) ;
                 }
