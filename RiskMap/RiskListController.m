@@ -112,6 +112,7 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     NSLog(@"searchBarShouldBeginEditing") ;
+    [self.scrollView setUserInteractionEnabled:NO];
     return YES ;
 }
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
@@ -163,6 +164,7 @@
     UITouch *touch = [[event allTouches] anyObject];
     if ([self.searchBar isFirstResponder] && [touch view] != self.searchBar)
     {
+        [self.scrollView setUserInteractionEnabled:YES];
         [self.searchBar resignFirstResponder];
     }
     [super touchesBegan:touches withEvent:event];
