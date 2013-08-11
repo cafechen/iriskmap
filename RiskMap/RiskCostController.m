@@ -116,6 +116,10 @@
         [actionSheet addButtonWithTitle:v.title] ;
     }
     
+    if(self.leftArray.count == 0){
+        [actionSheet addButtonWithTitle:@"返回"] ;
+    }
+    
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [actionSheet showInView:self.view];
 }
@@ -134,6 +138,11 @@
         Vector *v = [self.rightArray objectAtIndex:i] ;
         [actionSheet addButtonWithTitle:v.title] ;
     }
+    
+    if(self.rightArray.count == 0){
+        [actionSheet addButtonWithTitle:@"返回"] ;
+    }
+    
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [actionSheet showInView:self.view];
 }
@@ -208,7 +217,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex < 0)
+    if(buttonIndex < 0 || [@"返回" isEqualToString: actionSheet.title])
         return ;
     if(self.whichChange == 0){
         self.currLeft = buttonIndex ;

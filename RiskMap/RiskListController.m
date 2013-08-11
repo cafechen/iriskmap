@@ -7,6 +7,7 @@
 //
 #import "AppDelegate.h"
 #import "RiskListController.h"
+#import <QuartzCore/QuartzCore.h>
 #import "RiskListCell.h"
 #import "DBUtils.h"
 #import "Risk.h"
@@ -155,6 +156,16 @@
     }
     [self.tableView reloadData] ;
 
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([self.searchBar isFirstResponder] && [touch view] != self.searchBar)
+    {
+        [self.searchBar resignFirstResponder];
+    }
+    [super touchesBegan:touches withEvent:event];
 }
 
 @end

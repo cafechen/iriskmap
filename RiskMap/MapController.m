@@ -460,6 +460,8 @@
     
     [self initMap] ;
     [self closeToolViewAction:nil];
+    
+    [self.backItem setTitle:@"地图"] ;
 }
 
 - (IBAction)draw02:(id)sender

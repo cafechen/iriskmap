@@ -14,5 +14,6 @@
 @property (nonatomic, retain) NSMutableArray *riskTitleArray;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 
 @end

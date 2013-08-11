@@ -64,7 +64,7 @@ int MAX_SIZE = 40 ;
 {
     
     //清空
-    NSArray *subViews = [self.scrollView subviews] ;
+    NSArray *subViews = [self.hotView subviews] ;
     for(int i = 0; i < subViews.count; i++){
         UIView *view = [subViews objectAtIndex:i] ;
         [view removeFromSuperview] ;
@@ -123,7 +123,7 @@ int MAX_SIZE = 40 ;
                 [button setBackgroundColor:[UIColor grayColor]] ;
             }
             //[button setTitle:matrix.levelType forState:UIControlStateNormal] ;
-            [self.scrollView addSubview:button] ;
+            [self.hotView addSubview:button] ;
             int fontSize = 10 ;
             if(isIpad){
                 fontSize = 12 ;
@@ -139,7 +139,7 @@ int MAX_SIZE = 40 ;
                 [label setTextColor:[UIColor blueColor]] ;
                 [label setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                 [label setBackgroundColor:[UIColor clearColor]] ;
-                [self.scrollView addSubview:label] ;
+                [self.hotView addSubview:label] ;
                 
                 NSArray *scores = [yv.score componentsSeparatedByString:@"-"] ;
                 UILabel *label01 = [[UILabel alloc] initWithFrame:CGRectMake(10, y + self.mSize - 10, 40, 20)];
@@ -148,7 +148,7 @@ int MAX_SIZE = 40 ;
                 [label01 setText:[NSString stringWithFormat:@"%@", scores[0]]] ;
                 [label01 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                 [label01 setBackgroundColor:[UIColor clearColor]] ;
-                [self.scrollView addSubview:label01] ;
+                [self.hotView addSubview:label01] ;
                 
                 UILabel *label02 = [[UILabel alloc] initWithFrame:CGRectMake(10, y - 10, 40, 20)];
                 label02.numberOfLines = 1;
@@ -156,7 +156,7 @@ int MAX_SIZE = 40 ;
                 [label02 setText:[NSString stringWithFormat:@"%@", scores[1]]] ;
                 [label02 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                 [label02 setBackgroundColor:[UIColor clearColor]] ;
-                [self.scrollView addSubview:label02] ;
+                [self.hotView addSubview:label02] ;
 
             }
             if(yIndex == 0){
@@ -171,7 +171,7 @@ int MAX_SIZE = 40 ;
                 [label setTextColor:[UIColor blueColor]] ;
                 label.textAlignment = UITextAlignmentCenter;
                 [label setBackgroundColor:[UIColor clearColor]] ;
-                [self.scrollView addSubview:label] ;
+                [self.hotView addSubview:label] ;
                 
                 NSArray *scores = [xv.score componentsSeparatedByString:@"-"] ;
                 
@@ -186,7 +186,7 @@ int MAX_SIZE = 40 ;
                 label01.textAlignment = UITextAlignmentCenter;
                 [label01 setBackgroundColor:[UIColor clearColor]] ;
                 if(![@"0" isEqualToString:scores[0]]){
-                    [self.scrollView addSubview:label01] ;
+                    [self.hotView addSubview:label01] ;
                 }
                 
                 UILabel *label02 = [[UILabel alloc] initWithFrame:CGRectMake(x + self.mSize/2, y + self.mSize + 5 - 10, self.mSize, 40)];
@@ -196,7 +196,7 @@ int MAX_SIZE = 40 ;
                 [label02 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                 label02.textAlignment = UITextAlignmentCenter;
                 [label02 setBackgroundColor:[UIColor clearColor]] ;
-                [self.scrollView addSubview:label02] ;
+                [self.hotView addSubview:label02] ;
             }
         }
     }
@@ -272,7 +272,7 @@ int MAX_SIZE = 40 ;
         [button setBackgroundImage:self.redImage forState:UIControlStateNormal] ;
         [button setEnabled:NO] ;
         [button setTitle:[NSString stringWithFormat:@"%d", i] forState:UIControlStateNormal] ;
-        [self.scrollView addSubview:button] ;
+        [self.hotView addSubview:button] ;
         button.tag = 100 + i ;
         
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
@@ -302,7 +302,7 @@ int MAX_SIZE = 40 ;
         gr.context = [xScore.riskid copy] ;
         [gr release];
         
-        [self.scrollView addSubview:button2] ;
+        [self.hotView addSubview:button2] ;
         button2.tag = 200 + i ;
     }
     NSLog(@"123123 %d", maxWidth) ;
@@ -315,14 +315,14 @@ int MAX_SIZE = 40 ;
     Matrix *matrix = [self.matrixArray objectAtIndex:self.currMatrix] ;
     NSMutableArray *xArray = [DBUtils getRiskScore:matrix.matrix_x] ;
     for(int i = 0; i < xArray.count; i++){
-        UIButton *b1 = (UIButton *)[self.scrollView viewWithTag:(i + 100)] ;
-        UIButton *b2 = (UIButton *)[self.scrollView viewWithTag:(i + 200)] ;
+        UIButton *b1 = (UIButton *)[self.hotView viewWithTag:(i + 100)] ;
+        UIButton *b2 = (UIButton *)[self.hotView viewWithTag:(i + 200)] ;
         [b1 setBackgroundImage:self.redImage forState:UIControlStateNormal] ;
         [b2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal] ;
     }
     
     UIButton *button1 = (UIButton *)sender ;
-    UIButton *button2 = (UIButton *)[self.scrollView viewWithTag:(button1.tag - 100)] ;
+    UIButton *button2 = (UIButton *)[self.hotView viewWithTag:(button1.tag - 100)] ;
     UIImage *currImage = [button2 backgroundImageForState:UIControlStateNormal] ;
     [button1 setTitleColor:[UIColor blueColor] forState:UIControlStateNormal] ;
     if(currImage == self.redImage){
@@ -380,6 +380,11 @@ int MAX_SIZE = 40 ;
         UIAlertView *alert= [[UIAlertView alloc] initWithTitle:gestureRecognizer.context message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
         [alert show];
     }
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.hotView ;
 }
 
 #pragma mark -

@@ -11,6 +11,7 @@
 @interface RiskHotController : UIViewController <UIActionSheetDelegate>
 
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet UIView *hotView;
 @property (nonatomic, retain) IBOutlet UIButton *switchButton;
 @property (nonatomic, retain) NSMutableArray *matrixArray;
 @property (nonatomic, retain) NSMutableArray *matrixTitleArray;
