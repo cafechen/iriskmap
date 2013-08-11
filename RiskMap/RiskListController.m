@@ -124,7 +124,8 @@
 }
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-    NSLog(@"searchBarTextDidEndEditing") ;
+    [self reloadTable:searchBar.text];
+    NSLog(@"searchBarTextDidEndEditing [%@]", searchBar.text) ;
 }
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
@@ -134,20 +135,26 @@
 {
     NSLog(@"shouldChangeTextInRange") ;
     if([text isEqualToString:@"\n"]){
-        [self.searchArray removeAllObjects] ;
-        for(int i = 0; i < self.riskArray.count; i++){
-            Risk *risk = [self.riskArray objectAtIndex:i] ;
-            if([risk.riskTitle rangeOfString:searchBar.text options:NSCaseInsensitiveSearch].length > 0 ||
-               [risk.riskTypeStr rangeOfString:searchBar.text options:NSCaseInsensitiveSearch].length > 0 ||
-               [risk.riskCode rangeOfString:searchBar.text options:NSCaseInsensitiveSearch].length > 0 ||
-               [risk.riskTypeId rangeOfString:searchBar.text options:NSCaseInsensitiveSearch].length > 0){
-                [self.searchArray addObject:risk] ;
-            }
-        }
         [searchBar resignFirstResponder];
-        [self.tableView reloadData] ;
+        [self reloadTable:searchBar.text];
     }
     return YES ;
+}
+
+-(void) reloadTable:(NSString *)filter
+{
+    [self.searchArray removeAllObjects] ;
+    for(int i = 0; i < self.riskArray.count; i++){
+        Risk *risk = [self.riskArray objectAtIndex:i] ;
+        if([@"" isEqualToString:filter]||[risk.riskTitle rangeOfString:filter options:NSCaseInsensitiveSearch].length > 0 ||
+           [risk.riskTypeStr rangeOfString:filter options:NSCaseInsensitiveSearch].length > 0 ||
+           [risk.riskCode rangeOfString:filter options:NSCaseInsensitiveSearch].length > 0 ||
+           [risk.riskTypeId rangeOfString:filter options:NSCaseInsensitiveSearch].length > 0){
+            [self.searchArray addObject:risk] ;
+        }
+    }
+    [self.tableView reloadData] ;
+
 }
 
 @end

@@ -41,6 +41,8 @@
     self.currLeft = -1 ;
     self.currRight = -1 ;
     
+    self.filter = @"" ;
+    
     for(int i = 0; i < self.vectorArray.count; i++){
         Vector *v = [self.vectorArray objectAtIndex:i] ;
         for(int j = 0; j < self.riskArray.count; j++){
@@ -213,12 +215,73 @@
     }else{
         self.currRight = buttonIndex ;
     }
+    [self reloadTable:nil] ;
+}
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet{
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex{
+}
+
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarShouldBeginEditing") ;
+    return YES ;
+}
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarTextDidBeginEditing") ;
+}
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarShouldEndEditing") ;
+    return YES ;
+}
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [self reloadTable:searchBar.text] ;
+    NSLog(@"searchBarTextDidEndEditing") ;
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    NSLog(@"textDidChange") ;
+}
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text NS_AVAILABLE_IOS(3_0)
+{
+    NSLog(@"shouldChangeTextInRange") ;
+    if([text isEqualToString:@"\n"]){
+        [searchBar resignFirstResponder];
+        [self reloadTable:searchBar.text] ;
+    }
+    return YES ;
+}
+
+-(void) reloadTable:(NSString *) filter
+{
+    if(filter != nil){
+        self.filter = [filter copy] ;
+    }
     [self.tableArray removeAllObjects] ;
     if(self.leftArray.count > 0){
         Vector *v = [self.leftArray objectAtIndex:self.currLeft] ;
         for(int i = 0; i < self.riskArray.count; i++){
             Cost *cost = [self.riskArray objectAtIndex:i] ;
             if([cost.riskvecorid isEqualToString:v.vectorId]){
+                if([@"" isEqualToString:self.filter]|| [cost.riskName rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [cost.riskCode rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [cost.riskType rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.beforeGailv] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.beforeAffect]rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.beforeAffectQi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.manaChengben] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.afterGailv] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.afterQi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.affectQi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.shouyi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.jingshouyi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.bilv] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0)
                 [self.tableArray addObject:cost] ;
             }
             self.leftLabel.text = v.title ;
@@ -236,12 +299,4 @@
     }
     [self.tableView reloadData] ;
 }
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet{
-}
--(void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex{
-}
--(void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex{
-}
-
-
 @end
