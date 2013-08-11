@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RiskListController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface RiskListController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (nonatomic, retain) NSMutableArray *riskArray;
+@property (nonatomic, retain) NSMutableArray *searchArray;
 @property (nonatomic, retain) NSMutableArray *riskTitleArray;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, retain) IBOutlet UITableView *tableView;
 
 @end

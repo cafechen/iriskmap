@@ -31,6 +31,11 @@
     [super viewDidLoad];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     self.riskArray = [DBUtils getRisk:appDelegate.currProjectMap] ;
+    self.searchArray = [[[NSMutableArray alloc] init] autorelease];
+    for(int i = 0; i < self.riskArray.count; i++){
+        Risk *risk = [self.riskArray objectAtIndex:i] ;
+        [self.searchArray addObject:risk] ;
+    }
     self.riskTitleArray = [DBUtils getRiskType:appDelegate.currProjectMap] ;
     self.scrollView.contentSize = CGSizeMake(800, ScreenHeight - 135) ;
     // Do any additional setup after loading the view from its nib.
@@ -57,7 +62,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.riskArray.count + 1;
+    return self.searchArray.count + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -75,7 +80,7 @@
     }
     
     if(row > 0){
-        Risk *risk = (Risk *)[self.riskArray objectAtIndex:(row - 1)];
+        Risk *risk = (Risk *)[self.searchArray objectAtIndex:(row - 1)];
         //cell.riskType = risk.riskTypeId ;
         cell.riskTitle = risk.riskTitle ;
         for(int i = 0; i < self.riskTitleArray.count; i++){
@@ -103,5 +108,46 @@
     
 }
 
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarShouldBeginEditing") ;
+    return YES ;
+}
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarTextDidBeginEditing") ;
+}
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarShouldEndEditing") ;
+    return YES ;
+}
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    NSLog(@"searchBarTextDidEndEditing") ;
+}
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    NSLog(@"textDidChange") ;
+}
+- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text NS_AVAILABLE_IOS(3_0)
+{
+    NSLog(@"shouldChangeTextInRange") ;
+    if([text isEqualToString:@"\n"]){
+        [self.searchArray removeAllObjects] ;
+        for(int i = 0; i < self.riskArray.count; i++){
+            Risk *risk = [self.riskArray objectAtIndex:i] ;
+            if([risk.riskTitle rangeOfString:searchBar.text options:NSCaseInsensitiveSearch].length > 0 ||
+               [risk.riskTypeStr rangeOfString:searchBar.text options:NSCaseInsensitiveSearch].length > 0 ||
+               [risk.riskCode rangeOfString:searchBar.text options:NSCaseInsensitiveSearch].length > 0 ||
+               [risk.riskTypeId rangeOfString:searchBar.text options:NSCaseInsensitiveSearch].length > 0){
+                [self.searchArray addObject:risk] ;
+            }
+        }
+        [searchBar resignFirstResponder];
+        [self.tableView reloadData] ;
+    }
+    return YES ;
+}
 
 @end
