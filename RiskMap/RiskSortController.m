@@ -71,9 +71,9 @@
     
     double score = 0.0 ;
     
-    int left = 41 ;
+    int left = 151 ;
     if(isIpad){
-        left = 61 ;
+        left = 301 ;
     }
     
     int top = 63 ;
@@ -151,16 +151,22 @@
         UIButton *b = (UIButton *)[buttons objectAtIndex:i] ;
         b.frame = CGRectMake(left, top + (i)*height + height/2 - buttonheight/2, b.frame.size.width, b.frame.size.height) ;
         NSLog(@"#### b [%f][%f][%f][%f]", b.frame.origin.x, b.frame.origin.y, b.frame.size.width, b.frame.size.height) ;
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(b.frame.origin.x + b.frame.size.width + 5, b.frame.origin.y, self.widthImageView.frame.size.width - b.frame.size.width, buttonheight)] ;
+        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(b.frame.origin.x + b.frame.size.width + 5, b.frame.origin.y, self.widthImageView.frame.size.width - b.frame.size.width, buttonheight)] ;
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, b.frame.origin.y, left, buttonheight)] ;
         title = [labels objectAtIndex:(buttons.count - i - 1)] ;
-        label.text = title ;
-        label.textAlignment = UITextAlignmentLeft;
+        label1.text = [title substringToIndex:5];
+        label1.textAlignment = UITextAlignmentLeft;
+        label2.text = [title substringFromIndex:5];
+        label2.textAlignment = UITextAlignmentRight;
         if(isIpad){
-            [label setFont:[UIFont fontWithName:@"Arial" size:12]] ;
+            [label1 setFont:[UIFont fontWithName:@"Arial" size:12]] ;
+            [label2 setFont:[UIFont fontWithName:@"Arial" size:12]] ;
         }else{
-            [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
+            [label1 setFont:[UIFont fontWithName:@"Arial" size:8]] ;
+            [label2 setFont:[UIFont fontWithName:@"Arial" size:8]] ;
         }
-        [self.view addSubview:label] ;
+        [self.view addSubview:label1] ;
+        [self.view addSubview:label2] ;
         [self.view addSubview:b] ;
     }
 }
