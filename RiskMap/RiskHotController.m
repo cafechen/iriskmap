@@ -96,11 +96,14 @@ int MAX_SIZE = 35 ;
     if(isIpad){
         self.mSize = 600/self.maxY ;
     }else{
-        self.mSize = 280/self.maxY ;
+        self.mSize = 170/self.maxY ;
     }
+    
+    /*
     if(self.mSize > MAX_SIZE){
         self.mSize = MAX_SIZE ;
     }
+    */
     
     //开始绘制矩形
     for(int i = 0; i < self.matrixArray.count; i++){
@@ -110,7 +113,7 @@ int MAX_SIZE = 35 ;
             int yIndex = [matrix.yIndex intValue] ;
             yIndex = self.maxY - yIndex  - 1;
             int x = 80 + self.mSize*xIndex + xIndex;
-            int y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - yIndex*self.mSize - yIndex - 30;
+            int y = (ScreenHeight - 64)/2.0 + self.mSize*self.maxY/2.0 - yIndex*self.mSize - yIndex - self.mSize;
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.frame = CGRectMake(x, y, self.mSize, self.mSize) ;
             [button setEnabled:NO] ;
@@ -278,7 +281,7 @@ int MAX_SIZE = 35 ;
                 double begin = [[scores objectAtIndex:0] doubleValue] ;
                 double end = [[scores objectAtIndex:1] doubleValue] ;
                 if(yScore.scoreEnd < end && yScore.scoreEnd >= begin){
-                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreEnd - begin)/(end - begin))) + self.mSize - 30;
+                    y = (ScreenHeight - 64)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreEnd - begin)/(end - begin)));
                     NSLog(@"####SCORE y [%d][%d][%f]", [yv.sort intValue], self.mSize, (yScore.scoreEnd - begin)/(end - begin)) ;
                     NSLog(@"####SCORE y [%f][%f][%f][%@][%f]", yScore.scoreEnd, begin, end, yv.sort, y) ;
                 }
@@ -304,7 +307,7 @@ int MAX_SIZE = 35 ;
                 double begin = [[scores objectAtIndex:0] doubleValue] ;
                 double end = [[scores objectAtIndex:1] doubleValue] ;
                 if(yScore.scoreBefore < end && yScore.scoreBefore >= begin){
-                    y = (ScreenHeight - 135)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreBefore - begin)/(end - begin))) + self.mSize - 30;
+                    y = (ScreenHeight - 64)/2.0 + self.mSize*self.maxY/2.0 - (self.mSize*([yv.sort intValue] - 1) + [yv.sort intValue] - 1 + self.mSize*((yScore.scoreBefore - begin)/(end - begin))) ;
                     NSLog(@"####SCORE y [%d][%d][%f]", [yv.sort intValue], self.mSize, (yScore.scoreBefore - begin)/(end - begin)) ;
                     NSLog(@"####SCORE y [%f][%f][%f][%@][%f]", yScore.scoreBefore, begin, end, yv.sort, y) ;
                 }
@@ -325,9 +328,9 @@ int MAX_SIZE = 35 ;
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
         UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
         if(isIpad){
-            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 220*(i/20), (ScreenHeight - 135)/2.0 - self.mSize*self.maxY/2.0 + 30*(i%20), 200, 20) ;
+            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 220*(i/20), 52 + 30*(i%20), 200, 20) ;
         }else{
-            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 120*(i/10), (ScreenHeight - 135)/2.0 - self.mSize*self.maxY/2.0 + 25*(i%10), 100, 15) ;
+            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 200*(i/10), 43 + 17*(i%10), 180, 15) ;
         }
         if(button2.frame.origin.x + button2.frame.size.width > maxWidth){
             maxWidth = button2.frame.origin.x + button2.frame.size.width ;
