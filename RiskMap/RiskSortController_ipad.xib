@@ -118,7 +118,6 @@
 								<string key="NSFrame">{{1003, 643}, {1, 10}}</string>
 								<reference key="NSSuperview" ref="1030502911"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="58387255"/>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -174,7 +173,7 @@
 								<reference key="IBUINavigationBar" ref="71262459"/>
 								<string key="IBUITitle">风险排序</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="728285088">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回风险热图</string>
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="423259667"/>
@@ -362,17 +361,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RiskSortController</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">gotoLastPageButtonAction:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">gotoLastPageButtonAction:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="heightImageView">UIImageView</string>
 						<string key="widthImageView">UIImageView</string>

@@ -110,7 +110,7 @@
 								<reference key="IBUINavigationBar" ref="686399329"/>
 								<string key="IBUITitle">风险地图</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="334828321">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回地图列表</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="640321363"/>
@@ -257,9 +257,9 @@
 						<int key="objectID">1</int>
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="686399329"/>
 							<reference ref="423600259"/>
 							<reference ref="382858371"/>
+							<reference ref="686399329"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -355,50 +355,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">MapController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="closeToolViewAction:">id</string>
-						<string key="draw01:">id</string>
-						<string key="draw02:">id</string>
-						<string key="gotoLastPageButtonAction:">id</string>
-						<string key="gotoRiskCost:">id</string>
-						<string key="gotoRiskList:">id</string>
-						<string key="gotoRiskStatis:">id</string>
-						<string key="showToolViewAction:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="closeToolViewAction:">
-							<string key="name">closeToolViewAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="draw01:">
-							<string key="name">draw01:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="draw02:">
-							<string key="name">draw02:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="gotoLastPageButtonAction:">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="gotoRiskCost:">
-							<string key="name">gotoRiskCost:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="gotoRiskList:">
-							<string key="name">gotoRiskList:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="gotoRiskStatis:">
-							<string key="name">gotoRiskStatis:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showToolViewAction:">
-							<string key="name">showToolViewAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="backItem">UIBarButtonItem</string>
 						<string key="imageView">UIImageView</string>

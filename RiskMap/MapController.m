@@ -432,7 +432,7 @@
 {
     if([self.backItem.title isEqualToString:@"返回地图"]){
         [self draw01:nil] ;
-        [self.backItem setTitle:@"返回"] ;
+        [self.backItem setTitle:@"返回地图列表"] ;
     }else{
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
         [appDelegate gotoLastPage] ;

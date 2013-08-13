@@ -90,7 +90,7 @@
 								<reference key="IBUINavigationBar" ref="756855361"/>
 								<string key="IBUITitle">风险成本</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="606066458">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回地图</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="180782020"/>
@@ -486,17 +486,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RiskCostController</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">showRightAction:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">showRightAction:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">showRightAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="leftLabel">UILabel</string>
 						<string key="rightLabel">UILabel</string>

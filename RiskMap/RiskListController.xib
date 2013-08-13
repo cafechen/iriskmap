@@ -64,7 +64,6 @@
 								<string key="NSFrameSize">{800, 212}</string>
 								<reference key="NSSuperview" ref="645215797"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">3</int>
@@ -107,7 +106,7 @@
 								<reference key="IBUINavigationBar" ref="800190532"/>
 								<string key="IBUITitle">风险列表</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="27510941">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回地图</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="1037361802"/>

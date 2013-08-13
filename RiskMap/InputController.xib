@@ -52,7 +52,7 @@
 								<reference key="IBUINavigationBar" ref="264936129"/>
 								<string key="IBUITitle">导入文件</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="595596877">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回文件列表</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="231251232"/>
@@ -322,20 +322,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">InputController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="gotoLastPageButtonAction:">id</string>
-						<string key="toggleService:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="gotoLastPageButtonAction:">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="toggleService:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">toggleService:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">toggleService:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">toggleService:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">urlLabel</string>
 						<string key="NS.object.0">UILabel</string>

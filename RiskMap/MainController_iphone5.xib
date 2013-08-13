@@ -71,9 +71,9 @@
 						<array key="IBUIItems">
 							<object class="IBUINavigationItem" id="177783091">
 								<reference key="IBUINavigationBar" ref="1032644637"/>
-								<string key="IBUITitle">项目目录</string>
+								<string key="IBUITitle">风险地图列表</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="554681600">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回文件列表</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="177783091"/>

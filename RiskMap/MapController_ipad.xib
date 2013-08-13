@@ -109,7 +109,7 @@
 								<reference key="IBUINavigationBar" ref="460660096"/>
 								<string key="IBUITitle">风险地图</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="1053896675">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回地图列表</string>
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="459184459"/>
@@ -639,7 +639,6 @@
 						<string key="gotoLastPageButtonAction:">id</string>
 						<string key="gotoRiskCost:">id</string>
 						<string key="gotoRiskList:">id</string>
-						<string key="gotoRiskSort:">id</string>
 						<string key="gotoRiskStatis:">id</string>
 						<string key="showToolViewAction:">id</string>
 					</dictionary>
@@ -666,10 +665,6 @@
 						</object>
 						<object class="IBActionInfo" key="gotoRiskList:">
 							<string key="name">gotoRiskList:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="gotoRiskSort:">
-							<string key="name">gotoRiskSort:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="gotoRiskStatis:">

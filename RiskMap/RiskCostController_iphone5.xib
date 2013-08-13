@@ -52,7 +52,6 @@
 								<string key="NSFrameSize">{1797, 192}</string>
 								<reference key="NSSuperview" ref="202602016"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="535902382">
 									<int key="NSColorSpace">3</int>
@@ -91,7 +90,7 @@
 								<reference key="IBUINavigationBar" ref="756855361"/>
 								<string key="IBUITitle">风险成本</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="606066458">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回地图</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="180782020"/>
@@ -479,25 +478,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RiskCostController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="gotoLastPageButtonAction:">id</string>
-						<string key="showLeftAction:">id</string>
-						<string key="showRightAction:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="gotoLastPageButtonAction:">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showLeftAction:">
-							<string key="name">showLeftAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRightAction:">
-							<string key="name">showRightAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="leftLabel">UILabel</string>
 						<string key="rightLabel">UILabel</string>

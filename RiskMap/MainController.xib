@@ -71,9 +71,9 @@
 						<array key="IBUIItems">
 							<object class="IBUINavigationItem" id="177783091">
 								<reference key="IBUINavigationBar" ref="1032644637"/>
-								<string key="IBUITitle">项目目录</string>
+								<string key="IBUITitle">风险地图列表</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="554681600">
-									<string key="IBUITitle">返回</string>
+									<string key="IBUITitle">返回文件列表</string>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 									<int key="IBUIStyle">1</int>
 									<reference key="IBUINavigationItem" ref="177783091"/>
@@ -240,17 +240,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">MainController</string>
 					<string key="superclassName">UIViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">gotoLastPageButtonAction:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<string key="NS.key.0">gotoLastPageButtonAction:</string>
-						<object class="IBActionInfo" key="NS.object.0">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">dirTableView</string>
 						<string key="NS.object.0">UITableView</string>
