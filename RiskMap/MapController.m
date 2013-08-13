@@ -99,12 +99,12 @@
             button.tag = i ;
             
             //添加长按事件
-            if(![@"" isEqualToString:pm.linkPics]){
+            //if(![@"" isEqualToString:pm.linkPics]){
                 MyLongPressGestureRecognizer *gr =  [[MyLongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:) context:pm.linkPics];
                 [button addGestureRecognizer:gr];
                 gr.context = [pm.linkPics copy] ;
                 [gr release];
-            }
+            //}
             
             if(self.maxX < button.frame.origin.x + button.frame.size.width){
                 self.maxX = button.frame.origin.x + button.frame.size.width ;
@@ -122,7 +122,12 @@
             //添加风险卡片
             if(pm.cardPic != nil && ![@"" isEqualToString:pm.cardPic]){
                 NSLog(@"添加风险卡片 %@", pm.cardPic) ;
-                [button addTarget:self action:@selector(showCardPic:) forControlEvents:UIControlEventTouchUpInside];
+                MyLongPressGestureRecognizer *gr =  [[MyLongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showCardPic:) context:[NSString stringWithFormat:@"%d", button.tag]];
+                [button addGestureRecognizer:gr];
+                gr.context = [NSString stringWithFormat:@"%d", button.tag] ;
+                [gr release];
+                
+                [button addTarget:self action:@selector(showMapPic:) forControlEvents:UIControlEventTouchUpInside];
             }else{
                 if(i != self.target){
                     NSLog(@"添加风险卡片 %@", pm.cardPic) ;
@@ -171,7 +176,11 @@
             //添加风险卡片
             if(pm.cardPic != nil && ![@"" isEqualToString:pm.cardPic]){
                 NSLog(@"添加风险卡片 %@", pm.cardPic) ;
-                [button addTarget:self action:@selector(showCardPic:) forControlEvents:UIControlEventTouchUpInside];
+                MyLongPressGestureRecognizer *gr =  [[MyLongPressGestureRecognizer alloc] initWithTarget:self action:@selector(showCardPic:) context:[NSString stringWithFormat:@"%d", button.tag]];
+                [button addGestureRecognizer:gr];
+                gr.context = [NSString stringWithFormat:@"%d", button.tag] ;
+                [gr release];
+                [button addTarget:self action:@selector(showMapPic:) forControlEvents:UIControlEventTouchUpInside];
             }else{
                 if(i != self.target){
                     NSLog(@"添加风险卡片 %@", pm.cardPic) ;
@@ -215,8 +224,25 @@
 
 - (void)handleLongPress:(MyLongPressGestureRecognizer *)gestureRecognizer{
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        
+        if([@"" isEqualToString:gestureRecognizer.context]){
+            UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"" message:@"没有外链文件" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:nil, nil];
+            [alert show];
+        }else{
+            self.currLinked = [gestureRecognizer.context componentsSeparatedByString:@"|"] ;
+            UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:nil, nil];
+            for(int i = 0; i < self.currLinked.count; i++){
+                [alert addButtonWithTitle:[[self.currLinked objectAtIndex:i] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] ;
+            }
+            [alert show];
+        }
+    }
+}
+
+- (void)handleLongPressCard:(MyLongPressGestureRecognizer *)gestureRecognizer{
+    if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         self.currLinked = [gestureRecognizer.context componentsSeparatedByString:@"|"] ;
-        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"" message:@"" delegate:self cancelButtonTitle:@"返回" otherButtonTitles:nil, nil];
         for(int i = 0; i < self.currLinked.count; i++){
             [alert addButtonWithTitle:[[self.currLinked objectAtIndex:i] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] ;
         }
@@ -224,13 +250,13 @@
     }
 }
 
-- (void)showCardPic:(id)sender
+- (void)showCardPic:(MyLongPressGestureRecognizer *)gestureRecognizer
 {
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
     if(!project.show_cart){
-        ProjectMap *pm = [self.objectArray objectAtIndex:[sender tag]] ;
-        NSLog(@"showCardPic [%d][%@]", [sender tag], pm.cardPic) ;
+        ProjectMap *pm = [self.objectArray objectAtIndex:[gestureRecognizer.context intValue]] ;
+        NSLog(@"showCardPic [%d][%@]", [gestureRecognizer.context intValue], pm.cardPic) ;
         [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.cardPic]]] ;
         self.scrollView.hidden = YES ;
         self.scrollView2.hidden = NO ;
@@ -246,7 +272,18 @@
     [self.backItem setTitle:@"返回地图"] ;
     
     ProjectMap *pm = [self.objectArray objectAtIndex:[sender tag]] ;
-    NSLog(@"showMapPic [%d][%@]", [sender tag], pm.projectId) ;
+    
+    if(![@"" isEqualToString: pm.cardPic]){
+        //这说明是五角星
+        for(int i = 0; i < self.objectArray.count; i++){
+            ProjectMap *p = [self.objectArray objectAtIndex:i] ;
+            if([p.Obj_db_id isEqualToString:pm.Obj_other1]){
+                pm = p ;
+                break ;
+            }
+        }
+    }
+    
     //所有试图变透明
     NSArray *views = [self.mapView subviews] ;
     for(int i = 0; i < views.count; i++){
