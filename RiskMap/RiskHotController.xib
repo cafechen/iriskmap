@@ -46,7 +46,7 @@
 							<object class="IBUIView" id="896230742">
 								<reference key="NSNextResponder" ref="996531484"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrameSize">{320, 416}</string>
+								<string key="NSFrameSize">{480, 256}</string>
 								<reference key="NSSuperview" ref="996531484"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="854216505"/>
@@ -61,7 +61,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 44}, {320, 416}}</string>
+						<string key="NSFrame">{{0, 44}, {480, 256}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="896230742"/>
@@ -78,7 +78,7 @@
 					<object class="IBUIButton" id="854216505">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{220, 64}, {80, 30}}</string>
+						<string key="NSFrame">{{380, 64}, {80, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="432830359"/>
@@ -111,7 +111,7 @@
 					<object class="IBUIButton" id="432830359">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{220, 416}, {80, 30}}</string>
+						<string key="NSFrame">{{380, 251}, {80, 30}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -134,7 +134,7 @@
 					<object class="IBUINavigationBar" id="169883312">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrameSize">{320, 44}</string>
+						<string key="NSFrameSize">{480, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="996531484"/>
@@ -161,7 +161,7 @@
 						</array>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
+				<string key="NSFrame">{{0, 20}, {480, 300}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="169883312"/>
@@ -171,6 +171,10 @@
 					<reference key="NSCustomColorSpace" ref="79488475"/>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+					<int key="IBUIInterfaceOrientation">3</int>
+					<int key="interfaceOrientation">3</int>
+				</object>
 				<object class="IBUIScreenMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUIScreenMetrics</string>
 					<object class="NSMutableDictionary" key="IBUINormalizedOrientationToSizeMap">
@@ -339,14 +343,14 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">13</int>
-						<reference key="object" ref="854216505"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">20</int>
 						<reference key="object" ref="896230742"/>
 						<reference key="parent" ref="996531484"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">13</int>
+						<reference key="object" ref="854216505"/>
+						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
 			</object>
@@ -378,9 +382,7 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="gotoLastPageButtonAction:">id</string>
-						<string key="gotoRiskSortButtonAction:">id</string>
 						<string key="selectHotButtonAction:">id</string>
-						<string key="showRiskDot:">id</string>
 						<string key="switchButtonAction:">id</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="actionInfosByName">
@@ -388,16 +390,8 @@
 							<string key="name">gotoLastPageButtonAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-						<object class="IBActionInfo" key="gotoRiskSortButtonAction:">
-							<string key="name">gotoRiskSortButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
 						<object class="IBActionInfo" key="selectHotButtonAction:">
 							<string key="name">selectHotButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRiskDot:">
-							<string key="name">showRiskDot:</string>
 							<string key="candidateClassName">id</string>
 						</object>
 						<object class="IBActionInfo" key="switchButtonAction:">

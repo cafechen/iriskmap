@@ -11,8 +11,8 @@
 #define StateBarHeight 20
 #define isIPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define isIpad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-#define ScreenHeight (isIpad?[[UIScreen mainScreen] bounds].size.width:[[UIScreen mainScreen] bounds].size.height)
-#define ScreenWidth (isIpad?[[UIScreen mainScreen] bounds].size.height:[[UIScreen mainScreen] bounds].size.width)
+#define ScreenHeight [[UIScreen mainScreen] bounds].size.width
+#define ScreenWidth [[UIScreen mainScreen] bounds].size.height
 #define MainHeight (ScreenHeight - StateBarHeight)
 #define MainWidth ScreenWidth
 #define DOCUMENTS_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]

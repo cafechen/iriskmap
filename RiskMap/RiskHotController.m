@@ -15,7 +15,7 @@
 #import "Vector.h"
 #import "MyLongPressGestureRecognizer.h"
 
-int MAX_SIZE = 40 ;
+int MAX_SIZE = 35 ;
 
 @interface RiskHotController ()
 
@@ -312,7 +312,11 @@ int MAX_SIZE = 40 ;
         }
         //绘制Y
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(x - 10, y - 10, 20, 20) ;
+        if(isIpad){
+            button.frame = CGRectMake(x - 10, y - 10, 20, 20) ;
+        }else{
+            button.frame = CGRectMake(x - 5, y - 5, 10, 10) ;
+        }
         [button setBackgroundImage:self.redImage forState:UIControlStateNormal] ;
         [button setEnabled:NO] ;
         [self.hotView addSubview:button] ;

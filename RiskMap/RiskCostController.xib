@@ -49,7 +49,7 @@
 							<object class="IBUITableView" id="259044063">
 								<reference key="NSNextResponder" ref="202602016"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{1549, 322}</string>
+								<string key="NSFrameSize">{1709, 192}</string>
 								<reference key="NSSuperview" ref="202602016"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -67,7 +67,7 @@
 								<float key="IBUISectionFooterHeight">22</float>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 138}, {320, 322}}</string>
+						<string key="NSFrame">{{0, 108}, {480, 192}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="259044063"/>
@@ -79,7 +79,7 @@
 					<object class="IBUINavigationBar" id="756855361">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrameSize">{320, 44}</string>
+						<string key="NSFrameSize">{480, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="289700749"/>
@@ -102,10 +102,10 @@
 					<object class="IBUIButton" id="289700749">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 44}, {160, 20}}</string>
+						<string key="NSFrame">{{8, 44}, {140, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="703820986"/>
+						<reference key="NSNextKeyView" ref="981735317"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -134,10 +134,10 @@
 					<object class="IBUIButton" id="703820986">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{160, 44}, {160, 20}}</string>
+						<string key="NSFrame">{{244, 44}, {140, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="981735317"/>
+						<reference key="NSNextKeyView" ref="659437829"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -156,10 +156,10 @@
 					<object class="IBUILabel" id="981735317">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{40, 72}, {80, 20}}</string>
+						<string key="NSFrame">{{156, 44}, {80, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="659437829"/>
+						<reference key="NSNextKeyView" ref="703820986"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -188,10 +188,10 @@
 					<object class="IBUILabel" id="659437829">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{200, 72}, {80, 20}}</string>
+						<string key="NSFrame">{{392, 44}, {80, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="202602016"/>
+						<reference key="NSNextKeyView" ref="218368498"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -213,9 +213,10 @@
 					<object class="IBUISearchBar" id="218368498">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrame">{{0, 94}, {320, 44}}</string>
+						<string key="NSFrame">{{0, 64}, {480, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="202602016"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<int key="IBUIContentMode">3</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -224,7 +225,7 @@
 						</object>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
+				<string key="NSFrame">{{0, 20}, {480, 300}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="756855361"/>
@@ -236,6 +237,10 @@
 					</object>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+					<int key="IBUIInterfaceOrientation">3</int>
+					<int key="interfaceOrientation">3</int>
+				</object>
 				<object class="IBUIScreenMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUIScreenMetrics</string>
 					<object class="NSMutableDictionary" key="IBUINormalizedOrientationToSizeMap">
@@ -370,11 +375,11 @@
 						<reference key="object" ref="191373211"/>
 						<array class="NSMutableArray" key="children">
 							<reference ref="756855361"/>
-							<reference ref="703820986"/>
 							<reference ref="289700749"/>
-							<reference ref="981735317"/>
-							<reference ref="659437829"/>
 							<reference ref="202602016"/>
+							<reference ref="981735317"/>
+							<reference ref="703820986"/>
+							<reference ref="659437829"/>
 							<reference ref="218368498"/>
 						</array>
 						<reference key="parent" ref="0"/>
@@ -481,25 +486,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RiskCostController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="gotoLastPageButtonAction:">id</string>
-						<string key="showLeftAction:">id</string>
-						<string key="showRightAction:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="gotoLastPageButtonAction:">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showLeftAction:">
-							<string key="name">showLeftAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRightAction:">
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">showRightAction:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">showRightAction:</string>
+						<object class="IBActionInfo" key="NS.object.0">
 							<string key="name">showRightAction:</string>
 							<string key="candidateClassName">id</string>
 						</object>
-					</dictionary>
+					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="leftLabel">UILabel</string>
 						<string key="rightLabel">UILabel</string>

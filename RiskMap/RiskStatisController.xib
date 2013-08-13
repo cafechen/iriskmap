@@ -46,7 +46,7 @@
 							<object class="IBUIImageView" id="948621108">
 								<reference key="NSNextResponder" ref="255020990"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{20, 20}, {1, 376}}</string>
+								<string key="NSFrame">{{20, 20}, {1, 216}}</string>
 								<reference key="NSSuperview" ref="255020990"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="206779324"/>
@@ -61,9 +61,10 @@
 							<object class="IBUIImageView" id="206779324">
 								<reference key="NSNextResponder" ref="255020990"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{20, 395}, {280, 1}}</string>
+								<string key="NSFrame">{{20, 235}, {440, 1}}</string>
 								<reference key="NSSuperview" ref="255020990"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor">
 									<int key="NSColorSpace">1</int>
@@ -73,7 +74,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 44}, {320, 416}}</string>
+						<string key="NSFrame">{{0, 44}, {480, 256}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="948621108"/>
@@ -85,7 +86,7 @@
 					<object class="IBUINavigationBar" id="45203947">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">290</int>
-						<string key="NSFrameSize">{320, 44}</string>
+						<string key="NSFrameSize">{480, 44}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="255020990"/>
@@ -106,7 +107,7 @@
 						</array>
 					</object>
 				</array>
-				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
+				<string key="NSFrame">{{0, 20}, {480, 300}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="45203947"/>
@@ -118,6 +119,10 @@
 					</object>
 				</object>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
+				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
+					<int key="IBUIInterfaceOrientation">3</int>
+					<int key="interfaceOrientation">3</int>
+				</object>
 				<object class="IBUIScreenMetrics" key="IBUISimulatedDestinationMetrics">
 					<string key="IBUISimulatedSizeMetricsClass">IBUIScreenMetrics</string>
 					<object class="NSMutableDictionary" key="IBUINormalizedOrientationToSizeMap">
