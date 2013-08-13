@@ -312,19 +312,18 @@ int MAX_SIZE = 40 ;
         }
         //绘制Y
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(x - 5, y - 5, 10, 10) ;
+        button.frame = CGRectMake(x - 10, y - 10, 20, 20) ;
         [button setBackgroundImage:self.redImage forState:UIControlStateNormal] ;
         [button setEnabled:NO] ;
-        [button setTitle:[NSString stringWithFormat:@"%d", i] forState:UIControlStateNormal] ;
         [self.hotView addSubview:button] ;
         button.tag = 100 + i ;
         
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
         UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
         if(isIpad){
-            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 220*(i/20), (ScreenHeight - 44)/2 - 30*10 + 30*(i%20), 200, 20) ;
+            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 220*(i/20), (ScreenHeight - 135)/2.0 - self.mSize*self.maxY/2.0 + 30*(i%20), 200, 20) ;
         }else{
-            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 120*(i/10), (ScreenHeight - 44)/2 - 25*5 + 25*(i%10), 100, 15) ;
+            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 120*(i/10), (ScreenHeight - 135)/2.0 - self.mSize*self.maxY/2.0 + 25*(i%10), 100, 15) ;
         }
         if(button2.frame.origin.x + button2.frame.size.width > maxWidth){
             maxWidth = button2.frame.origin.x + button2.frame.size.width ;

@@ -161,7 +161,6 @@
             [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
         }
         [self.view addSubview:label] ;
-        [self.view addSubview:label] ;
         [self.view addSubview:b] ;
     }
 }

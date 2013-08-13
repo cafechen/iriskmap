@@ -107,6 +107,7 @@
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
         appDelegate.currProjectMap = [dir.dirId copy];
         [appDelegate gotoMapPage] ;
+        return nil ;
     }else{
         //加载或者收起更多的目录
         if(dir.isOpen){

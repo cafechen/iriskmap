@@ -173,7 +173,7 @@
 - (void) gotoRiskHotPage
 {
     NSLog(@"Goto Risk Hot Page Start") ;
-    RiskHotController *riskHotController = [[[RiskHotController alloc] initWithNibName:@"RiskHotController" bundle:nil] autorelease];
+    RiskHotController *riskHotController = nil;
     
     if(isIpad){
         riskHotController = [[[RiskHotController alloc] initWithNibName:@"RiskHotController_ipad" bundle:nil] autorelease];

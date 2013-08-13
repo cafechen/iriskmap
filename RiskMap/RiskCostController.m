@@ -59,6 +59,7 @@
         for(int j = 0; j < self.riskArray.count; j++){
             Cost *cost = [self.riskArray objectAtIndex:j] ;
             if([v.vectorId isEqualToString:cost.chanceVecorid]){
+                NSLog(@"#### #### #### %@ %@", v.vectorId, cost.chanceVecorid) ;
                 [self.rightArray addObject:v] ;
                 break ;
             }
@@ -82,12 +83,12 @@
         Vector *v = [self.rightArray objectAtIndex:0] ;
         for(int i = 0; i < self.riskArray.count; i++){
             Cost *cost = [self.riskArray objectAtIndex:i] ;
-            if([cost.riskvecorid isEqualToString:v.vectorId]){
+            if([cost.chanceVecorid isEqualToString:v.vectorId]){
                 [self.tableArray addObject:cost] ;
             }
         }
         self.rightLabel.text = v.title ;
-        self.currLeft = 1 ;
+        self.currRight = 0 ;
     }
     
     NSLog(@"####4343 %d %d", self.leftArray.count, self.rightArray.count) ;
@@ -217,6 +218,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSLog(@"#### #### #### %d", buttonIndex) ;
     if(buttonIndex < 0 || [@"返回" isEqualToString: actionSheet.title])
         return ;
     if(self.whichChange == 0){
@@ -275,7 +277,9 @@
     }
     [self.tableArray removeAllObjects] ;
     if(self.leftArray.count > 0){
+        NSLog(@"#### #### #### %d %d", self.currLeft, self.leftArray.count) ;
         Vector *v = [self.leftArray objectAtIndex:self.currLeft] ;
+        NSLog(@"#### #### #### %d %d", self.currLeft, self.leftArray.count) ;
         for(int i = 0; i < self.riskArray.count; i++){
             Cost *cost = [self.riskArray objectAtIndex:i] ;
             if([cost.riskvecorid isEqualToString:v.vectorId]){
@@ -298,15 +302,31 @@
         }
     }
     if(self.rightArray.count > 0){
+        NSLog(@"#### #### #### %d %d", self.currRight, self.rightArray.count) ;
         Vector *v = [self.rightArray objectAtIndex:self.currRight] ;
+        NSLog(@"#### #### #### %d %d", self.currRight, self.rightArray.count) ;
         for(int i = 0; i < self.riskArray.count; i++){
             Cost *cost = [self.riskArray objectAtIndex:i] ;
-            if([cost.riskvecorid isEqualToString:v.vectorId]){
-                [self.tableArray addObject:cost] ;
+            if([cost.chanceVecorid isEqualToString:v.vectorId]){
+                if([@"" isEqualToString:self.filter]|| [cost.riskName rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [cost.riskCode rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [cost.riskType rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.beforeGailv] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.beforeAffect]rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.beforeAffectQi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.manaChengben] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.afterGailv] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.afterQi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.affectQi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.shouyi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.jingshouyi] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
+                   [[NSString stringWithFormat:@"%.2f", cost.bilv] rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0)
+                    [self.tableArray addObject:cost] ;
             }
             self.rightLabel.text = v.title ;
         }
     }
+
     [self.tableView reloadData] ;
 }
 

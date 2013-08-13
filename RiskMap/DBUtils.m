@@ -169,7 +169,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -233,7 +233,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -321,7 +321,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -406,7 +406,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -470,7 +470,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -538,7 +538,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -605,7 +605,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -668,7 +668,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -731,7 +731,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
@@ -806,7 +806,7 @@
     NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
     
     //使用NSData对象初始化
-    GDataXMLDocument *doc = [[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil];
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
     
     //获取根节点（Users）
     GDataXMLElement *rootElement = [doc rootElement];
