@@ -427,7 +427,48 @@ int MAX_SIZE = 35 ;
 - (void)handleLongPress:(MyLongPressGestureRecognizer *)gestureRecognizer{
     if ([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         
-        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:gestureRecognizer.context message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+        NSLog(@"######## %@", gestureRecognizer.context) ;
+        
+        NSString *text = @"" ;
+        
+        Matrix *matrix = [self.matrixArray objectAtIndex:self.currMatrix] ;
+        
+        NSString *yTitle = nil ;
+        NSString *xTitle = nil ;
+        
+        for(int m = 0; m < self.vectorArray.count; m++){
+            Vector *v = [self.vectorArray objectAtIndex:m] ;
+            if([v.vectorId isEqualToString:matrix.matrix_y]){
+                yTitle = v.title ;
+            }
+            if([v.vectorId isEqualToString:matrix.matrix_x]){
+                xTitle = v.title ;
+            }
+        }
+        
+        NSMutableArray *xArray = [DBUtils getRiskScore:matrix.matrix_x] ;
+        NSMutableArray *yArray = [DBUtils getRiskScore:matrix.matrix_y] ;
+        
+        for(int i = 0 ; i < xArray.count; i++){
+            Score *xScore = [xArray objectAtIndex:i] ;
+            Score *yScore = [yArray objectAtIndex:i] ;
+            if([xScore.riskid isEqualToString:gestureRecognizer.context]){
+                if(self.isManage){
+                    text = [NSString stringWithFormat:@"%@%@ %.2f\n", text, xTitle, xScore.scoreEnd] ;
+                }else{
+                    text = [NSString stringWithFormat:@"%@%@ %.2f\n", text, xTitle, xScore.scoreBefore] ;
+                }
+            }
+            if([yScore.riskid isEqualToString:gestureRecognizer.context]){
+                if(self.isManage){
+                    text = [NSString stringWithFormat:@"%@%@ %.2f\n", text, yTitle, yScore.scoreEnd] ;
+                }else{
+                    text = [NSString stringWithFormat:@"%@%@ %.2f\n", text, yTitle, yScore.scoreBefore] ;
+                }
+            }
+        }
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:[DBUtils getRisk:appDelegate.currProjectMap RiskId:gestureRecognizer.context] message:text delegate:self cancelButtonTitle:@"确认" otherButtonTitles:nil, nil];
         [alert show];
     }
 }
