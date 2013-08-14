@@ -669,6 +669,7 @@
 
 -(void) hideLoading
 {
+    NSLog(@"#### hideLoading") ;
     [self.loadingView removeFromSuperview] ;
 }
 

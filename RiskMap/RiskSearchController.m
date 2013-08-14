@@ -11,6 +11,9 @@
 #import "RiskSearchController.h"
 #import "RiskListCell.h"
 #import "Risk.h"
+#import "Dictype.h"
+#import "Vector.h"
+#import "Score.h"
 
 @interface RiskSearchController ()
 
@@ -31,7 +34,29 @@
 {
     [super viewDidLoad];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    NSMutableArray *allArray = [DBUtils getDictype] ;
+    self.dictArray = [[[NSMutableArray alloc] init] autorelease] ;
+    for(int i = 0; i < allArray.count; i++){
+        Dictype *type = [allArray objectAtIndex:i] ;
+        if([@"风险" isEqualToString:type.typeStr]){
+            [self.dictArray addObject:type] ;
+        }
+    }
+    self.currRiskType = 0 ;
+    self.currVector = 0 ;
+    self.currManage = 0 ;
+    self.currRange = 0 ;
+    self.currScore = 0.0 ;
+    
+    self.matrixArray = [DBUtils getProjectMatrix:appDelegate.currProjectMap] ;
+    self.vectorArray = [DBUtils getVector:appDelegate.currProjectMap] ;
     self.riskArray = [DBUtils getRisk:appDelegate.currProjectMap] ;
+    self.searchRiskArray = [[[NSMutableArray alloc] init] autorelease] ;
+    for(int i = 0; i < self.riskArray.count; i++){
+        Risk *r = [self.riskArray objectAtIndex:i] ;
+        [self.searchRiskArray addObject:r] ;
+    }
+    self.totalLabel.text = [NSString stringWithFormat:@"总计:%d", self.searchRiskArray.count] ;
     self.scrollView.contentSize = CGSizeMake(800, ScreenHeight - 135) ;
     self.riskTitleArray = [DBUtils getRiskType:appDelegate.currProjectMap] ;
     // Do any additional setup after loading the view from its nib.
@@ -49,6 +74,227 @@
     [appDelegate gotoLastPage] ;
 }
 
+- (IBAction) showRiskType:(id) sender
+{
+    self.currButton = 0 ;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:nil
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:nil, nil] ;
+    NSLog(@"#### %d", self.dictArray.count) ;
+    [actionSheet addButtonWithTitle:@"全部分类"] ;
+    for(int i = 0; i < self.dictArray.count; i++){
+        Dictype *type = [self.dictArray objectAtIndex:i] ;
+        [actionSheet addButtonWithTitle:type.title] ;
+    }
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionSheet showInView:self.view];
+}
+
+- (IBAction) showVector:(id) sender
+{
+    self.currButton = 1 ;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:nil
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:nil, nil] ;
+    NSLog(@"#### %d", self.vectorArray.count) ;
+    [actionSheet addButtonWithTitle:@"全部量表"] ;
+    for(int m = 0; m < self.vectorArray.count; m++){
+        Vector *v = [self.vectorArray objectAtIndex:m] ;
+       [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@-%@", v.title, v.theType]] ;
+    }
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionSheet showInView:self.view];
+}
+
+- (IBAction) showManage:(id) sender
+{
+    self.currButton = 2 ;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:nil
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:@"管理前", @"管理后", nil] ;
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionSheet showInView:self.view];
+}
+
+- (IBAction) showRange:(id) sender
+{
+    self.currButton = 3 ;
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:nil
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  destructiveButtonTitle:nil
+                                  otherButtonTitles:@">=", @"<=", nil] ;
+    actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
+    [actionSheet showInView:self.view];
+}
+
+- (IBAction) search:(id) sender
+{
+    //先清空
+    [self.searchRiskArray removeAllObjects] ;
+    for(int i = 0; i < self.riskArray.count; i++){
+        Risk *risk = [self.riskArray objectAtIndex:i] ;
+        //逐条过滤
+        //1 风险分类
+        if(self.currRiskType != 0){
+            //这时候需要看看是否是该类别
+            Dictype *dict = [self.dictArray objectAtIndex:(self.currRiskType - 1)] ;
+            if(![dict.dictypeId isEqualToString:risk.riskTypeId])
+                continue ;
+        }
+        
+        //2 顺序量表
+        BOOL isAdd = NO ;
+        if(self.currVector == 0){
+            for(int i = 0; i < self.vectorArray.count; i++){
+                Vector *v = [self.vectorArray objectAtIndex:i] ;
+                NSMutableArray *riskScoreArray = [DBUtils getRiskScore:v.vectorId] ;
+                NSLog(@"#### riskScoreArray %d %f", riskScoreArray.count, self.currScore) ;
+                for(int j = 0; j < riskScoreArray.count; j++){
+                    Score *score = [riskScoreArray objectAtIndex:j] ;
+                    if([score.riskid isEqualToString:risk.riskId]){
+                    if(self.currManage == 0){
+                        //管理前
+                        if(self.currRange == 0){
+                            // >=
+                            if(score.scoreBefore >= self.currScore){
+                                NSLog(@"#### score %f %f", score.scoreBefore, self.currScore) ;
+                                isAdd = YES ;
+                            }
+                        }else{
+                            // <=
+                            if(score.scoreBefore <= self.currScore){
+                                NSLog(@"#### score %f %f", score.scoreBefore, self.currScore) ;
+                                isAdd = YES ;
+                            }
+                        }
+                    }else{
+                        //管理后
+                        if(self.currRange == 0){
+                            // >=
+                            if(score.scoreEnd >= self.currScore){
+                                NSLog(@"#### score %f %f", score.scoreEnd, self.currScore) ;
+                                isAdd = YES ;
+                            }
+                        }else{
+                            // <=
+                            if(score.scoreEnd <= self.currScore){
+                                NSLog(@"#### score %f %f", score.scoreEnd, self.currScore) ;
+                                isAdd = YES ;
+                            }
+                        }
+                    }
+                    }
+                }
+            }
+        }else{
+            Vector *v = [self.vectorArray objectAtIndex:(self.currVector - 1)] ;
+            NSMutableArray *riskScoreArray = [DBUtils getRiskScore:v.vectorId] ;
+            NSLog(@"#### riskScoreArray %d", riskScoreArray.count) ;
+            for(int j = 0; j < riskScoreArray.count; j++){
+                Score *score = [riskScoreArray objectAtIndex:j] ;
+                if([score.riskid isEqualToString:risk.riskId]){
+                if(self.currManage == 0){
+                    //管理前
+                    if(self.currRange == 0){
+                        // >=
+                        if(score.scoreBefore >= self.currScore){
+                            isAdd = YES ;
+                        }
+                    }else{
+                        // <=
+                        if(score.scoreBefore <= self.currScore){
+                            isAdd = YES ;
+                        }
+                    }
+                }else{
+                    //管理后
+                    if(self.currRange == 0){
+                        // >=
+                        if(score.scoreEnd >= self.currScore){
+                            isAdd = YES ;
+                        }
+                    }else{
+                        // <=
+                        if(score.scoreEnd <= self.currScore){
+                            isAdd = YES ;
+                        }
+                    }
+                }
+                }
+            }
+
+        }
+        if(isAdd){
+            [self.searchRiskArray addObject:risk] ;
+        }
+    }
+    self.totalLabel.text = [NSString stringWithFormat:@"总计:%d", self.searchRiskArray.count] ;
+    [self.tableView reloadData] ;
+}
+
+#pragma mark -
+#pragma mark UIActionSheetDelegate Methods
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex < 0){
+        return ;
+    }
+    switch (self.currButton) {
+        case 0:{
+            self.currRiskType = buttonIndex ;
+            if(self.currRiskType == 0){
+                self.riskTypeLabel.text = @"全部分类" ;
+            }else{
+                Dictype *type = [self.dictArray objectAtIndex:(buttonIndex - 1)] ;
+                self.riskTypeLabel.text = type.title ;
+            }
+            break;
+        }
+        case 1:{
+            self.currVector = buttonIndex ;
+            if(self.currVector == 0){
+                self.riskVectorLabel.text = @"全部量表" ;
+            }else{
+                Vector *v = [self.vectorArray objectAtIndex:(buttonIndex - 1)] ;
+                self.riskVectorLabel.text = [NSString stringWithFormat:@"%@-%@", v.title, v.theType] ;
+            }
+            break ;
+        }
+        case 2:{
+            self.currManage = buttonIndex ;
+            if(self.currManage == 0){
+                [self.manageButton setTitle:@"管理前" forState:UIControlStateNormal] ;
+            }else{
+                [self.manageButton setTitle:@"管理后" forState:UIControlStateNormal] ;
+            }
+            break ;
+        }
+        case 3:{
+            self.currRange = buttonIndex ;
+            if(self.currRange == 0){
+                [self.rangeButton setTitle:@">=" forState:UIControlStateNormal] ;
+            }else{
+                [self.rangeButton setTitle:@"<=" forState:UIControlStateNormal] ;
+            }
+            break ;
+        }
+        default:
+            break;
+    }
+}
+
 #pragma mark -
 #pragma mark UITableViewDataSource Methods
 
@@ -58,8 +304,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.riskArray.count + 1 ;
-}\
+    return self.searchRiskArray.count + 1 ;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
            cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -76,7 +322,7 @@
     }
     
     if(row > 0){
-        Risk *risk = (Risk *)[self.riskArray objectAtIndex:(row - 1)];
+        Risk *risk = (Risk *)[self.searchRiskArray objectAtIndex:(row - 1)];
         //cell.riskType = risk.riskTypeId ;
         cell.riskTitle = risk.riskTitle ;
         for(int i = 0; i < self.riskTitleArray.count; i++){
@@ -102,6 +348,53 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil ;
+}
+
+#pragma mark -
+#pragma mark UITextFieldDelegate Methods
+
+- (void)keyboardWillShow:(NSNotification *)noti
+{
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    self.currScore = [textField.text floatValue] ;
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)theTextField
+{
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)theTextField
+{
+}
+
+-(BOOL)textField:(UITextField *)theTextField shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    if ([text isEqualToString:@"\n"]) {
+        self.currScore = [theTextField.text floatValue] ;
+        [theTextField resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([self.rangeField isFirstResponder] && [touch view] != self.rangeField) {
+        [self.rangeField resignFirstResponder];
+    }
+    [super touchesBegan:touches withEvent:event];
 }
 
 @end

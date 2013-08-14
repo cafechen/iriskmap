@@ -1425,10 +1425,10 @@
         while ([rs next]) {
             Dictype *dictype = [[Dictype alloc] init] ;
             dictype.dictypeId = [rs stringForColumn:@"id"] ;
-            dictype.fatherId = [rs stringForColumn:@"riskName"] ;
-            dictype.title = [rs stringForColumn:@"riskCode"] ;
-            dictype.typeStr = [rs stringForColumn:@"riskType"] ;
-            dictype.isDel = [[rs stringForColumn:@"beforeGailv"] intValue];
+            dictype.fatherId = [rs stringForColumn:@"fatherId"] ;
+            dictype.title = [rs stringForColumn:@"title"] ;
+            dictype.typeStr = [rs stringForColumn:@"typeStr"] ;
+            dictype.isDel = [[rs stringForColumn:@"isDel"] intValue];
             [result addObject:dictype] ;
             [dictype release] ;
         }
