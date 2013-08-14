@@ -163,6 +163,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    [self.totalLabel setText:[NSString stringWithFormat:@"总计:%d", self.tableArray.count]] ;
     return self.tableArray.count + 1;
 }
 

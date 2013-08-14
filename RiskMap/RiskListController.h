@@ -17,6 +17,7 @@
 @property (nonatomic, readwrite) int currTable;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
+@property (nonatomic, retain) IBOutlet UILabel *totalLabel;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
 @end

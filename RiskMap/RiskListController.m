@@ -85,9 +85,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     int count = 0 ;
     switch (self.currTable) {
-        case 0:
+        case 0:{
             count = self.riskArray.count + 1 ;
             break;
+        }
         case 1:
             count = self.factorArray.count + 1 ;
             break;
@@ -97,6 +98,7 @@
         default:
             break;
     }
+    [self.totalLabel setText:[NSString stringWithFormat:@"总计:%d", count - 1]] ;
     return count;
 }
 

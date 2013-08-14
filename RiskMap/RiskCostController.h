@@ -23,5 +23,6 @@
 @property (nonatomic, readwrite) int whichChange;
 @property (nonatomic, readwrite) int currLeft;
 @property (nonatomic, readwrite) int currRight;
+@property (nonatomic, retain) IBOutlet UILabel *totalLabel;
 
 @end
