@@ -18,6 +18,7 @@
 #import "RiskStatisController.h"
 #import "FileController.h"
 #import "InputController.h"
+#import "RiskSearchController.h"
 
 @implementation AppDelegate
 
@@ -179,6 +180,23 @@
     
     [self.navController pushViewController:riskListController animated:YES] ;
     NSLog(@"Goto Risk List Page End") ;
+}
+
+- (void) gotoRiskSearchPage
+{
+    NSLog(@"Goto Risk Search Page Start") ;
+    RiskSearchController *riskSearchController = nil;
+    
+    if(isIpad){
+        riskSearchController = [[[RiskSearchController alloc] initWithNibName:@"RiskSearchController_ipad" bundle:nil] autorelease];
+    }else if(isIPhone5){
+        riskSearchController = [[[RiskSearchController alloc] initWithNibName:@"RiskSearchController_iphone5" bundle:nil] autorelease];
+    }else{
+        riskSearchController = [[[RiskSearchController alloc] initWithNibName:@"RiskSearchController" bundle:nil] autorelease];
+    }
+    
+    [self.navController pushViewController:riskSearchController animated:YES] ;
+    NSLog(@"Goto Risk Search Page End") ;
 }
 
 - (void) gotoRiskHotPage

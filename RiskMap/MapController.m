@@ -545,6 +545,12 @@
     }
 }
 
+- (IBAction)gotoRiskSearch:(id)sender
+{
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    [appDelegate gotoRiskSearchPage] ;
+}
+
 - (IBAction)closeToolViewAction:(id)sender
 {
     [ASDepthModalViewController dismiss];
@@ -585,7 +591,7 @@
                                   delegate:self
                                   cancelButtonTitle:nil
                                   destructiveButtonTitle:nil
-                                  otherButtonTitles:@"返回地图", @"风险热图", @"地图信息", @"分类统计", @"风险成本", nil] ;
+                                  otherButtonTitles:@"返回地图", @"风险热图", @"地图信息", @"分类统计", @"风险成本", @"过滤器", nil] ;
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [actionSheet showInView:self.view];
 }
@@ -611,6 +617,9 @@
             break;
         case 4:
             [self gotoRiskCost:nil];
+            break;
+        case 5:
+            [self gotoRiskSearch:nil];
             break;
         default:
             break;

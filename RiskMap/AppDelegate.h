@@ -26,6 +26,7 @@
 - (void) gotoLastPage ;
 - (void) gotoLastFilePage ;
 - (void) gotoRiskListPage ;
+- (void) gotoRiskSearchPage ;
 - (void) gotoRiskHotPage ;
 - (void) gotoRiskCostPage ;
 - (void) gotoRiskSortPage ;
