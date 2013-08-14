@@ -49,7 +49,7 @@
 							<object class="IBUITableView" id="664179146">
 								<reference key="NSNextResponder" ref="771010487"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{800, 620}</string>
+								<string key="NSFrameSize">{1024, 600}</string>
 								<reference key="NSSuperview" ref="771010487"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="882787107"/>
@@ -68,7 +68,7 @@
 								<float key="IBUISectionFooterHeight">22</float>
 							</object>
 						</array>
-						<string key="NSFrame">{{0, 92}, {1024, 620}}</string>
+						<string key="NSFrame">{{0, 92}, {1024, 600}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="664179146"/>
@@ -76,6 +76,8 @@
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+						<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
+						<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
 						<double key="IBUIScrollIndicatorInsets.top">0.0</double>
 						<double key="IBUIScrollIndicatorInsets.bottom">0.0</double>
 						<double key="IBUIScrollIndicatorInsets.left">0.0</double>
@@ -313,9 +315,10 @@
 					<object class="IBUILabel" id="882787107">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 714}, {984, 34}}</string>
+						<string key="NSFrame">{{20, 700}, {984, 34}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
