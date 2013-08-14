@@ -27,4 +27,6 @@
 @property (nonatomic, readwrite) int offsetY;
 @property (nonatomic, readwrite) int mSize;
 
+- (void) showObject ;
+
 @end

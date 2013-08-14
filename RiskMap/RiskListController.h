@@ -10,10 +10,13 @@
 
 @interface RiskListController : UIViewController <UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate>
 @property (nonatomic, retain) NSMutableArray *riskArray;
-@property (nonatomic, retain) NSMutableArray *searchArray;
+@property (nonatomic, retain) NSMutableArray *objectArray;
+@property (nonatomic, retain) NSMutableArray *factorArray;
+@property (nonatomic, retain) NSMutableArray *targetArray;
 @property (nonatomic, retain) NSMutableArray *riskTitleArray;
+@property (nonatomic, readwrite) int currTable;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UITableView *tableView;
-@property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *segmentedControl;
 
 @end

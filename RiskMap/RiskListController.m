@@ -11,6 +11,8 @@
 #import "RiskListCell.h"
 #import "DBUtils.h"
 #import "Risk.h"
+#import "ProjectMap.h"
+#import "RiskFactorCell.h"
 
 @interface RiskListController ()
 
@@ -30,16 +32,34 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.currTable = 0 ;
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     self.riskArray = [DBUtils getRisk:appDelegate.currProjectMap] ;
-    self.searchArray = [[[NSMutableArray alloc] init] autorelease];
-    for(int i = 0; i < self.riskArray.count; i++){
-        Risk *risk = [self.riskArray objectAtIndex:i] ;
-        [self.searchArray addObject:risk] ;
+    self.objectArray = [DBUtils getProjectMap:appDelegate.currProjectMap] ;
+    self.factorArray = [[[NSMutableArray alloc] init] autorelease] ;
+    self.targetArray = [[[NSMutableArray alloc] init] autorelease] ;
+    for(int i = 0; i < self.objectArray.count; i++){
+        ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
+        if([@"因素" isEqualToString:pm.Obj_maptype]){
+            [self.factorArray addObject:pm];
+        }
+        if([@"目标" isEqualToString:pm.Obj_maptype]){
+            [self.targetArray addObject:pm];
+        }
     }
     self.riskTitleArray = [DBUtils getRiskType:appDelegate.currProjectMap] ;
     self.scrollView.contentSize = CGSizeMake(800, ScreenHeight - 135) ;
     // Do any additional setup after loading the view from its nib.
+    
+    [self.segmentedControl addTarget:self
+                              action:@selector(changeView:)
+                    forControlEvents:UIControlEventValueChanged];
+}
+
+- (void) changeView:(id)sender
+{
+    self.currTable = self.segmentedControl.selectedSegmentIndex ;
+    [self.tableView reloadData] ;
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,10 +83,43 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.searchArray.count + 1;
+    int count = 0 ;
+    switch (self.currTable) {
+        case 0:
+            count = self.riskArray.count + 1 ;
+            break;
+        case 1:
+            count = self.factorArray.count + 1 ;
+            break;
+        case 2:
+            count = self.targetArray.count + 1 ;
+            break;
+        default:
+            break;
+    }
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (self.currTable) {
+        case 0:
+            return [self tableView01:tableView cellForRowAtIndexPath:indexPath] ;
+            break;
+        case 1:
+            return [self tableView02:tableView cellForRowAtIndexPath:indexPath] ;
+            break;
+        case 2:
+            return [self tableView03:tableView cellForRowAtIndexPath:indexPath] ;
+            break;
+        default:
+            break;
+    }
+    return nil ;
+}
+
+
+- (UITableViewCell *)tableView01:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSUInteger row = [indexPath row];
@@ -81,7 +134,7 @@
     }
     
     if(row > 0){
-        Risk *risk = (Risk *)[self.searchArray objectAtIndex:(row - 1)];
+        Risk *risk = (Risk *)[self.riskArray objectAtIndex:(row - 1)];
         //cell.riskType = risk.riskTypeId ;
         cell.riskTitle = risk.riskTitle ;
         for(int i = 0; i < self.riskTitleArray.count; i++){
@@ -97,6 +150,57 @@
 	return cell;
 }
 
+- (UITableViewCell *)tableView02:(UITableView *)tableView
+           cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSUInteger row = [indexPath row];
+    
+    static NSString *TableSampleIdentifier = @"RiskFactorCellIdentifier";
+    
+    RiskFactorCell *cell = [tableView dequeueReusableCellWithIdentifier:
+                          TableSampleIdentifier];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"RiskFactorCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    
+    if(row > 0){
+        ProjectMap *pm = (ProjectMap *)[self.factorArray objectAtIndex:(row - 1)];
+        //cell.riskType = risk.riskTypeId ;
+        cell.title = pm.title ;
+        cell.type = pm.Obj_maptype ;
+        cell.remark = pm.Obj_remark ;
+    }
+    
+	return cell;
+}
+
+- (UITableViewCell *)tableView03:(UITableView *)tableView
+           cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSUInteger row = [indexPath row];
+    
+    static NSString *TableSampleIdentifier = @"RiskFactorCellIdentifier";
+    
+    RiskFactorCell *cell = [tableView dequeueReusableCellWithIdentifier:
+                            TableSampleIdentifier];
+    if (cell == nil) {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"RiskFactorCell" owner:self options:nil];
+        cell = [nib objectAtIndex:0];
+    }
+    
+    if(row > 0){
+        ProjectMap *pm = (ProjectMap *)[self.targetArray objectAtIndex:(row - 1)];
+        //cell.riskType = risk.riskTypeId ;
+        cell.title = pm.title ;
+        cell.type = pm.Obj_maptype ;
+        cell.remark = pm.Obj_remark ;
+    }
+    
+	return cell;
+}
+
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return NO;
@@ -109,65 +213,59 @@
     
 }
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
-{
-    NSLog(@"searchBarShouldBeginEditing") ;
-    [self.scrollView setUserInteractionEnabled:NO];
-    return YES ;
-}
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    NSLog(@"searchBarTextDidBeginEditing") ;
-}
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
-{
-    NSLog(@"searchBarShouldEndEditing") ;
-    return YES ;
-}
-- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
-{
-    [self reloadTable:searchBar.text];
-    NSLog(@"searchBarTextDidEndEditing [%@]", searchBar.text) ;
-}
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    NSLog(@"textDidChange") ;
-}
-- (BOOL)searchBar:(UISearchBar *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text NS_AVAILABLE_IOS(3_0)
-{
-    NSLog(@"shouldChangeTextInRange") ;
-    if([text isEqualToString:@"\n"]){
-        [searchBar resignFirstResponder];
-        [self reloadTable:searchBar.text];
+- (NSIndexPath *)tableView:(UITableView *)tableView
+  willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (self.currTable) {
+        case 0:
+            return [self tableView01:tableView willSelectRowAtIndexPath:indexPath];
+            break;
+        case 1:
+            return [self tableView02:tableView willSelectRowAtIndexPath:indexPath];
+            break;
+        case 2:
+            return [self tableView03:tableView willSelectRowAtIndexPath:indexPath];
+            break;
+        default:
+            break;
     }
-    return YES ;
+    return nil ;
 }
 
--(void) reloadTable:(NSString *)filter
-{
-    [self.searchArray removeAllObjects] ;
-    for(int i = 0; i < self.riskArray.count; i++){
-        Risk *risk = [self.riskArray objectAtIndex:i] ;
-        if([@"" isEqualToString:filter]||[risk.riskTitle rangeOfString:filter options:NSCaseInsensitiveSearch].length > 0 ||
-           [risk.riskTypeStr rangeOfString:filter options:NSCaseInsensitiveSearch].length > 0 ||
-           [risk.riskCode rangeOfString:filter options:NSCaseInsensitiveSearch].length > 0 ||
-           [risk.riskTypeId rangeOfString:filter options:NSCaseInsensitiveSearch].length > 0){
-            [self.searchArray addObject:risk] ;
-        }
+- (NSIndexPath *)tableView01:(UITableView *)tableView
+willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    if(row > 0){
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+        Risk *risk = [self.riskArray objectAtIndex:(row - 1)] ;
+        appDelegate.currDBID = [risk.riskId copy] ;
+        [appDelegate gotoLastMapPage] ;
     }
-    [self.tableView reloadData] ;
-
+    return nil ;
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    UITouch *touch = [[event allTouches] anyObject];
-    if ([self.searchBar isFirstResponder] && [touch view] != self.searchBar)
-    {
-        [self.scrollView setUserInteractionEnabled:YES];
-        [self.searchBar resignFirstResponder];
+- (NSIndexPath *)tableView02:(UITableView *)tableView
+willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    if(row > 0){
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+        ProjectMap *pm = [self.factorArray objectAtIndex:(row -1)] ;
+        appDelegate.currDBID = [pm.Obj_db_id copy] ;
+        [appDelegate gotoLastMapPage] ;
     }
-    [super touchesBegan:touches withEvent:event];
+    return nil ;
 }
+
+- (NSIndexPath *)tableView03:(UITableView *)tableView
+willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    if(row > 0){
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+        ProjectMap *pm = [self.targetArray objectAtIndex:(row -1)] ;
+        appDelegate.currDBID = [pm.Obj_db_id copy] ;
+        [appDelegate gotoLastMapPage] ;
+    }
+    return nil ;
+}
+
 
 @end

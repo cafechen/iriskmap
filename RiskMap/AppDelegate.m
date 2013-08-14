@@ -153,6 +153,17 @@
     NSLog(@"Goto Last File Page End") ;
 }
 
+- (void) gotoLastMapPage
+{
+    NSLog(@"Goto Last Map Page Start") ;
+    [self.navController popViewControllerAnimated:YES];
+    UIViewController *mapController = [self.navController.childViewControllers objectAtIndex:self.navController.childViewControllers.count - 1] ;
+    if([mapController isKindOfClass:[MapController class]]){
+        [(MapController *)mapController showObject] ;
+    }
+    NSLog(@"Goto Last Map Page End") ;
+}
+
 - (void) gotoRiskListPage
 {
     NSLog(@"Goto Risk List Page Start") ;

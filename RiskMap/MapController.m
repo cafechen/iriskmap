@@ -288,7 +288,7 @@
     NSArray *views = [self.mapView subviews] ;
     for(int i = 0; i < views.count; i++){
         UIView *v = (UIView *)[views objectAtIndex:i] ;
-        [v setAlpha:0.3] ;
+        [v setAlpha:0.1] ;
         if([v isKindOfClass:[UIButton class]]){
             UIButton *b = (UIButton *)v ;
             b.enabled = NO ;
@@ -585,7 +585,7 @@
                                   delegate:self
                                   cancelButtonTitle:nil
                                   destructiveButtonTitle:nil
-                                  otherButtonTitles:@"返回地图", @"风险热图", @"风险列表", @"分类统计", @"风险成本", nil] ;
+                                  otherButtonTitles:@"返回地图", @"风险热图", @"地图信息", @"分类统计", @"风险成本", nil] ;
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [actionSheet showInView:self.view];
 }
@@ -626,5 +626,30 @@
     NSLog(@"#### willDismissWithButtonIndex") ;
 }
 
+- (void) showObject
+{
+    self.scrollView.hidden = NO ;
+    self.scrollView2.hidden = YES ;
+    [self.backItem setTitle:@"返回地图"] ;
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    NSLog(@"#### %@", appDelegate.currDBID) ;
+    for(int i = 0; i < self.mapView.subviews.count; i++){
+        UIView *v = [self.mapView.subviews objectAtIndex:i] ;
+        [v setAlpha:0.1] ;
+        if([v isKindOfClass:[UIButton class]]){
+            UIButton *b = (UIButton *)v ;
+            b.enabled = NO ;
+        }
+    }
+    for(int i = 0 ; i < self.objectArray.count; i++){
+        ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
+        if([pm.Obj_db_id isEqualToString:appDelegate.currDBID]){
+            UIButton *button = (UIButton *)[self.mapView viewWithTag:i] ;
+            button.enabled = NO ;
+            [button setAlpha:1.0] ;
+        }
+    }
+}
 
 @end

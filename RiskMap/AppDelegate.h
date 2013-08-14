@@ -15,6 +15,7 @@
 @property (strong, nonatomic) UINavigationController *navController;
 
 @property (nonatomic, retain) NSString *currProjectMap;
+@property (nonatomic, retain) NSString *currDBID;
 
 @property (nonatomic, readwrite) int currMatrix;
 
@@ -30,5 +31,5 @@
 - (void) gotoRiskSortPage ;
 - (void) gotoRiskStatisPage ;
 - (void) gotoInputPage ;
-
+- (void) gotoLastMapPage ;
 @end

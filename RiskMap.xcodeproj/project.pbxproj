@@ -102,6 +102,8 @@
 		B0AE3C4A1797DB9B00B36295 /* RiskSortController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0AE3C481797DB9B00B36295 /* RiskSortController.xib */; };
 		B0AE3C4E1797E06600B36295 /* RiskStatisController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AE3C4C1797E06600B36295 /* RiskStatisController.m */; };
 		B0AE3C4F1797E06600B36295 /* RiskStatisController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0AE3C4D1797E06600B36295 /* RiskStatisController.xib */; };
+		B0B0604E17BB1EA300B0051A /* RiskFactorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B0604D17BB1EA300B0051A /* RiskFactorCell.m */; };
+		B0B0605017BB1ED100B0051A /* RiskFactorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B0604F17BB1ED100B0051A /* RiskFactorCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -252,6 +254,9 @@
 		B0AE3C4B1797E06600B36295 /* RiskStatisController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiskStatisController.h; sourceTree = "<group>"; };
 		B0AE3C4C1797E06600B36295 /* RiskStatisController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiskStatisController.m; sourceTree = "<group>"; };
 		B0AE3C4D1797E06600B36295 /* RiskStatisController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiskStatisController.xib; sourceTree = "<group>"; };
+		B0B0604C17BB1EA300B0051A /* RiskFactorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiskFactorCell.h; sourceTree = "<group>"; };
+		B0B0604D17BB1EA300B0051A /* RiskFactorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiskFactorCell.m; sourceTree = "<group>"; };
+		B0B0604F17BB1ED100B0051A /* RiskFactorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiskFactorCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -503,6 +508,9 @@
 				B02224DC1792DC5B005C9CF7 /* RiskCostCell.h */,
 				B02224DD1792DC5B005C9CF7 /* RiskCostCell.m */,
 				B02224DF1792DC70005C9CF7 /* RiskCostCell.xib */,
+				B0B0604C17BB1EA300B0051A /* RiskFactorCell.h */,
+				B0B0604D17BB1EA300B0051A /* RiskFactorCell.m */,
+				B0B0604F17BB1ED100B0051A /* RiskFactorCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -620,6 +628,7 @@
 				046A93D317B059C300693F52 /* RiskSortController_iphone5.xib in Resources */,
 				046A93D417B059C300693F52 /* RiskStatisController_iphone5.xib in Resources */,
 				B039916D17B498EA00A64DE0 /* blueball.png in Resources */,
+				B0B0605017BB1ED100B0051A /* RiskFactorCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -678,6 +687,7 @@
 				04E0BF7217AF68A6002743EF /* ZipArchive.m in Sources */,
 				04FFC5F617B6C66900A91F7C /* Project.m in Sources */,
 				041250A517B6F9FF00A62112 /* Vector.m in Sources */,
+				B0B0604E17BB1EA300B0051A /* RiskFactorCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
