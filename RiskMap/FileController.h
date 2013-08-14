@@ -10,9 +10,13 @@
 
 @interface FileController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, retain) UIAlertView *alertView;
+
 @property (nonatomic, retain) NSMutableArray *dirArray;
 
 @property (nonatomic, retain) IBOutlet UITableView *dirTableView;
+
+@property (nonatomic, retain) IBOutlet UIView *loadingView ;
 
 - (void) reloadFile;
 

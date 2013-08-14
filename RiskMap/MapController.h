@@ -26,7 +26,7 @@
 @property (nonatomic, readwrite) int offsetX;
 @property (nonatomic, readwrite) int offsetY;
 @property (nonatomic, readwrite) int mSize;
-
+@property (nonatomic, retain) IBOutlet UIView *loadingView ;
 - (void) showObject ;
 
 @end

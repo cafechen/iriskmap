@@ -100,6 +100,9 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView
   willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [NSThread detachNewThreadSelector:@selector(showLoading) toTarget:self withObject:nil];
+    
     NSUInteger row = [indexPath row];
     Directory *dir = [self.dirArray objectAtIndex:row] ;
     //首先判断是否是目录
@@ -107,6 +110,7 @@
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
         appDelegate.currProjectMap = [dir.dirId copy];
         [appDelegate gotoMapPage] ;
+        [NSThread detachNewThreadSelector:@selector(hideLoading) toTarget:self withObject:nil];
         return nil ;
     }else{
         //加载或者收起更多的目录
@@ -141,7 +145,18 @@
         }
         [self.dirTableView reloadData] ;
     }
+    [NSThread detachNewThreadSelector:@selector(hideLoading) toTarget:self withObject:nil];
     return nil ;
+}
+
+-(void) showLoading
+{
+    [self.view addSubview:self.loadingView] ;
+}
+
+-(void) hideLoading
+{
+    [self.loadingView removeFromSuperview] ;
 }
 
 

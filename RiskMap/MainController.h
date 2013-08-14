@@ -14,4 +14,6 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *dirTableView;
 
+@property (nonatomic, retain) IBOutlet UIView *loadingView ;
+
 @end

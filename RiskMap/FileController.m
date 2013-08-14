@@ -118,6 +118,8 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView
   willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    [NSThread detachNewThreadSelector:@selector(showLoading) toTarget:self withObject:nil];
+    
     NSUInteger row = [indexPath row];
     
     Directory *dir = [self.dirArray objectAtIndex:row] ;
@@ -157,14 +159,24 @@
             [DBUtils updateProjectVector] ;
             AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
             //直接跳转到地图
+            [NSThread detachNewThreadSelector:@selector(hideLoading) toTarget:self withObject:nil];
             [appDelegate gotoMainPage] ;
         }else{
             NSLog(@"解压失败");
         }
     }
-    
+    [NSThread detachNewThreadSelector:@selector(hideLoading) toTarget:self withObject:nil];
     return nil ;
 }
 
+-(void) showLoading
+{
+    [self.view addSubview:self.loadingView] ;
+}
+
+-(void) hideLoading
+{
+    [self.loadingView removeFromSuperview] ;
+}
 
 @end

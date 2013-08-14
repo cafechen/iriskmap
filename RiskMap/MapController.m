@@ -48,6 +48,7 @@
 
 - (void) initMap
 {
+    [NSThread detachNewThreadSelector:@selector(showLoading) toTarget:self withObject:nil];
     [self.scrollView setZoomScale:1.0 animated:NO] ;
     [self.scrollView2 setZoomScale:1.0 animated:NO] ;
     self.scrollView2.hidden = YES ;
@@ -96,7 +97,7 @@
             [button setBackgroundImage:image2 forState:UIControlStateDisabled] ;
             //button.backgroundColor = [UIColor redColor] ;
             
-            button.tag = i ;
+            button.tag = i + 100;
             
             //添加长按事件
             //if(![@"" isEqualToString:pm.linkPics]){
@@ -150,7 +151,7 @@
             [button setBackgroundImage:image2 forState:UIControlStateDisabled] ;
             //button.backgroundColor = [UIColor redColor] ;
             
-            button.tag = i ;
+            button.tag = i + 100;
             
             //添加长按事件
             if(![@"" isEqualToString:pm.linkPics]){
@@ -220,6 +221,7 @@
     
     self.scrollView.contentSize = CGSizeMake(width, height) ;
     self.mapView.frame = CGRectMake(0, 0, width, height) ;
+    [NSThread detachNewThreadSelector:@selector(hideLoading) toTarget:self withObject:nil];
 }
 
 - (void)handleLongPress:(MyLongPressGestureRecognizer *)gestureRecognizer{
@@ -255,8 +257,7 @@
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
     if(!project.show_cart){
-        ProjectMap *pm = [self.objectArray objectAtIndex:[gestureRecognizer.context intValue]] ;
-        NSLog(@"showCardPic [%d][%@]", [gestureRecognizer.context intValue], pm.cardPic) ;
+        ProjectMap *pm = [self.objectArray objectAtIndex:([gestureRecognizer.context intValue] - 100)] ;
         [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.cardPic]]] ;
         self.scrollView.hidden = YES ;
         self.scrollView2.hidden = NO ;
@@ -271,7 +272,7 @@
 {
     [self.backItem setTitle:@"返回地图"] ;
     
-    ProjectMap *pm = [self.objectArray objectAtIndex:[sender tag]] ;
+    ProjectMap *pm = [self.objectArray objectAtIndex:([sender tag] - 100)] ;
     
     if(![@"" isEqualToString: pm.cardPic]){
         //这说明是五角星
@@ -315,7 +316,7 @@
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if([proj.Obj_db_id isEqualToString:pm.Obj_other1]){
             NSLog(@"#### obj_other1 [%@]", pm.Obj_other1) ;
-            UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            UIButton *v = (UIButton *)[self.mapView viewWithTag:(i+100)] ;
             [v setAlpha:1.0] ;
         }
     }
@@ -327,7 +328,7 @@
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isShow){
-            UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            UIButton *v = (UIButton *)[self.mapView viewWithTag:(i+100)] ;
             [v setAlpha:1.0] ;
             [self showRiskStar:pm] ;
             [self markLine:pm] ;
@@ -368,7 +369,7 @@
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if([afterObjectId isEqualToString:pm.objectId] || [beforeObjectId isEqualToString:pm.objectId]){
-            UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            UIButton *v = (UIButton *)[self.mapView viewWithTag:(i+100)] ;
             NSLog(@"####4321 [%@][%@]", pm.objectId, thePM.objectId) ;
             [v setAlpha:1.0] ;
             [self showRiskStar:pm] ;
@@ -402,7 +403,7 @@
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if([afterObjectId isEqualToString:pm.objectId] || [beforeObjectId isEqualToString:pm.objectId]){
-            UIButton *v = (UIButton *)[self.mapView viewWithTag:i] ;
+            UIButton *v = (UIButton *)[self.mapView viewWithTag:(i+100)] ;
             NSLog(@"####4321 [%@][%@]", pm.objectId, thePM.objectId) ;
             [v setAlpha:1.0] ;
             [self showRiskStar:pm] ;
@@ -654,11 +655,21 @@
     for(int i = 0 ; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if([pm.Obj_db_id isEqualToString:appDelegate.currDBID]){
-            UIButton *button = (UIButton *)[self.mapView viewWithTag:i] ;
+            UIButton *button = (UIButton *)[self.mapView viewWithTag:(i+100)] ;
             button.enabled = NO ;
             [button setAlpha:1.0] ;
         }
     }
+}
+
+-(void) showLoading
+{
+    [self.view addSubview:self.loadingView] ;
+}
+
+-(void) hideLoading
+{
+    [self.loadingView removeFromSuperview] ;
 }
 
 @end
