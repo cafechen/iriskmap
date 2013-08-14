@@ -73,7 +73,7 @@
     
     int left = 151 ;
     if(isIpad){
-        left = 301 ;
+        left = 201 ;
     }
     
     int top = 63 ;
