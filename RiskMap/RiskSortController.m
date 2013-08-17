@@ -152,7 +152,7 @@
         b.frame = CGRectMake(left, top + (i)*height + height/2 - buttonheight/2, b.frame.size.width, b.frame.size.height) ;
         NSLog(@"#### b [%f][%f][%f][%f]", b.frame.origin.x, b.frame.origin.y, b.frame.size.width, b.frame.size.height) ;
         UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(b.frame.origin.x + b.frame.size.width + 5, b.frame.origin.y, self.widthImageView.frame.size.width - b.frame.size.width, buttonheight)] ;
-        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, b.frame.origin.y, left, buttonheight)] ;
+        UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(0, b.frame.origin.y, left - 5, buttonheight)] ;
         title = [labels objectAtIndex:(buttons.count - i - 1)] ;
         label1.text = [title substringToIndex:5];
         label1.textAlignment = UITextAlignmentLeft;
