@@ -57,7 +57,7 @@
         [self.searchRiskArray addObject:r] ;
     }
     self.totalLabel.text = [NSString stringWithFormat:@"总计:%d", self.searchRiskArray.count] ;
-    self.scrollView.contentSize = CGSizeMake(800, ScreenHeight - 135) ;
+    self.scrollView.contentSize = CGSizeMake(1024, ScreenHeight - 135) ;
     self.riskTitleArray = [DBUtils getRiskType:appDelegate.currProjectMap] ;
     // Do any additional setup after loading the view from its nib.
 }

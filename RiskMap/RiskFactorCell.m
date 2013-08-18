@@ -34,6 +34,7 @@
     if (![t isEqualToString:title]) {
         title = [t copy];
         self.titleLabel.text = title;
+        self.titleLabel.textAlignment =  NSTextAlignmentLeft ;
     }
 }
 
@@ -41,6 +42,7 @@
     if (![t isEqualToString:type]) {
         type = [t copy];
         self.typeLabel.text = type;
+        self.titleLabel.textAlignment =  NSTextAlignmentLeft ;
     }
 }
 

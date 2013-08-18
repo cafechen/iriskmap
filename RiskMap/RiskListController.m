@@ -48,7 +48,7 @@
         }
     }
     self.riskTitleArray = [DBUtils getRiskType:appDelegate.currProjectMap] ;
-    self.scrollView.contentSize = CGSizeMake(800, ScreenHeight - 135) ;
+    self.scrollView.contentSize = CGSizeMake(1024, ScreenHeight - 135) ;
     // Do any additional setup after loading the view from its nib.
     
     [self.segmentedControl addTarget:self
@@ -147,6 +147,11 @@
         }
         cell.riskTypeStr = risk.riskTypeStr ;
         cell.riskCode = risk.riskCode ;
+        cell.riskTitleLabel.textAlignment = UITextAlignmentLeft ;
+        cell.riskTitleLabel.textColor = [UIColor blackColor];
+        cell.riskCodeLabel.textColor = [UIColor blackColor];
+        cell.riskTypeLabel.textColor = [UIColor blackColor];
+        cell.riskTypeStrLabel.textColor = [UIColor blackColor];
     }
     
 	return cell;
@@ -172,6 +177,10 @@
         cell.title = pm.title ;
         cell.type = pm.Obj_maptype ;
         cell.remark = pm.Obj_remark ;
+        cell.titleLabel.textAlignment = UITextAlignmentLeft ;
+        cell.remarkLabel.textAlignment = UITextAlignmentLeft ;
+        cell.titleLabel.textColor = [UIColor blackColor];
+        cell.remarkLabel.textColor = [UIColor blackColor];
     }
     
 	return cell;
@@ -197,6 +206,10 @@
         cell.title = pm.title ;
         cell.type = pm.Obj_maptype ;
         cell.remark = pm.Obj_remark ;
+        cell.titleLabel.textAlignment = UITextAlignmentLeft ;
+        cell.remarkLabel.textAlignment = UITextAlignmentLeft ;
+        cell.titleLabel.textColor = [UIColor blackColor];
+        cell.remarkLabel.textColor = [UIColor blackColor];
     }
     
 	return cell;
