@@ -50,7 +50,7 @@
 							<object class="IBUITableView" id="870797982">
 								<reference key="NSNextResponder" ref="187990579"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrameSize">{800, 206}</string>
+								<string key="NSFrameSize">{1024, 206}</string>
 								<reference key="NSSuperview" ref="187990579"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="42450688"/>
@@ -149,7 +149,7 @@
 						<string key="NSFrame">{{0, 46}, {52, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="577878858"/>
+						<reference key="NSNextKeyView" ref="1030656929"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -299,7 +299,7 @@
 						<string key="NSFrame">{{508, 46}, {60, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="187990579"/>
+						<reference key="NSNextKeyView" ref="121881392"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -337,13 +337,13 @@
 						<reference key="IBUIFont" ref="52271985"/>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 					</object>
-					<object class="IBUIImageView" id="577878858">
+					<object class="IBUIImageView" id="121881392">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 69.5}, {568, 1}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="1030656929"/>
+						<reference key="NSNextKeyView" ref="187990579"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -562,7 +562,7 @@
 							<reference ref="45942145"/>
 							<reference ref="138398853"/>
 							<reference ref="42450688"/>
-							<reference ref="577878858"/>
+							<reference ref="121881392"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -664,7 +664,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">44</int>
-						<reference key="object" ref="577878858"/>
+						<reference key="object" ref="121881392"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</array>
@@ -703,40 +703,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RiskSearchController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="gotoLastPageButtonAction:">id</string>
-						<string key="search:">id</string>
-						<string key="showManage:">id</string>
-						<string key="showRange:">id</string>
-						<string key="showRiskType:">id</string>
-						<string key="showVector:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="gotoLastPageButtonAction:">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="search:">
-							<string key="name">search:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showManage:">
-							<string key="name">showManage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRange:">
-							<string key="name">showRange:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRiskType:">
-							<string key="name">showRiskType:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showVector:">
-							<string key="name">showVector:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="manageButton">UIButton</string>
 						<string key="rangeButton">UIButton</string>

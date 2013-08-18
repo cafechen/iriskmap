@@ -152,7 +152,7 @@
 {
     NSLog(@"Goto Last File Page Start") ;
     [self.navController popViewControllerAnimated:YES];
-    UIViewController *fileController = [self.navController.childViewControllers objectAtIndex:0] ;
+    UIViewController *fileController = [self.navController visibleViewController] ;
     if([fileController isKindOfClass:[FileController class]]){
         [(FileController *)fileController reloadFile] ;
     }
@@ -163,7 +163,7 @@
 {
     NSLog(@"Goto Last Map Page Start") ;
     [self.navController popViewControllerAnimated:YES];
-    UIViewController *mapController = [self.navController.childViewControllers objectAtIndex:self.navController.childViewControllers.count - 1] ;
+    UIViewController *mapController = [self.navController visibleViewController] ;
     if([mapController isKindOfClass:[MapController class]]){
         [(MapController *)mapController showObject] ;
     }

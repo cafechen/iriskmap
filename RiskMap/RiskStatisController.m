@@ -65,8 +65,15 @@
     
     //绘制矩阵
     //计算矩阵的宽度
-    int cellw = (ScreenWidth - 40)/self.maxWidth ;
-    int cellh = (ScreenHeight - 60 - 44)/self.maxHeight ;
+    int cellw = 0 ;
+    int cellh = 0 ;
+    if(isIpad){
+        cellw = (ScreenWidth - 60)/self.maxWidth ;
+        cellh = (ScreenHeight - 80 - 44)/self.maxHeight ;
+    }else{
+        cellw = (ScreenWidth - 40)/self.maxWidth ;
+        cellh = (ScreenHeight - 60 - 44)/self.maxHeight ;
+    }
     
     int index = 0 ;
     for(int i = 0; i < self.riskTitleArray.count; i++){
@@ -77,11 +84,17 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         NSLog(@"WIDTH [%f] HEIGHT [%f]", ScreenWidth, ScreenHeight) ;
         button.frame = CGRectMake(20 + cellw*index + cellw/4, ScreenHeight - 20 - 20, cellw/2, -cellh*risk.statis) ;
+        if(isIpad){
+            button.frame = CGRectOffset(button.frame, 0, -20) ;
+        }
         [button setBackgroundColor:[UIColor blueColor]] ;
         [button setEnabled:NO] ;
         [self.view addSubview:button] ;
         //加上UILabel
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20 + cellw*index + cellw/4, ScreenHeight - 20, cellw/2, -20)] ;
+        if(isIpad){
+            label.frame = CGRectOffset(label.frame, 0, -20) ;
+        }
         label.text = risk.riskTitle ;
         [self.view addSubview:label] ;
         label.textAlignment = UITextAlignmentCenter;
@@ -90,13 +103,16 @@
         }else{
             [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
         }
-        [label setNumberOfLines:0];  
+        [label setNumberOfLines:2];
         index++ ;
     }
     
     //绘制纵坐标
     for(int i = 0; i < self.maxHeight; i++){
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, ScreenHeight - 50 - (i + 1)*cellh, 20, 20)] ;
+        if(isIpad){
+            label.frame = CGRectOffset(label.frame, 20, -20) ;
+        }
         label.text = [NSString stringWithFormat:@"%d", i + 1] ;
         [label setBackgroundColor:[UIColor clearColor]] ;
         [self.view addSubview:label] ;

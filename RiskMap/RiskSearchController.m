@@ -345,6 +345,12 @@
         }
         cell.riskTypeStr = risk.riskTypeStr ;
         cell.riskCode = risk.riskCode ;
+        
+        cell.riskTitleLabel.textAlignment = UITextAlignmentLeft ;
+        cell.riskTitleLabel.textColor = [UIColor blackColor];
+        cell.riskCodeLabel.textColor = [UIColor blackColor];
+        cell.riskTypeLabel.textColor = [UIColor blackColor];
+        cell.riskTypeStrLabel.textColor = [UIColor blackColor];
     }
     
 	return cell;
