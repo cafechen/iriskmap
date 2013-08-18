@@ -177,33 +177,15 @@
                     if([score.riskid isEqualToString:risk.riskId]){
                     if(self.currManage == 0){
                         //管理前
-                        if(self.currRange == 0){
-                            // >=
-                            if(score.scoreBefore >= self.currScore){
-                                NSLog(@"#### score %f %f", score.scoreBefore, self.currScore) ;
-                                isAdd = YES ;
-                            }
-                        }else{
-                            // <=
-                            if(score.scoreBefore <= self.currScore){
-                                NSLog(@"#### score %f %f", score.scoreBefore, self.currScore) ;
-                                isAdd = YES ;
-                            }
+                        if(score.scoreBefore >= [self.rangeFieldSmail.text floatValue] &&
+                           score.scoreBefore <= [self.rangeFieldBig.text floatValue]){
+                            isAdd = YES ;
                         }
                     }else{
                         //管理后
-                        if(self.currRange == 0){
-                            // >=
-                            if(score.scoreEnd >= self.currScore){
-                                NSLog(@"#### score %f %f", score.scoreEnd, self.currScore) ;
-                                isAdd = YES ;
-                            }
-                        }else{
-                            // <=
-                            if(score.scoreEnd <= self.currScore){
-                                NSLog(@"#### score %f %f", score.scoreEnd, self.currScore) ;
-                                isAdd = YES ;
-                            }
+                        if(score.scoreEnd >= [self.rangeFieldSmail.text floatValue] &&
+                           score.scoreEnd <= [self.rangeFieldBig.text floatValue]){
+                            isAdd = YES ;
                         }
                     }
                     }
@@ -216,33 +198,19 @@
             for(int j = 0; j < riskScoreArray.count; j++){
                 Score *score = [riskScoreArray objectAtIndex:j] ;
                 if([score.riskid isEqualToString:risk.riskId]){
-                if(self.currManage == 0){
-                    //管理前
-                    if(self.currRange == 0){
-                        // >=
-                        if(score.scoreBefore >= self.currScore){
+                    if(self.currManage == 0){
+                        //管理前
+                        if(score.scoreBefore >= [self.rangeFieldSmail.text floatValue] &&
+                           score.scoreBefore <= [self.rangeFieldBig.text floatValue]){
                             isAdd = YES ;
                         }
                     }else{
-                        // <=
-                        if(score.scoreBefore <= self.currScore){
+                        //管理后
+                        if(score.scoreEnd >= [self.rangeFieldSmail.text floatValue] &&
+                           score.scoreEnd <= [self.rangeFieldBig.text floatValue]){
                             isAdd = YES ;
                         }
                     }
-                }else{
-                    //管理后
-                    if(self.currRange == 0){
-                        // >=
-                        if(score.scoreEnd >= self.currScore){
-                            isAdd = YES ;
-                        }
-                    }else{
-                        // <=
-                        if(score.scoreEnd <= self.currScore){
-                            isAdd = YES ;
-                        }
-                    }
-                }
                 }
             }
 
@@ -409,8 +377,11 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [[event allTouches] anyObject];
-    if ([self.rangeField isFirstResponder] && [touch view] != self.rangeField) {
-        [self.rangeField resignFirstResponder];
+    if ([self.rangeFieldSmail isFirstResponder] && [touch view] != self.rangeFieldSmail) {
+        [self.rangeFieldSmail resignFirstResponder];
+    }
+    if ([self.rangeFieldBig isFirstResponder] && [touch view] != self.rangeFieldBig) {
+        [self.rangeFieldBig resignFirstResponder];
     }
     [super touchesBegan:touches withEvent:event];
 }

@@ -29,5 +29,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *totalLabel;
 @property (nonatomic, retain) IBOutlet UIButton *manageButton;
 @property (nonatomic, retain) IBOutlet UIButton *rangeButton;
-@property (nonatomic, retain) IBOutlet UITextField *rangeField;
+@property (nonatomic, retain) IBOutlet UITextField *rangeFieldSmail;
+@property (nonatomic, retain) IBOutlet UITextField *rangeFieldBig;
 @end
