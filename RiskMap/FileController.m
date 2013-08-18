@@ -27,6 +27,18 @@
     return self;
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    BOOL shouldAutorotate = NO;
+    
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft
+        || interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        
+        shouldAutorotate = YES;
+    }
+    
+    return shouldAutorotate;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
