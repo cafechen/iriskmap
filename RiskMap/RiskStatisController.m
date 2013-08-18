@@ -91,19 +91,22 @@
         [button setEnabled:NO] ;
         [self.view addSubview:button] ;
         //加上UILabel
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20 + cellw*index + cellw/4, ScreenHeight - 20, cellw/2, -20)] ;
+        UILabel *label = nil;
         if(isIpad){
-            label.frame = CGRectOffset(label.frame, 0, -20) ;
+            label = [[UILabel alloc] initWithFrame:CGRectMake(20 + cellw*index + cellw/4, ScreenHeight - 20, cellw/2, -40)] ;
+        }else{
+            label = [[UILabel alloc] initWithFrame:CGRectMake(20 + cellw*index + cellw/4, ScreenHeight - 20, cellw/2, -20)] ;
         }
         label.text = risk.riskTitle ;
         [self.view addSubview:label] ;
+        label.lineBreakMode = UILineBreakModeWordWrap;
         label.textAlignment = UITextAlignmentCenter;
+        UIFont *font = [UIFont fontWithName:@"Arial" size:8];
         if(isIpad){
-            [label setFont:[UIFont fontWithName:@"Arial" size:14]] ;
-        }else{
-            [label setFont:[UIFont fontWithName:@"Arial" size:8]] ;
+            font = [UIFont fontWithName:@"Arial" size:12];
         }
-        [label setNumberOfLines:2];
+        [label setFont:font] ;
+        [label setNumberOfLines:0];
         index++ ;
     }
     
