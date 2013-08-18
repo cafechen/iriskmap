@@ -196,19 +196,35 @@
     if(row > 0){
         Cost *cost = (Cost *)[self.tableArray objectAtIndex:(row - 1)];
         cell.riskNameLabel.text = cost.riskName ;
+        cell.riskNameLabel.textColor = [UIColor blackColor] ;
         cell.riskCodeLabel.text = cost.riskCode ;
+        cell.riskCodeLabel.textColor = [UIColor blackColor] ;
         cell.riskTypeLabel.text = cost.riskType ;
-        cell.beforeGailvLabel.text = [NSString stringWithFormat:@"%.2f", cost.beforeGailv] ;
-        cell.beforeAffectLabel.text = [NSString stringWithFormat:@"%.2f", cost.beforeAffect] ;
-        cell.beforeAffectQiLabel.text = [NSString stringWithFormat:@"%.2f", cost.beforeAffectQi] ;
-        cell.manaChengbenLabel.text = [NSString stringWithFormat:@"%.2f", cost.manaChengben] ;
-        cell.afterGailvLabel.text = [NSString stringWithFormat:@"%.2f", cost.afterGailv] ;
-        cell.afterAffectLabel.text = [NSString stringWithFormat:@"%.2f", cost.afterAffect] ;
-        cell.afterQiLabel.text = [NSString stringWithFormat:@"%.2f", cost.afterQi] ;
-        cell.affectQiLabel.text = [NSString stringWithFormat:@"%.2f", cost.affectQi] ;
-        cell.shouyiLabel.text = [NSString stringWithFormat:@"%.2f", cost.shouyi] ;
-        cell.jingshouyiLabel.text = [NSString stringWithFormat:@"%.2f", cost.jingshouyi] ;
-        cell.bilvLabel.text = [NSString stringWithFormat:@"%.2f", cost.bilv] ;
+        cell.riskTypeLabel.textColor = [UIColor blackColor] ;
+        NSNumberFormatter* numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
+        [numberFormatter setPositiveFormat:@"###,##0.00;"];
+        cell.beforeGailvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.beforeGailv]] ;
+        cell.beforeGailvLabel.textColor = [UIColor blackColor] ;
+        cell.beforeAffectLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.beforeAffect]] ;
+        cell.beforeAffectLabel.textColor = [UIColor blackColor] ;
+        cell.beforeAffectQiLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.beforeAffectQi]] ;
+        cell.beforeAffectQiLabel.textColor = [UIColor blackColor] ;
+        cell.manaChengbenLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.manaChengben]] ;
+        cell.manaChengbenLabel.textColor = [UIColor blackColor] ;
+        cell.afterGailvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.afterGailv]] ;
+        cell.afterGailvLabel.textColor = [UIColor blackColor] ;
+        cell.afterAffectLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.afterAffect]] ;
+        cell.afterAffectLabel.textColor = [UIColor blackColor] ;
+        cell.afterQiLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.afterQi]] ;
+        cell.afterQiLabel.textColor = [UIColor blackColor] ;
+        cell.affectQiLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.affectQi]] ;
+        cell.affectQiLabel.textColor = [UIColor blackColor] ;
+        cell.shouyiLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.shouyi]] ;
+        cell.shouyiLabel.textColor = [UIColor blackColor] ;
+        cell.jingshouyiLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.jingshouyi]] ;
+        cell.jingshouyiLabel.textColor = [UIColor blackColor] ;
+        cell.bilvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.bilv]] ;
+        cell.bilvLabel.textColor = [UIColor blackColor] ;
     }
     
 	return cell;
