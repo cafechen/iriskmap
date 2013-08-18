@@ -308,6 +308,9 @@
         }
     }
     
+    UIButton *v = (UIButton *)[self.mapView viewWithTag:(self.target + 100)] ;
+    [v setAlpha:1.0] ;
+    
     pm.isShow = !pm.isShow ;
     
     //将所有的线重置
