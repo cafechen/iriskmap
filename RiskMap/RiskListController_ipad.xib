@@ -92,7 +92,7 @@
 						<array key="IBUIItems">
 							<object class="IBUINavigationItem" id="646499237">
 								<reference key="IBUINavigationBar" ref="675843911"/>
-								<string key="IBUITitle">风险列表</string>
+								<string key="IBUITitle">地图信息</string>
 								<object class="IBUIBarButtonItem" key="IBUILeftBarButtonItem" id="1063538220">
 									<string key="IBUITitle">返回地图</string>
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -148,7 +148,6 @@
 						<string key="NSFrame">{{20, 713}, {984, 35}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
