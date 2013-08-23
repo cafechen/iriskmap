@@ -71,7 +71,6 @@
         for(int j = 0; j < self.riskArray.count; j++){
             Cost *cost = [self.riskArray objectAtIndex:j] ;
             if([v.vectorId isEqualToString:cost.chanceVecorid]){
-                NSLog(@"#### #### #### %@ %@", v.vectorId, cost.chanceVecorid) ;
                 [self.rightArray addObject:v] ;
                 break ;
             }
@@ -103,9 +102,35 @@
         self.currRight = 0 ;
     }
     
+    [self addTotally];
+    
     NSLog(@"####4343 %d %d", self.leftArray.count, self.rightArray.count) ;
     self.scrollView.contentSize = CGSizeMake(1549, ScreenHeight - 135) ;
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)addTotally
+{
+    Cost *total = [[[Cost alloc] init] autorelease] ;
+    total.riskName = @"总计" ;
+    total.riskCode = @"-" ;
+    total.riskType = @"-" ;
+    for(int i = 0; i < self.tableArray.count; i++){
+        Cost *cost = [self.tableArray objectAtIndex:i] ;
+        total.beforeGailv = total.beforeGailv  + cost.beforeGailv ;
+        total.beforeAffect = total.beforeAffect  + cost.beforeAffect ;
+        total.beforeAffectQi = total.beforeAffectQi  + cost.beforeAffectQi ;
+        total.manaChengben = total.manaChengben  + cost.manaChengben ;
+        total.afterGailv = total.afterGailv  + cost.afterGailv ;
+        total.afterAffect = total.afterAffect  + cost.afterAffect ;
+        total.afterQi = total.afterQi  + cost.afterQi ;
+        total.affectQi = total.affectQi  + cost.affectQi ;
+        total.shouyi = total.shouyi  + cost.shouyi ;
+        total.jingshouyi = total.jingshouyi  + cost.jingshouyi ;
+        total.bilv = total.bilv  + cost.bilv ;
+    }
+    
+    [self.tableArray addObject:total] ;
 }
 
 - (void)didReceiveMemoryWarning
@@ -305,13 +330,16 @@
         self.filter = [filter copy] ;
     }
     [self.tableArray removeAllObjects] ;
+    
     if(self.leftArray.count > 0){
-        NSLog(@"#### #### #### %d %d", self.currLeft, self.leftArray.count) ;
+        NSLog(@"#### #### ####111 %d %d", self.currLeft, self.leftArray.count) ;
         Vector *v = [self.leftArray objectAtIndex:self.currLeft] ;
-        NSLog(@"#### #### #### %d %d", self.currLeft, self.leftArray.count) ;
+        NSLog(@"#### #### ####111 %@", v.vectorId) ;
         for(int i = 0; i < self.riskArray.count; i++){
             Cost *cost = [self.riskArray objectAtIndex:i] ;
+            NSLog(@"#### #### ####111 %@ %@", cost.riskvecorid, v.vectorId) ;
             if([cost.riskvecorid isEqualToString:v.vectorId]){
+                NSLog(@"#### #### ####111 111 %@ %@", cost.riskvecorid, v.vectorId) ;
                 if([@"" isEqualToString:self.filter]|| [cost.riskName rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
                    [cost.riskCode rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
                    [cost.riskType rangeOfString:self.filter options:NSCaseInsensitiveSearch].length > 0 ||
@@ -330,10 +358,11 @@
             self.leftLabel.text = v.title ;
         }
     }
+    
     if(self.rightArray.count > 0){
-        NSLog(@"#### #### #### %d %d", self.currRight, self.rightArray.count) ;
+        NSLog(@"#### #### ####222 %d %d", self.currRight, self.rightArray.count) ;
         Vector *v = [self.rightArray objectAtIndex:self.currRight] ;
-        NSLog(@"#### #### #### %d %d", self.currRight, self.rightArray.count) ;
+        NSLog(@"#### #### ####222 %d %d", self.currRight, self.rightArray.count) ;
         for(int i = 0; i < self.riskArray.count; i++){
             Cost *cost = [self.riskArray objectAtIndex:i] ;
             if([cost.chanceVecorid isEqualToString:v.vectorId]){
@@ -355,6 +384,8 @@
             self.rightLabel.text = v.title ;
         }
     }
+    
+    [self addTotally];
 
     [self.tableView reloadData] ;
 }
