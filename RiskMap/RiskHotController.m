@@ -368,7 +368,7 @@ int MAX_SIZE = 35 ;
         button2.tag = 200 + i ;
     }
     NSLog(@"123123 %d", maxWidth) ;
-    self.scrollView.contentSize = CGSizeMake(maxWidth, ScreenHeight - 135) ;
+    self.scrollView.contentSize = CGSizeMake(maxWidth + 100, ScreenHeight - 135) ;
 }
 
 - (IBAction) showRiskDot:(id)sender

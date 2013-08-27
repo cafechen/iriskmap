@@ -11,6 +11,7 @@
 @interface MapController : UIViewController <UIAlertViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, retain) NSMutableArray *objectArray;
+@property (nonatomic, retain) NSMutableArray *toolsArray;
 @property (nonatomic, retain) IBOutlet UIView *toolView;
 @property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;

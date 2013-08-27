@@ -54,8 +54,33 @@
         self.mSize = 15 ;
     }
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self initTools] ;
     [self initMap] ;
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void) initTools
+{
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    self.toolsArray = [[[NSMutableArray alloc] init] autorelease] ;
+    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
+    
+    [self.toolsArray addObject:@"返回地图"] ;
+    [self.toolsArray addObject:@"地图信息"] ;
+    
+    NSLog(@"####SHOW HOT %d", project.show_hot) ;
+    
+    if(!project.show_hot){
+        [self.toolsArray addObject:@"风险热图"];
+    }
+    if(!project.show_static){
+        [self.toolsArray addObject:@"分类统计"];
+    }
+    if(!project.show_chengben){
+        [self.toolsArray addObject:@"风险成本"];
+    }
+    
+    [self.toolsArray addObject:@"过滤器"] ;
 }
 
 - (void) initMap
@@ -520,26 +545,14 @@
 - (IBAction)draw02:(id)sender
 {
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
-    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
-    if(!project.show_hot){
-        [appDelegate gotoRiskHotPage] ;
-    }else{
-        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"提示" message:@"导出文件中不包含风险热图" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show] ;
-    }
+    [appDelegate gotoRiskHotPage] ;
 }
 
 - (IBAction)gotoRiskStatis:(id)sender
 {
     [self closeToolViewAction:nil];
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
-    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
-    if(!project.show_static){
-        [appDelegate gotoRiskStatisPage] ;
-    }else{
-        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"提示" message:@"导出文件中不包含分类统计" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show] ;
-    }
+    [appDelegate gotoRiskStatisPage] ;
 }
 
 - (IBAction)gotoRiskList:(id)sender
@@ -552,13 +565,7 @@
 - (IBAction)gotoRiskCost:(id)sender
 {
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
-    Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
-    if(!project.show_chengben){
-        [appDelegate gotoRiskCostPage] ;
-    }else{
-        UIAlertView *alert= [[UIAlertView alloc] initWithTitle:@"提示" message:@"导出文件中不包含风险成本" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show] ;
-    }
+    [appDelegate gotoRiskCostPage] ;
 }
 
 - (IBAction)gotoRiskSearch:(id)sender
@@ -607,7 +614,11 @@
                                   delegate:self
                                   cancelButtonTitle:nil
                                   destructiveButtonTitle:nil
-                                  otherButtonTitles:@"返回地图", @"风险热图", @"地图信息", @"分类统计", @"风险成本", @"过滤器", nil] ;
+                                  otherButtonTitles: nil] ;
+    actionSheet.delegate = self ;
+    for(int i = 0; i < self.toolsArray.count; i++){
+        [actionSheet addButtonWithTitle:[self.toolsArray objectAtIndex:i]] ;
+    }
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [actionSheet showInView:self.view];
 }
@@ -618,27 +629,25 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSLog(@"#### %d", buttonIndex) ;
-    switch (buttonIndex) {
-        case 0:
-            [self draw01:nil];
-            break;
-        case 1:
-            [self draw02:nil];
-            break;
-        case 2:
-            [self gotoRiskList:nil];
-            break;
-        case 3:
-            [self gotoRiskStatis:nil];
-            break;
-        case 4:
-            [self gotoRiskCost:nil];
-            break;
-        case 5:
-            [self gotoRiskSearch:nil];
-            break;
-        default:
-            break;
+    NSString *toolName = [self.toolsArray objectAtIndex:buttonIndex] ;
+    
+    if([@"返回地图" isEqualToString: toolName]){
+        [self draw01:nil];
+    }
+    if([@"风险热图" isEqualToString: toolName]){
+        [self draw02:nil];
+    }
+    if([@"地图信息" isEqualToString: toolName]){
+        [self gotoRiskList:nil];
+    }
+    if([@"分类统计" isEqualToString: toolName]){
+        [self gotoRiskStatis:nil];
+    }
+    if([@"风险成本" isEqualToString: toolName]){
+        [self gotoRiskCost:nil];
+    }
+    if([@"过滤器" isEqualToString: toolName]){
+        [self gotoRiskSearch:nil];
     }
 }
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet{
