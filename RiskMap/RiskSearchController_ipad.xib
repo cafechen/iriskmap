@@ -111,7 +111,7 @@
 					<object class="IBUILabel" id="982216056">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{108, 44}, {300, 40}}</string>
+						<string key="NSFrame">{{108, 44}, {250, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="811716932"/>
@@ -176,7 +176,7 @@
 					<object class="IBUILabel" id="846195860">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{524, 44}, {100, 40}}</string>
+						<string key="NSFrame">{{474, 44}, {150, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="400020898"/>
@@ -198,7 +198,7 @@
 					<object class="IBUIButton" id="811716932">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{416, 44}, {100, 40}}</string>
+						<string key="NSFrame">{{366, 44}, {100, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="846195860"/>
@@ -223,7 +223,6 @@
 						<string key="NSFrame">{{632, 44}, {100, 40}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
@@ -747,40 +746,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RiskSearchController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="gotoLastPageButtonAction:">id</string>
-						<string key="search:">id</string>
-						<string key="showManage:">id</string>
-						<string key="showRange:">id</string>
-						<string key="showRiskType:">id</string>
-						<string key="showVector:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="gotoLastPageButtonAction:">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="search:">
-							<string key="name">search:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showManage:">
-							<string key="name">showManage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRange:">
-							<string key="name">showRange:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRiskType:">
-							<string key="name">showRiskType:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showVector:">
-							<string key="name">showVector:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="manageButton">UIButton</string>
 						<string key="rangeButton">UIButton</string>

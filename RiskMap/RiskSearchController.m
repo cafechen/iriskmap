@@ -50,7 +50,7 @@
     self.dictArray = [[[NSMutableArray alloc] init] autorelease] ;
     for(int i = 0; i < allArray.count; i++){
         Dictype *type = [allArray objectAtIndex:i] ;
-        if([@"风险" isEqualToString:type.typeStr]){
+        if([@"风险" isEqualToString:type.typeStr] && [@"0" isEqualToString:type.fatherId]){
             [self.dictArray addObject:type] ;
         }
     }

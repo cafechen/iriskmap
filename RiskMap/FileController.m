@@ -171,13 +171,13 @@
             [DBUtils updateProjectVector] ;
             AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
             //直接跳转到地图
-            [NSThread detachNewThreadSelector:@selector(hideLoading) toTarget:self withObject:nil];
+            [self hideLoading] ;
             [appDelegate gotoMainPage] ;
         }else{
             NSLog(@"解压失败");
         }
     }
-    [NSThread detachNewThreadSelector:@selector(hideLoading) toTarget:self withObject:nil];
+    [self hideLoading] ;
     return nil ;
 }
 

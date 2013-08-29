@@ -113,7 +113,7 @@
 					<object class="IBUILabel" id="1030656929">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{60, 46}, {130, 20}}</string>
+						<string key="NSFrame">{{60, 46}, {125, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="138398853"/>
@@ -178,7 +178,7 @@
 					<object class="IBUILabel" id="22163363">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{258, 46}, {88, 20}}</string>
+						<string key="NSFrame">{{253, 46}, {88, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="991227497"/>
@@ -200,7 +200,7 @@
 					<object class="IBUIButton" id="138398853">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{198, 46}, {52, 20}}</string>
+						<string key="NSFrame">{{193, 46}, {52, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="22163363"/>
@@ -222,7 +222,7 @@
 					<object class="IBUIButton" id="991227497">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{354, 46}, {45, 20}}</string>
+						<string key="NSFrame">{{349, 46}, {50, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="183651990"/>
@@ -270,7 +270,6 @@
 						<string key="NSFrame">{{20, 280}, {528, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -610,13 +609,13 @@
 							<reference ref="22163363"/>
 							<reference ref="991227497"/>
 							<reference ref="45942145"/>
-							<reference ref="138398853"/>
 							<reference ref="42450688"/>
 							<reference ref="981774260"/>
 							<reference ref="183651990"/>
 							<reference ref="562598937"/>
 							<reference ref="683481933"/>
 							<reference ref="834315017"/>
+							<reference ref="138398853"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>

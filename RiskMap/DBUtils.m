@@ -215,7 +215,7 @@
         
         // 如果没有创建表
         if(isExist == 0){
-            [db executeUpdate:@"create table project(id varchar(255) primary key, fatherid varchar(255), title varchar(255), belong_department varchar(255),remark varchar(255),AddDate varchar(255),isUpload int, isComplete int, show_card int, show_hot int, show_sort int, show_chengben int, show_static int, show_after int)"];
+            [db executeUpdate:@"create table project(id varchar(255) primary key, fatherid varchar(255), title varchar(255), belong_department varchar(255),remark varchar(255),AddDate varchar(255),isUpload int, isComplete int, show_card int, show_hot int, show_sort int, show_chengben int, show_static int, show_after int, huobi varchar(255))"];
         }
         [db close];
         
@@ -273,9 +273,11 @@
             NSString *showStatic = [showStaticElement stringValue];
             GDataXMLElement *showAfterElement = [[risk elementsForName:@"show_after"] objectAtIndex:0];
             NSString *showAfter = [showAfterElement stringValue];
+            GDataXMLElement *huobiElement = [[risk elementsForName:@"houbi"] objectAtIndex:0];
+            NSString *huobi = [huobiElement stringValue];
             //NSLog(@"REPLACE INTO project(id, fatherid, title, belong_department, remark, AddDate, isUpload, isComplete, show_card, show_hot, show_sort, show_chengben, show_static, show_after) VALUES(%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@)", riskId, fatherId, title, belong, remark, addDate, isUpload, isComplete, showCard, showHot, showSort, showChengBen, showStatic, showAfter) ;
-            [db executeUpdate:@"REPLACE INTO project(id, fatherid, title, belong_department, remark, AddDate, isUpload, isComplete, show_card, show_hot, show_sort, show_chengben, show_static, show_after) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ,
-             riskId, fatherId, title, belong, remark, addDate, isUpload, isComplete, showCard, showHot, showSort, showChengBen, showStatic, showAfter];
+            [db executeUpdate:@"REPLACE INTO project(id, fatherid, title, belong_department, remark, AddDate, isUpload, isComplete, show_card, show_hot, show_sort, show_chengben, show_static, show_after, huobi) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ,
+             riskId, fatherId, title, belong, remark, addDate, isUpload, isComplete, showCard, showHot, showSort, showChengBen, showStatic, showAfter, huobi];
             //NSLog(@"UPDATE PROJECT %d", succ) ;
         }
         [db close];
@@ -388,7 +390,7 @@
         
         // 如果没有创建表
         if(isExist == 0){
-            [db executeUpdate:@"create table risk(id varchar(255) primary key, projectId varchar(255), pageDetailId varchar(255), riskTitle varchar(255),riskCode varchar(255), riskTypeId varchar(255),riskTypeStr varchar(255), pageId varchar(255))"];
+            [db executeUpdate:@"create table risk(id varchar(255) primary key, projectId varchar(255), pageDetailId varchar(255), riskTitle varchar(255),riskCode varchar(255), riskTypeId varchar(255),riskTypeStr varchar(255), pageId varchar(255), chanceVecorid varchar(255))"];
         }
         [db close];
         

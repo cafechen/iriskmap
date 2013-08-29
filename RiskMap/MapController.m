@@ -258,7 +258,7 @@
     
     self.scrollView.contentSize = CGSizeMake(width, height) ;
     self.mapView.frame = CGRectMake(0, 0, width, height) ;
-    [NSThread detachNewThreadSelector:@selector(hideLoading) toTarget:self withObject:nil];
+    [self hideLoading] ;
 }
 
 - (void)handleLongPress:(MyLongPressGestureRecognizer *)gestureRecognizer{
