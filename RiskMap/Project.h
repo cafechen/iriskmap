@@ -12,11 +12,13 @@
 
 @property (copy, nonatomic) NSString *projectId;
 @property (copy, nonatomic) NSString *title;
+@property (copy, nonatomic) NSString *huobi;
 @property (nonatomic, readwrite) int show_cart;
 @property (nonatomic, readwrite) int show_hot;
 @property (nonatomic, readwrite) int show_sort;
 @property (nonatomic, readwrite) int show_chengben;
 @property (nonatomic, readwrite) int show_static;
 @property (nonatomic, readwrite) int show_after;
+
 
 @end

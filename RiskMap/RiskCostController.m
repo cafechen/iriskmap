@@ -105,7 +105,7 @@
     [self addTotally];
     
     NSLog(@"####4343 %d %d", self.leftArray.count, self.rightArray.count) ;
-    self.scrollView.contentSize = CGSizeMake(1549, ScreenHeight - 135) ;
+    self.scrollView.contentSize = CGSizeMake(1773, ScreenHeight - 135) ;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -250,6 +250,17 @@
         cell.jingshouyiLabel.textColor = [UIColor blackColor] ;
         cell.bilvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.bilv]] ;
         cell.bilvLabel.textColor = [UIColor blackColor] ;
+    }else{
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+        Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
+        cell.beforeAffectLabel.text = [NSString stringWithFormat:@"%@%@", cell.beforeAffectLabel.text, project.huobi] ;
+        cell.beforeAffectQiLabel.text = [NSString stringWithFormat:@"%@%@", cell.beforeAffectQiLabel.text, project.huobi] ;
+        cell.manaChengbenLabel.text = [NSString stringWithFormat:@"%@%@", cell.manaChengbenLabel.text, project.huobi] ;
+        cell.afterAffectLabel.text = [NSString stringWithFormat:@"%@%@", cell.afterAffectLabel.text, project.huobi] ;
+        cell.shouyiLabel.text = [NSString stringWithFormat:@"%@%@", cell.shouyiLabel.text, project.huobi] ;
+        cell.jingshouyiLabel.text = [NSString stringWithFormat:@"%@%@", cell.jingshouyiLabel.text, project.huobi] ;
+        cell.affectQiLabel.text = [NSString stringWithFormat:@"%@%@", cell.affectQiLabel.text, project.huobi] ;
+        cell.afterQiLabel.text = [NSString stringWithFormat:@"%@%@", cell.afterQiLabel.text, project.huobi] ;
     }
     
 	return cell;

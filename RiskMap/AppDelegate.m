@@ -32,6 +32,8 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
+    [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade] ;
+    
     UIViewController *mainController = nil ;
     
     if(isIpad){

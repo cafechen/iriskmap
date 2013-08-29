@@ -18,5 +18,6 @@
 @synthesize show_chengben;
 @synthesize show_static;
 @synthesize show_after;
+@synthesize huobi;
 
 @end

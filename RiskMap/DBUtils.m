@@ -273,7 +273,7 @@
             NSString *showStatic = [showStaticElement stringValue];
             GDataXMLElement *showAfterElement = [[risk elementsForName:@"show_after"] objectAtIndex:0];
             NSString *showAfter = [showAfterElement stringValue];
-            GDataXMLElement *huobiElement = [[risk elementsForName:@"houbi"] objectAtIndex:0];
+            GDataXMLElement *huobiElement = [[risk elementsForName:@"huobi"] objectAtIndex:0];
             NSString *huobi = [huobiElement stringValue];
             //NSLog(@"REPLACE INTO project(id, fatherid, title, belong_department, remark, AddDate, isUpload, isComplete, show_card, show_hot, show_sort, show_chengben, show_static, show_after) VALUES(%@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@, %@)", riskId, fatherId, title, belong, remark, addDate, isUpload, isComplete, showCard, showHot, showSort, showChengBen, showStatic, showAfter) ;
             [db executeUpdate:@"REPLACE INTO project(id, fatherid, title, belong_department, remark, AddDate, isUpload, isComplete, show_card, show_hot, show_sort, show_chengben, show_static, show_after, huobi) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ,
@@ -1006,7 +1006,9 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id, title, show_cart, show_hot, show_sort, show_chengben, show_static from project where projectId = '%@'", projectId] ;
+        sql = [NSString stringWithFormat:@"SELECT id, title, show_card, show_hot, show_sort, show_chengben, show_static, huobi from project where id = '%@'", projectId] ;
+        
+        NSLog(@"#### SQL: %@", sql) ;
         
         FMResultSet *rs = [db executeQuery:sql];
         
@@ -1020,6 +1022,7 @@
             result.show_sort = [rs intForColumn:@"show_sort"] ;
             result.show_chengben = [rs intForColumn:@"show_chengben"] ;
             result.show_static = [rs intForColumn:@"show_static"] ;
+            result.huobi = [rs stringForColumn:@"huobi"] ;
         }
         
         [db close];

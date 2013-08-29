@@ -70,13 +70,13 @@
     
     NSLog(@"####SHOW HOT %d", project.show_hot) ;
     
-    if(!project.show_hot){
+    if(project.show_hot){
         [self.toolsArray addObject:@"风险热图"];
     }
-    if(!project.show_static){
+    if(project.show_static){
         [self.toolsArray addObject:@"分类统计"];
     }
-    if(!project.show_chengben){
+    if(project.show_chengben){
         [self.toolsArray addObject:@"风险成本"];
     }
     
@@ -293,7 +293,7 @@
 {
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
-    if(!project.show_cart){
+    if(project.show_cart){
         ProjectMap *pm = [self.objectArray objectAtIndex:([gestureRecognizer.context intValue] - 100)] ;
         [self.imageView setImage:[UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.cardPic]]] ;
         self.scrollView.hidden = YES ;
@@ -628,6 +628,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if(buttonIndex < 0)
+        return ;
     NSLog(@"#### %d", buttonIndex) ;
     NSString *toolName = [self.toolsArray objectAtIndex:buttonIndex] ;
     
