@@ -84,6 +84,13 @@
 		AD5828E9177B3BD0008A61FC /* MapController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5828E7177B3BD0008A61FC /* MapController.m */; };
 		AD5828EA177B3BD0008A61FC /* MapController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5828E8177B3BD0008A61FC /* MapController.xib */; };
 		AD58295A177B3E5F008A61FC /* ASDepthModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD582959177B3E5F008A61FC /* ASDepthModalViewController.m */; };
+		ADB1982E17D6934900991E5A /* IntroController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB1982C17D6934900991E5A /* IntroController.m */; };
+		ADB1982F17D6934900991E5A /* IntroController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB1982D17D6934900991E5A /* IntroController.xib */; };
+		ADB1983317D6956C00991E5A /* ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB1983017D6956C00991E5A /* ipad.png */; };
+		ADB1983417D6956C00991E5A /* iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB1983117D6956C00991E5A /* iphone.png */; };
+		ADB1983517D6956C00991E5A /* iphone5.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB1983217D6956C00991E5A /* iphone5.png */; };
+		ADB1983717D695BA00991E5A /* IntroController_iphone5.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB1983617D695BA00991E5A /* IntroController_iphone5.xib */; };
+		ADB1983917D6960800991E5A /* IntroController_ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB1983817D6960800991E5A /* IntroController_ipad.xib */; };
 		ADF66413178C5F520072973D /* Risk.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF66412178C5F520072973D /* Risk.m */; };
 		ADF66417178C60550072973D /* RiskListController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF66415178C60550072973D /* RiskListController.m */; };
 		ADF66418178C60550072973D /* RiskListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADF66416178C60550072973D /* RiskListController.xib */; };
@@ -232,6 +239,14 @@
 		AD5828E8177B3BD0008A61FC /* MapController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapController.xib; sourceTree = "<group>"; };
 		AD582958177B3E5F008A61FC /* ASDepthModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDepthModalViewController.h; sourceTree = "<group>"; };
 		AD582959177B3E5F008A61FC /* ASDepthModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDepthModalViewController.m; sourceTree = "<group>"; };
+		ADB1982B17D6934900991E5A /* IntroController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroController.h; sourceTree = "<group>"; };
+		ADB1982C17D6934900991E5A /* IntroController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroController.m; sourceTree = "<group>"; };
+		ADB1982D17D6934900991E5A /* IntroController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroController.xib; sourceTree = "<group>"; };
+		ADB1983017D6956C00991E5A /* ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ipad.png; sourceTree = "<group>"; };
+		ADB1983117D6956C00991E5A /* iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone.png; sourceTree = "<group>"; };
+		ADB1983217D6956C00991E5A /* iphone5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iphone5.png; sourceTree = "<group>"; };
+		ADB1983617D695BA00991E5A /* IntroController_iphone5.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroController_iphone5.xib; sourceTree = "<group>"; };
+		ADB1983817D6960800991E5A /* IntroController_ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroController_ipad.xib; sourceTree = "<group>"; };
 		ADF66411178C5F520072973D /* Risk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Risk.h; sourceTree = "<group>"; };
 		ADF66412178C5F520072973D /* Risk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Risk.m; sourceTree = "<group>"; };
 		ADF66414178C60550072973D /* RiskListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiskListController.h; sourceTree = "<group>"; };
@@ -395,6 +410,9 @@
 		04FEA2FF177F1FAD00872C34 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ADB1983017D6956C00991E5A /* ipad.png */,
+				ADB1983117D6956C00991E5A /* iphone.png */,
+				ADB1983217D6956C00991E5A /* iphone5.png */,
 				B039916C17B498EA00A64DE0 /* blueball.png */,
 				B088F6A4179E4EE10053806C /* redball.png */,
 				B02224D21792CDC8005C9CF7 /* whiteball.png */,
@@ -521,6 +539,11 @@
 				04E0BAE717AF45F7002743EF /* InputController.xib */,
 				046A93C117B0562100693F52 /* InputController_ipad.xib */,
 				046A93C417B059BF00693F52 /* InputController_iphone5.xib */,
+				ADB1982B17D6934900991E5A /* IntroController.h */,
+				ADB1982C17D6934900991E5A /* IntroController.m */,
+				ADB1982D17D6934900991E5A /* IntroController.xib */,
+				ADB1983617D695BA00991E5A /* IntroController_iphone5.xib */,
+				ADB1983817D6960800991E5A /* IntroController_ipad.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -666,6 +689,12 @@
 				AD344EC417CFB55000E7A523 /* Default@2x.png in Resources */,
 				AD344EC617CFB57300E7A523 /* Default-568h@2x.png in Resources */,
 				AD344EC817CFB6CA00E7A523 /* Default-Portrait~ipad.png in Resources */,
+				ADB1982F17D6934900991E5A /* IntroController.xib in Resources */,
+				ADB1983317D6956C00991E5A /* ipad.png in Resources */,
+				ADB1983417D6956C00991E5A /* iphone.png in Resources */,
+				ADB1983517D6956C00991E5A /* iphone5.png in Resources */,
+				ADB1983717D695BA00991E5A /* IntroController_iphone5.xib in Resources */,
+				ADB1983917D6960800991E5A /* IntroController_ipad.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,6 +755,7 @@
 				041250A517B6F9FF00A62112 /* Vector.m in Sources */,
 				B0B0604E17BB1EA300B0051A /* RiskFactorCell.m in Sources */,
 				B0B0605417BB382000B0051A /* RiskSearchController.m in Sources */,
+				ADB1982E17D6934900991E5A /* IntroController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

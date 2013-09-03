@@ -19,6 +19,8 @@
 #import "FileController.h"
 #import "InputController.h"
 #import "RiskSearchController.h"
+#import "FileController.h"
+#import "IntroController.h"
 
 @implementation AppDelegate
 
@@ -32,23 +34,23 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     
-    [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade] ;
+    //[application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade] ;
     
-    UIViewController *mainController = nil ;
+    UIViewController *introController = nil ;
     
     if(isIpad){
-        mainController = [[[FileController alloc] initWithNibName:@"FileController_ipad" bundle:nil] autorelease];
+        introController = [[[IntroController alloc] initWithNibName:@"IntroController_ipad" bundle:nil] autorelease];
     }else if(isIPhone5){
-        mainController = [[[FileController alloc] initWithNibName:@"FileController_iphone5" bundle:nil] autorelease];
+        introController = [[[IntroController alloc] initWithNibName:@"IntroController_iphone5" bundle:nil] autorelease];
     }else{
-        mainController = [[[FileController alloc] initWithNibName:@"FileController" bundle:nil] autorelease];
+        introController = [[[IntroController alloc] initWithNibName:@"IntroController" bundle:nil] autorelease];
     }
     
     self.navController = [[[UINavigationController alloc] init] autorelease];
     
     [self.navController setNavigationBarHidden:YES animated:NO];
     
-    [self.navController pushViewController:mainController animated:YES] ;
+    [self.navController pushViewController:introController animated:YES] ;
     
     self.window.rootViewController = self.navController;
     
@@ -107,6 +109,26 @@
     [DBUtils updateRiskCost] ;
     [DBUtils updateDictType] ;
     [DBUtils updateProjectVector] ;
+}
+
+- (void) gotoFilePage
+{
+    NSLog(@"Goto File Page Start") ;
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade] ;
+
+    FileController *fileController = nil;
+    
+    if(isIpad){
+        fileController = [[[FileController alloc] initWithNibName:@"FileController_ipad" bundle:nil] autorelease];
+    }else if(isIPhone5){
+        fileController = [[[FileController alloc] initWithNibName:@"FileController_iphone5" bundle:nil] autorelease];
+    }else{
+        fileController = [[[FileController alloc] initWithNibName:@"FileController" bundle:nil] autorelease];
+    }
+    
+    [self.navController pushViewController:fileController animated:YES] ;
+    NSLog(@"Goto File Page End") ;
 }
 
 - (void) gotoMainPage

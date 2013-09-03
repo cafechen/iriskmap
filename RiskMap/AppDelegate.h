@@ -33,4 +33,6 @@
 - (void) gotoRiskStatisPage ;
 - (void) gotoInputPage ;
 - (void) gotoLastMapPage ;
+- (void) gotoFilePage ;
+
 @end
