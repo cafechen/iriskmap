@@ -132,7 +132,7 @@
                                   delegate:self
                                   cancelButtonTitle:nil
                                   destructiveButtonTitle:nil
-                                  otherButtonTitles:@"管理前", @"管理后", nil] ;
+                                  otherButtonTitles:@"管理前风险评分", @"管理后风险评分",@"管理前风险影响", @"管理后风险影响", nil] ;
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackOpaque;
     [actionSheet showInView:self.view];
 }
@@ -254,10 +254,15 @@
         }
         case 2:{
             self.currManage = buttonIndex ;
+            NSLog(@"#### self.currManage=%d", self.currManage) ;
             if(self.currManage == 0){
-                [self.manageButton setTitle:@"管理前" forState:UIControlStateNormal] ;
-            }else{
-                [self.manageButton setTitle:@"管理后" forState:UIControlStateNormal] ;
+                [self.manageButton setTitle:@"管理前风险评分" forState:UIControlStateNormal] ;
+            }else if(self.currManage == 1){
+                [self.manageButton setTitle:@"管理后风险评分" forState:UIControlStateNormal] ;
+            }else if(self.currManage == 2){
+                [self.manageButton setTitle:@"管理前风险影响" forState:UIControlStateNormal] ;
+            }else if(self.currManage == 3){
+                [self.manageButton setTitle:@"管理后风险影响" forState:UIControlStateNormal] ;
             }
             break ;
         }

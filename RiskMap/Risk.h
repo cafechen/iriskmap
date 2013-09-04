@@ -18,6 +18,7 @@
 @property (copy, nonatomic) NSString *riskTypeId;
 @property (copy, nonatomic) NSString *riskTypeStr;
 @property (copy, nonatomic) NSString *pageId;
+@property (copy, nonatomic) NSString *title;
 @property (nonatomic, readwrite) int statis;
 
 @end

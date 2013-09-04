@@ -19,5 +19,6 @@
 @synthesize riskTypeStr;
 @synthesize pageId;
 @synthesize statis;
+@synthesize title;
 
 @end

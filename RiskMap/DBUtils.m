@@ -1076,6 +1076,45 @@
     return result ;
 }
 
++(NSMutableArray *) getRiskBySql:(NSString *) sql
+{
+    
+    NSMutableArray *result = nil ;
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        NSLog(@"SQL: %@", sql) ;
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        result = [[[NSMutableArray alloc] init] autorelease];
+        
+        while ([rs next]) {
+            Risk *risk = [[Risk alloc] init] ;
+            risk.riskId = [rs stringForColumn:@"id"] ;
+            risk.projectId = [rs stringForColumn:@"projectId"] ;
+            risk.pageDetailId = [rs stringForColumn:@"pageDetailId"] ;
+            risk.riskTitle = [rs stringForColumn:@"riskTitle"] ;
+            risk.riskCode = [rs stringForColumn:@"riskCode"];
+            risk.riskTypeId = [rs stringForColumn:@"riskTypeId"];
+            risk.riskTypeStr = [rs stringForColumn:@"riskTypeStr"];
+            risk.pageId = [rs stringForColumn:@"pageId"];
+            [result addObject:risk] ;
+            [risk release] ;
+        }
+        
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+    
+    return result ;
+}
+
+
 +(NSString *) getRisk:(NSString *) projectId RiskId:(NSString *)riskId
 {
     

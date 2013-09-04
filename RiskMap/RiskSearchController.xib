@@ -114,7 +114,7 @@
 					<object class="IBUILabel" id="292750559">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{60, 44}, {88, 20}}</string>
+						<string key="NSFrame">{{60, 44}, {60, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="973559777"/>
@@ -179,7 +179,7 @@
 					<object class="IBUILabel" id="187699561">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{216, 44}, {48, 20}}</string>
+						<string key="NSFrame">{{188, 44}, {48, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="156006246"/>
@@ -201,7 +201,7 @@
 					<object class="IBUILabel" id="1000063705">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{322, 44}, {20, 20}}</string>
+						<string key="NSFrame">{{327, 44}, {20, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="778418189"/>
@@ -226,7 +226,7 @@
 					<object class="IBUIButton" id="973559777">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{156, 44}, {52, 20}}</string>
+						<string key="NSFrame">{{128, 44}, {52, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="187699561"/>
@@ -248,7 +248,7 @@
 					<object class="IBUIButton" id="156006246">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{272, 44}, {50, 20}}</string>
+						<string key="NSFrame">{{244, 44}, {84, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1000063705"/>
@@ -257,7 +257,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<string key="IBUINormalTitle">管理前</string>
+						<string key="IBUINormalTitle">管理前风险评分</string>
 						<reference key="IBUIHighlightedTitleColor" ref="803004838"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
@@ -270,7 +270,7 @@
 					<object class="IBUITextField" id="778418189">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{343, 44}, {25, 20}}</string>
+						<string key="NSFrame">{{348, 44}, {25, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="942324357"/>
@@ -300,7 +300,7 @@
 					<object class="IBUILabel" id="942324357">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{366, 44}, {20, 20}}</string>
+						<string key="NSFrame">{{371, 44}, {20, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="569955305"/>
@@ -322,7 +322,7 @@
 					<object class="IBUITextField" id="569955305">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{387, 44}, {25, 20}}</string>
+						<string key="NSFrame">{{392, 44}, {25, 20}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="897966156"/>
@@ -770,40 +770,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">RiskSearchController</string>
 					<string key="superclassName">UIViewController</string>
-					<dictionary class="NSMutableDictionary" key="actions">
-						<string key="gotoLastPageButtonAction:">id</string>
-						<string key="search:">id</string>
-						<string key="showManage:">id</string>
-						<string key="showRange:">id</string>
-						<string key="showRiskType:">id</string>
-						<string key="showVector:">id</string>
-					</dictionary>
-					<dictionary class="NSMutableDictionary" key="actionInfosByName">
-						<object class="IBActionInfo" key="gotoLastPageButtonAction:">
-							<string key="name">gotoLastPageButtonAction:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="search:">
-							<string key="name">search:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showManage:">
-							<string key="name">showManage:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRange:">
-							<string key="name">showRange:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showRiskType:">
-							<string key="name">showRiskType:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-						<object class="IBActionInfo" key="showVector:">
-							<string key="name">showVector:</string>
-							<string key="candidateClassName">id</string>
-						</object>
-					</dictionary>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="manageButton">UIButton</string>
 						<string key="rangeButton">UIButton</string>
