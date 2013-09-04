@@ -34,6 +34,7 @@
 +(NSMutableArray *) getProjectVectorDetail: (NSString *) fatherid ;
 +(NSMutableArray *) getRiskScore: (NSString *) vectorId ;
 +(NSMutableArray *) getRiskCost: (NSString *) projectId ;
++(NSMutableArray *) getRiskCostByWhere: (NSString *) where;
 +(NSMutableArray *) getDictype ;
 +(NSMutableArray *) getVector: (NSString *) projectId ;
 +(NSString *) findFilePath: (NSString *) filename;

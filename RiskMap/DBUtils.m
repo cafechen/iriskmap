@@ -1365,6 +1365,61 @@
     
 }
 
++(NSMutableArray *) getRiskCostByWhere: (NSString *) where 
+{
+    
+    NSMutableArray *result = nil ;
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        //拼写SQL
+        NSString *sql = nil ;
+        
+        sql = [NSString stringWithFormat:@"SELECT id, riskName, riskCode, riskType, beforeGailv, beforeAffect, beforeAffectQi, manaChengben, afterGailv, afterAffect, afterQi, affectQi, shouyi, jingshouyi, bilv, projectId, pageid, riskvecorid, chanceVecorid from riskCost where %@ order by id", where] ;
+        
+        NSLog(@"SQL: %@", sql) ;
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        result = [[[NSMutableArray alloc] init] autorelease];
+        
+        while ([rs next]) {
+            Cost *cost = [[Cost alloc] init] ;
+            cost.costId = [rs stringForColumn:@"id"] ;
+            cost.riskName = [rs stringForColumn:@"riskName"] ;
+            cost.riskCode = [rs stringForColumn:@"riskCode"] ;
+            cost.riskType = [rs stringForColumn:@"riskType"] ;
+            cost.beforeGailv = [[rs stringForColumn:@"beforeGailv"] doubleValue];
+            cost.beforeAffect = [[rs stringForColumn:@"beforeAffect"] doubleValue];
+            cost.beforeAffectQi = [[rs stringForColumn:@"beforeAffectQi"] doubleValue];
+            cost.manaChengben = [[rs stringForColumn:@"manaChengben"] doubleValue];
+            cost.afterGailv = [[rs stringForColumn:@"afterGailv"] doubleValue];
+            cost.afterAffect = [[rs stringForColumn:@"afterAffect"] doubleValue];
+            cost.afterQi = [[rs stringForColumn:@"afterQi"] doubleValue];
+            cost.affectQi = [[rs stringForColumn:@"affectQi"] doubleValue];
+            cost.shouyi = [[rs stringForColumn:@"shouyi"] doubleValue];
+            cost.jingshouyi = [[rs stringForColumn:@"jingshouyi"] doubleValue];
+            cost.bilv = [[rs stringForColumn:@"bilv"] doubleValue];
+            cost.projectId = [rs stringForColumn:@"projectId"] ;
+            cost.pageid = [rs stringForColumn:@"pageid"] ;
+            cost.riskvecorid = [rs stringForColumn:@"riskvecorid"] ;
+            cost.chanceVecorid = [rs stringForColumn:@"chanceVecorid"] ;
+            [result addObject:cost] ;
+            [cost release] ;
+        }
+        
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+    
+    return result ;
+    
+}
+
 +(NSMutableArray *) getVector: (NSString *) projectId
 {
     

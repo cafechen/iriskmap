@@ -77,30 +77,48 @@
         }
     }
     
+    NSString *where = [NSString stringWithFormat:@"projectId = '%@'", appDelegate.currProjectMap];
+    
     self.tableArray = [[[NSMutableArray alloc] init] autorelease] ;
     if(self.leftArray.count > 0){
         Vector *v = [self.leftArray objectAtIndex:0] ;
+        /*
         for(int i = 0; i < self.riskArray.count; i++){
             Cost *cost = [self.riskArray objectAtIndex:i] ;
             if([cost.riskvecorid isEqualToString:v.vectorId]){
                 [self.tableArray addObject:cost] ;
             }
         }
+         */
         self.leftLabel.text = v.title ;
         self.currLeft = 0 ;
     }
     
     if(self.rightArray.count > 0){
         Vector *v = [self.rightArray objectAtIndex:0] ;
+        /*
         for(int i = 0; i < self.riskArray.count; i++){
             Cost *cost = [self.riskArray objectAtIndex:i] ;
             if([cost.chanceVecorid isEqualToString:v.vectorId]){
                 [self.tableArray addObject:cost] ;
             }
         }
+         */
         self.rightLabel.text = v.title ;
         self.currRight = 0 ;
     }
+    
+    if(self.leftArray.count > 0){
+        Vector *v = [self.leftArray objectAtIndex:self.currLeft] ;
+        where = [NSString stringWithFormat:@"%@ and riskvecorid = '%@'", where, v.vectorId] ;
+    }
+    
+    if(self.rightArray.count > 0){
+        Vector *v = [self.rightArray objectAtIndex:self.currRight] ;
+        where = [NSString stringWithFormat:@"%@ and chanceVecorid = '%@'", where, v.vectorId] ;
+    }
+    
+    self.tableArray = [DBUtils getRiskCostByWhere:where] ;
     
     [self addTotally];
     
@@ -115,13 +133,15 @@
     total.riskName = @"总计" ;
     total.riskCode = @"-" ;
     total.riskType = @"-" ;
+    total.beforeGailv = -1 ;
+    total.afterGailv = -1 ;
     for(int i = 0; i < self.tableArray.count; i++){
         Cost *cost = [self.tableArray objectAtIndex:i] ;
-        total.beforeGailv = total.beforeGailv  + cost.beforeGailv ;
+        //total.beforeGailv = total.beforeGailv  + cost.beforeGailv ;
         total.beforeAffect = total.beforeAffect  + cost.beforeAffect ;
         total.beforeAffectQi = total.beforeAffectQi  + cost.beforeAffectQi ;
         total.manaChengben = total.manaChengben  + cost.manaChengben ;
-        total.afterGailv = total.afterGailv  + cost.afterGailv ;
+        //total.afterGailv = total.afterGailv  + cost.afterGailv ;
         total.afterAffect = total.afterAffect  + cost.afterAffect ;
         total.afterQi = total.afterQi  + cost.afterQi ;
         total.affectQi = total.affectQi  + cost.affectQi ;
@@ -200,7 +220,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    [self.totalLabel setText:[NSString stringWithFormat:@"总计:%d", self.tableArray.count]] ;
+    [self.totalLabel setText:[NSString stringWithFormat:@"总计:%d", self.tableArray.count - 1]] ;
     return self.tableArray.count + 1;
 }
 
@@ -228,7 +248,11 @@
         cell.riskTypeLabel.textColor = [UIColor blackColor] ;
         NSNumberFormatter* numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
         [numberFormatter setPositiveFormat:@"###,##0.00;"];
-        cell.beforeGailvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.beforeGailv]] ;
+        if(cost.beforeGailv < 0){
+            cell.beforeGailvLabel.text = @"-" ;
+        }else{
+            cell.beforeGailvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.beforeGailv]] ;
+        }
         cell.beforeGailvLabel.textColor = [UIColor blackColor] ;
         cell.beforeAffectLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.beforeAffect]] ;
         cell.beforeAffectLabel.textColor = [UIColor blackColor] ;
@@ -236,7 +260,11 @@
         cell.beforeAffectQiLabel.textColor = [UIColor blackColor] ;
         cell.manaChengbenLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.manaChengben]] ;
         cell.manaChengbenLabel.textColor = [UIColor blackColor] ;
-        cell.afterGailvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.afterGailv]] ;
+        if(cost.afterGailv < 0){
+            cell.afterGailvLabel.text = @"-" ;
+        }else{
+            cell.afterGailvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.afterGailv]] ;
+        }
         cell.afterGailvLabel.textColor = [UIColor blackColor] ;
         cell.afterAffectLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.afterAffect]] ;
         cell.afterAffectLabel.textColor = [UIColor blackColor] ;
@@ -318,6 +346,7 @@
 }
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
+    [self.scrollView setUserInteractionEnabled:YES];
     [self reloadTable:searchBar.text] ;
     NSLog(@"searchBarTextDidEndEditing") ;
 }
@@ -340,8 +369,10 @@
     if(filter != nil){
         self.filter = [filter copy] ;
     }
+    
     [self.tableArray removeAllObjects] ;
     
+    /*
     if(self.leftArray.count > 0){
         NSLog(@"#### #### ####111 %d %d", self.currLeft, self.leftArray.count) ;
         Vector *v = [self.leftArray objectAtIndex:self.currLeft] ;
@@ -395,6 +426,35 @@
             self.rightLabel.text = v.title ;
         }
     }
+     */
+    
+    if(self.rightArray.count > 0 && self.currRight >= 0){
+        Vector *vr = [self.rightArray objectAtIndex:self.currRight] ;
+        self.rightLabel.text = vr.title ;
+    }
+    
+    if(self.leftArray.count > 0 && self.currLeft >= 0){
+        Vector *vl = [self.leftArray objectAtIndex:self.currLeft] ;
+        self.leftLabel.text = vl.title ;
+    }
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    
+    NSString *where = [NSString stringWithFormat:@"projectId = '%@'", appDelegate.currProjectMap];
+    
+    if(self.leftArray.count > 0 && self.currLeft >= 0){
+        Vector *v = [self.leftArray objectAtIndex:self.currLeft] ;
+        where = [NSString stringWithFormat:@"%@ and riskvecorid = '%@'", where, v.vectorId] ;
+    }
+    
+    if(self.rightArray.count > 0 && self.currRight >= 0){
+        Vector *v = [self.rightArray objectAtIndex:self.currRight] ;
+        where = [NSString stringWithFormat:@"%@ and chanceVecorid = '%@'", where, v.vectorId] ;
+    }
+    
+    where = [NSString stringWithFormat:@"%@ and (riskName Like '%%%@%%' or riskCode Like '%%%@%%' or riskType Like '%%%@%%' or beforeGailv Like '%%%@%%' or beforeAffect Like '%%%@%%' or beforeAffectQi Like '%%%@%%' or manaChengben Like '%%%@%%' or afterGailv Like '%%%@%%' or afterAffect Like '%%%@%%' or afterQi Like '%%%@%%' or affectQi Like '%%%@%%' or shouyi Like '%%%@%%' or jingshouyi Like '%%%@%%' or bilv Like '%%%@%%')", where, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter, self.filter] ;
+    
+    [self.tableArray addObjectsFromArray: [DBUtils getRiskCostByWhere:where]] ;
     
     [self addTotally];
 
