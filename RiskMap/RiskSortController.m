@@ -15,6 +15,9 @@
 #import "Score.h"
 #import "Risk.h"
 
+int IPHONE_HEIGHT = 25 ;
+int IPAD_HEIGHT = 50 ;
+
 @interface RiskSortController ()
 
 @end
@@ -77,7 +80,22 @@
     NSMutableArray *yArray = [DBUtils getRiskScore:matrix.matrix_y] ;
     
     //首先计算button的高度
-    float height = self.heightImageView.frame.size.height/(xArray.count) ;
+    //float height = self.heightImageView.frame.size.height/(xArray.count) ;
+    float height = IPHONE_HEIGHT ;
+    if(isIpad){
+        height = IPAD_HEIGHT ;
+    }
+    
+    //设置heightImageView高度
+    self.heightImageView.frame = CGRectMake(self.heightImageView.frame.origin.x, self.heightImageView.frame.origin.y, self.heightImageView.frame.size.width, xArray.count*height) ;
+    
+    float screenHeight = self.heightImageView.frame.size.height + 64 + 20 ;
+    if(isIpad){
+        screenHeight = screenHeight + 20 ;
+    }
+    if(screenHeight > ScreenHeight){
+        self.scrollView.contentSize = CGSizeMake(ScreenWidth, screenHeight) ;
+    }
     
     NSLog(@"#### heigth %f %d %d", height, xArray.count, yArray.count) ;
     
@@ -88,9 +106,9 @@
         left = 201 ;
     }
     
-    int top = 63 ;
+    int top = 20 ;
     if(isIpad){
-        top = 63 ;
+        top = 40 ;
     }
     
     float buttonheight = height/2 ;
@@ -177,9 +195,9 @@
             [label1 setFont:[UIFont fontWithName:@"Arial" size:8]] ;
             [label2 setFont:[UIFont fontWithName:@"Arial" size:8]] ;
         }
-        [self.view addSubview:label1] ;
-        [self.view addSubview:label2] ;
-        [self.view addSubview:b] ;
+        [self.scrollView addSubview:label1] ;
+        [self.scrollView addSubview:label2] ;
+        [self.scrollView addSubview:b] ;
     }
 }
 

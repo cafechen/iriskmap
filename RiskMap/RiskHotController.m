@@ -60,7 +60,7 @@ int MAX_SIZE = 35 ;
     self.isManage = NO ;
     
     Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
-    if(!project.show_after){
+    if(project.show_after){
         self.switchButton.hidden = YES ;
     }
     

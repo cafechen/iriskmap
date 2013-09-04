@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1072</int>
-		<string key="IBDocument.SystemVersion">12C54</string>
+		<string key="IBDocument.SystemVersion">12D78</string>
 		<string key="IBDocument.InterfaceBuilderVersion">3084</string>
-		<string key="IBDocument.AppKitVersion">1187.34</string>
-		<string key="IBDocument.HIToolboxVersion">625.00</string>
+		<string key="IBDocument.AppKitVersion">1187.37</string>
+		<string key="IBDocument.HIToolboxVersion">626.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">2083</string>
@@ -62,7 +62,7 @@
 							<object class="IBUIImageView" id="498064404">
 								<reference key="NSNextResponder" ref="393649445"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{150, 214}, {310, 1}}</string>
+								<string key="NSFrame">{{150, 20}, {310, 1}}</string>
 								<reference key="NSSuperview" ref="393649445"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -73,7 +73,7 @@
 							<object class="IBUIImageView" id="856543310">
 								<reference key="NSNextResponder" ref="393649445"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{305, 214}, {1, 10}}</string>
+								<string key="NSFrame">{{305, 11}, {1, 10}}</string>
 								<reference key="NSSuperview" ref="393649445"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -84,7 +84,7 @@
 							<object class="IBUILabel" id="414795845">
 								<reference key="NSNextResponder" ref="393649445"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{293, 223}, {24, 20}}</string>
+								<string key="NSFrame">{{293, 1}, {24, 20}}</string>
 								<reference key="NSSuperview" ref="393649445"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="856543310"/>
@@ -113,7 +113,7 @@
 							<object class="IBUIImageView" id="146088807">
 								<reference key="NSNextResponder" ref="393649445"/>
 								<int key="NSvFlags">274</int>
-								<string key="NSFrame">{{459, 214}, {1, 10}}</string>
+								<string key="NSFrame">{{459, 11}, {1, 10}}</string>
 								<reference key="NSSuperview" ref="393649445"/>
 								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
@@ -124,7 +124,7 @@
 							<object class="IBUILabel" id="63476728">
 								<reference key="NSNextResponder" ref="393649445"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{447, 223}, {24, 20}}</string>
+								<string key="NSFrame">{{447, 1}, {24, 20}}</string>
 								<reference key="NSSuperview" ref="393649445"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="146088807"/>
@@ -242,6 +242,14 @@
 						<reference key="destination" ref="498064404"/>
 					</object>
 					<int key="connectionID">15</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">scrollView</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="393649445"/>
+					</object>
+					<int key="connectionID">24</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -367,7 +375,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">23</int>
+			<int key="maxID">24</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -387,12 +395,17 @@
 					</object>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="heightImageView">UIImageView</string>
+						<string key="scrollView">UIScrollView</string>
 						<string key="widthImageView">UIImageView</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="heightImageView">
 							<string key="name">heightImageView</string>
 							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="scrollView">
+							<string key="name">scrollView</string>
+							<string key="candidateClassName">UIScrollView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="widthImageView">
 							<string key="name">widthImageView</string>

@@ -17,5 +17,6 @@
 @property (nonatomic, retain) NSMutableArray *matrixTitleArray;
 @property (nonatomic, retain) IBOutlet UIImageView *heightImageView;
 @property (nonatomic, retain) IBOutlet UIImageView *widthImageView;
+@property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 
 @end
