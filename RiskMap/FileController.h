@@ -16,6 +16,8 @@
 
 @property (nonatomic, retain) IBOutlet UITableView *dirTableView;
 
+@property (nonatomic, retain) IBOutlet UIButton *logoButton;
+
 @property (nonatomic, retain) IBOutlet UIView *loadingView ;
 
 - (void) reloadFile;

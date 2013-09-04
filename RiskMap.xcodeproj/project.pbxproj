@@ -84,6 +84,7 @@
 		AD5828E9177B3BD0008A61FC /* MapController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5828E7177B3BD0008A61FC /* MapController.m */; };
 		AD5828EA177B3BD0008A61FC /* MapController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5828E8177B3BD0008A61FC /* MapController.xib */; };
 		AD58295A177B3E5F008A61FC /* ASDepthModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD582959177B3E5F008A61FC /* ASDepthModalViewController.m */; };
+		ADA5D90617D78412009E87DC /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = ADA5D90517D78412009E87DC /* 5.png */; };
 		ADB1982E17D6934900991E5A /* IntroController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB1982C17D6934900991E5A /* IntroController.m */; };
 		ADB1982F17D6934900991E5A /* IntroController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB1982D17D6934900991E5A /* IntroController.xib */; };
 		ADB1983317D6956C00991E5A /* ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB1983017D6956C00991E5A /* ipad.png */; };
@@ -239,6 +240,7 @@
 		AD5828E8177B3BD0008A61FC /* MapController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapController.xib; sourceTree = "<group>"; };
 		AD582958177B3E5F008A61FC /* ASDepthModalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASDepthModalViewController.h; sourceTree = "<group>"; };
 		AD582959177B3E5F008A61FC /* ASDepthModalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASDepthModalViewController.m; sourceTree = "<group>"; };
+		ADA5D90517D78412009E87DC /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
 		ADB1982B17D6934900991E5A /* IntroController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroController.h; sourceTree = "<group>"; };
 		ADB1982C17D6934900991E5A /* IntroController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroController.m; sourceTree = "<group>"; };
 		ADB1982D17D6934900991E5A /* IntroController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IntroController.xib; sourceTree = "<group>"; };
@@ -410,6 +412,7 @@
 		04FEA2FF177F1FAD00872C34 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ADA5D90517D78412009E87DC /* 5.png */,
 				ADB1983017D6956C00991E5A /* ipad.png */,
 				ADB1983117D6956C00991E5A /* iphone.png */,
 				ADB1983217D6956C00991E5A /* iphone5.png */,
@@ -695,6 +698,7 @@
 				ADB1983517D6956C00991E5A /* iphone5.png in Resources */,
 				ADB1983717D695BA00991E5A /* IntroController_iphone5.xib in Resources */,
 				ADB1983917D6960800991E5A /* IntroController_ipad.xib in Resources */,
+				ADA5D90617D78412009E87DC /* 5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

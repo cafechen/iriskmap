@@ -43,6 +43,7 @@
 {
     [super viewDidLoad];
     [self loadDirectory] ;
+    [self.logoButton setBackgroundImage:[self whiteToTranparent:[UIImage imageNamed:@"5.png"]] forState:UIControlStateNormal] ;
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -62,6 +63,11 @@
 {
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     [appDelegate gotoInputPage] ;
+}
+
+- (IBAction) gotoHomePageButtonAction:(id)sender
+{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.yianjt.com/"]];
 }
 
 - (void) loadDirectory
@@ -179,6 +185,25 @@
     }
     [self hideLoading] ;
     return nil ;
+}
+
+- (UIImage *)whiteToTranparent:(UIImage *)viewImage
+{
+    //UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, YES, 1.0);
+    //[self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    //UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    CGImageRef rawImageRef = viewImage.CGImage;
+    const float colorMasking[6] = {255, 255, 255, 255, 255, 255};
+    UIGraphicsBeginImageContext(viewImage.size);
+    CGImageRef maskedImageRef = CGImageCreateWithMaskingColors(rawImageRef, colorMasking);
+    CGContextTranslateCTM(UIGraphicsGetCurrentContext(), 0.0, viewImage.size.height);
+    CGContextScaleCTM(UIGraphicsGetCurrentContext(), 1.0, -1.0);
+    CGContextDrawImage(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, viewImage.size.width, viewImage.size.height), maskedImageRef);
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    CGImageRelease(maskedImageRef);
+    UIGraphicsEndImageContext();
+    return newImage ;
 }
 
 -(void) showLoading
