@@ -340,7 +340,7 @@ int MAX_SIZE = 35 ;
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
         UIButton *button2 = [UIButton buttonWithType:UIButtonTypeCustom];
         if(isIpad){
-            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 220*(i/20), 52 + 30*(i%20), 200, 20) ;
+            button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 320*(i/20), 52 + 30*(i%20), 300, 20) ;
         }else{
             button2.frame = CGRectMake(self.mSize*self.maxX + 100 + 200*(i/10), 43 + 17*(i%10), 180, 15) ;
         }

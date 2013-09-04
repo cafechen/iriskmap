@@ -1282,9 +1282,9 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id, riskid, scoreVectorId, scoreBefore, scoreEnd from riskScore where scoreVectorId = '%@' order by riskid", vectorId] ;
+        sql = [NSString stringWithFormat:@"SELECT s.id, s.riskid, s.scoreVectorId, s.scoreBefore, s.scoreEnd from riskScore s left join risk r on r.id = s.riskId where scoreVectorId = '%@' order by r.riskCode asc", vectorId] ;
         
-        //NSLog(@"SQL: %@", sql) ;
+        NSLog(@"SQL: %@", sql) ;
         
         FMResultSet *rs = [db executeQuery:sql];
         
