@@ -54,6 +54,7 @@
             [self.dictArray addObject:type] ;
         }
     }
+    
     self.currRiskType = 0 ;
     self.currVector = 0 ;
     self.currManage = 0 ;
@@ -72,6 +73,9 @@
     self.scrollView.contentSize = CGSizeMake(1024, ScreenHeight - 135) ;
     self.riskTitleArray = [DBUtils getRiskType:appDelegate.currProjectMap] ;
     // Do any additional setup after loading the view from its nib.
+    
+    Vector *v = [self.vectorArray objectAtIndex:0] ;
+    self.riskVectorLabel.text = [NSString stringWithFormat:@"%@-%@", v.title, v.theType] ;
 }
 
 - (void)didReceiveMemoryWarning
@@ -115,7 +119,6 @@
                                   destructiveButtonTitle:nil
                                   otherButtonTitles:nil, nil] ;
     NSLog(@"#### %d", self.vectorArray.count) ;
-    [actionSheet addButtonWithTitle:@"全部量表"] ;
     for(int m = 0; m < self.vectorArray.count; m++){
         Vector *v = [self.vectorArray objectAtIndex:m] ;
        [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"%@-%@", v.title, v.theType]] ;
@@ -154,6 +157,9 @@
 {
     //先清空
     [self.searchRiskArray removeAllObjects] ;
+    
+    
+    /*
     for(int i = 0; i < self.riskArray.count; i++){
         Risk *risk = [self.riskArray objectAtIndex:i] ;
         //逐条过滤
@@ -219,6 +225,35 @@
             [self.searchRiskArray addObject:risk] ;
         }
     }
+     */
+    
+    Vector *v = [self.vectorArray objectAtIndex:self.currVector] ;
+
+    NSString *sql = @"select t1.riskTitle as riskTitle, t1.riskCode as riskCode, t1.riskTypeStr as riskTypeStr,t2.title as title,t1.id as id from risk t1 left join dictype t2 on t1.riskTypeId=t2.id where 1=1";
+    
+    if(self.currRiskType != 0){
+        Dictype *dict = [self.dictArray objectAtIndex:(self.currRiskType - 1)] ;
+        sql = [NSString stringWithFormat:@"%@ and t2.id = '%@'", sql, dict.dictypeId] ;
+    }
+    
+    if(self.currManage == 0){
+        sql = [NSString stringWithFormat:@"%@ and t1.id in( select riskid  from riskScore where scoreVectorId='%@' and cast(scoreBefore as float) >= %f and cast(scoreBefore as float) <= %f)", sql, v.vectorId, [self.rangeFieldSmail.text floatValue], [self.rangeFieldBig.text floatValue]] ;
+    }
+    
+    if(self.currManage == 1){
+        sql = [NSString stringWithFormat:@"%@ and t1.id in( select riskid  from riskScore where scoreVectorId='%@' and cast(scoreEnd as float) >= %f and cast(scoreEnd as float) <= %f)", sql, v.vectorId, [self.rangeFieldSmail.text floatValue], [self.rangeFieldBig.text floatValue]] ;
+    }
+    
+    if(self.currManage == 2){
+        sql = [NSString stringWithFormat:@"%@ and t1.id in( select riskId from riskScoreFather where cast(before as float) >= %f and cast(before as float) <= %f)", sql, [self.rangeFieldSmail.text floatValue], [self.rangeFieldBig.text floatValue]] ;
+    }
+    
+    if(self.currManage == 3){
+        sql = [NSString stringWithFormat:@"%@ and t1.id in( select riskId from riskScoreFather where cast(send as float) >= %f and cast(send as float) <= %f)", sql, [self.rangeFieldSmail.text floatValue], [self.rangeFieldBig.text floatValue]] ;
+    }
+    
+    [self.searchRiskArray addObjectsFromArray:[DBUtils getRiskBySql:sql]] ;
+    
     self.totalLabel.text = [NSString stringWithFormat:@"总计:%d", self.searchRiskArray.count] ;
     [self.tableView reloadData] ;
 }
@@ -244,12 +279,9 @@
         }
         case 1:{
             self.currVector = buttonIndex ;
-            if(self.currVector == 0){
-                self.riskVectorLabel.text = @"全部量表" ;
-            }else{
-                Vector *v = [self.vectorArray objectAtIndex:(buttonIndex - 1)] ;
-                self.riskVectorLabel.text = [NSString stringWithFormat:@"%@-%@", v.title, v.theType] ;
-            }
+            NSLog(@"#### self.currVector=%d", self.currVector) ;
+            Vector *v = [self.vectorArray objectAtIndex:(buttonIndex)] ;
+            self.riskVectorLabel.text = [NSString stringWithFormat:@"%@-%@", v.title, v.theType] ;
             break ;
         }
         case 2:{
@@ -318,7 +350,6 @@
         }
         cell.riskTypeStr = risk.riskTypeStr ;
         cell.riskCode = risk.riskCode ;
-        
         cell.riskTitleLabel.textAlignment = UITextAlignmentLeft ;
         cell.riskTitleLabel.textColor = [UIColor blackColor];
         cell.riskCodeLabel.textColor = [UIColor blackColor];

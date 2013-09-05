@@ -175,6 +175,8 @@
             [DBUtils updateRiskCost] ;
             [DBUtils updateDictType] ;
             [DBUtils updateProjectVector] ;
+            [DBUtils updateRiskRelation] ;
+            [DBUtils updateRiskScoreFather] ;
             AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
             //直接跳转到地图
             [self hideLoading] ;

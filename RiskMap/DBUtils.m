@@ -135,6 +135,20 @@
     return YES ;
 }
 
++(BOOL) updateRiskScoreFather
+{
+    [self checkRiskScoreFatherTable] ;
+    [self updateRiskScoreFatherData] ;
+    return YES ;
+}
+
++(BOOL) updateRiskRelation
+{
+    [self checkRiskRelationTable] ;
+    [self updateRiskRelationData] ;
+    return YES ;
+}
+
 +(void) checkDirectoryTable
 {
     FMDatabase* db = [DBUtils getFMDB] ;
@@ -697,6 +711,136 @@
     }
 }
 
++(void) checkRiskScoreFatherTable
+{
+    //NSLog(@"#### checkProjectVectorDetailTable");
+    FMDatabase* db = [DBUtils getFMDB] ;
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        int isExist = 0 ;
+        
+        // 判断表是否存在
+        FMResultSet *rs = [db executeQuery:@"SELECT COUNT(*) as count FROM sqlite_master where type='table' and name='riskScoreFather'"];
+        while ([rs next]) {
+            isExist = [rs intForColumn:@"count"] ;
+        }
+        
+        // 如果没有创建表
+        if(isExist == 0){
+            [db executeUpdate:@"create table riskScoreFather(id varchar(255) primary key, riskId varchar(255), before varchar(255), send varchar(255), projectId varchar(255))"];
+        }
+        [db close];
+        
+    }else{
+        NSLog(@"Could not open db.");
+    }
+}
+
++ (void)updateRiskScoreFatherData{
+    //NSLog(@"#### updateProjectVectorDetailData");
+    //获取工程目录的xml文件
+    NSString *filePath = [DBUtils findFilePath:@"risk_score_father.xml"];
+    
+    NSLog(@"%@", filePath) ;
+    
+    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
+    
+    //使用NSData对象初始化
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
+    
+    //获取根节点（Users）
+    GDataXMLElement *rootElement = [doc rootElement];
+    
+    //获取根节点下的节点（User）
+    NSArray *risks = [rootElement elementsForName:@"Risk"];
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        for (GDataXMLElement *risk in risks) {
+            [db executeUpdate:@"REPLACE INTO riskScoreFather(id, riskId, before, send, projectId) VALUES(?, ?, ?, ?, ?)" ,
+             [[[risk elementsForName:@"id"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"riskId"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"before"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"Send"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"projectId"] objectAtIndex:0] stringValue]
+             ];
+            //NSLog(@"UPDATE PROJECTMAP %d", succ) ;
+        }
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+}
+
++(void) checkRiskRelationTable
+{
+    //NSLog(@"#### checkProjectVectorDetailTable");
+    FMDatabase* db = [DBUtils getFMDB] ;
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        int isExist = 0 ;
+        
+        // 判断表是否存在
+        FMResultSet *rs = [db executeQuery:@"SELECT COUNT(*) as count FROM sqlite_master where type='table' and name='riskRelation'"];
+        while ([rs next]) {
+            isExist = [rs intForColumn:@"count"] ;
+        }
+        
+        // 如果没有创建表
+        if(isExist == 0){
+            [db executeUpdate:@"create table riskRelation(id varchar(255) primary key, projectid varchar(255), riskFrom varchar(255), riskTo varchar(255), relationRemark varchar(255))"];
+        }
+        [db close];
+        
+    }else{
+        NSLog(@"Could not open db.");
+    }
+}
+
++ (void)updateRiskRelationData{
+    //NSLog(@"#### updateProjectVectorDetailData");
+    //获取工程目录的xml文件
+    NSString *filePath = [DBUtils findFilePath:@"T_project_risk_Relation.xml"];
+    
+    NSLog(@"%@", filePath) ;
+    
+    if(filePath == nil){
+        return ;
+    }
+    
+    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
+    
+    //使用NSData对象初始化
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
+    
+    //获取根节点（Users）
+    GDataXMLElement *rootElement = [doc rootElement];
+    
+    //获取根节点下的节点（User）
+    NSArray *risks = [rootElement elementsForName:@"Risk"];
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        for (GDataXMLElement *risk in risks) {
+            [db executeUpdate:@"REPLACE INTO riskRelation(id, projectid, riskFrom, riskTo, relationRemark) VALUES(?, ?, ?, ?, ?)" ,
+             [[[risk elementsForName:@"id"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"projectid"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"riskFrom"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"riskTo"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"relationRemark"] objectAtIndex:0] stringValue]
+             ];
+            //NSLog(@"UPDATE PROJECTMAP %d", succ) ;
+        }
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+}
+
 +(void) checkRiskCostTable
 {
     //NSLog(@"#### checkProjectVectorDetailTable");
@@ -1095,13 +1239,10 @@
         while ([rs next]) {
             Risk *risk = [[Risk alloc] init] ;
             risk.riskId = [rs stringForColumn:@"id"] ;
-            risk.projectId = [rs stringForColumn:@"projectId"] ;
-            risk.pageDetailId = [rs stringForColumn:@"pageDetailId"] ;
+            risk.title = [rs stringForColumn:@"title"] ;
             risk.riskTitle = [rs stringForColumn:@"riskTitle"] ;
             risk.riskCode = [rs stringForColumn:@"riskCode"];
-            risk.riskTypeId = [rs stringForColumn:@"riskTypeId"];
             risk.riskTypeStr = [rs stringForColumn:@"riskTypeStr"];
-            risk.pageId = [rs stringForColumn:@"pageId"];
             [result addObject:risk] ;
             [risk release] ;
         }
@@ -1417,7 +1558,7 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id, riskName, riskCode, riskType, beforeGailv, beforeAffect, beforeAffectQi, manaChengben, afterGailv, afterAffect, afterQi, affectQi, shouyi, jingshouyi, bilv, projectId, pageid, riskvecorid, chanceVecorid from riskCost where %@ order by id", where] ;
+        sql = [NSString stringWithFormat:@"SELECT id, riskName, riskCode, riskType, beforeGailv, beforeAffect, beforeAffectQi, manaChengben, afterGailv, afterAffect, afterQi, affectQi, shouyi, jingshouyi, bilv, projectId, pageId, riskvecorid, chanceVecorid from riskCost where %@ order by id", where] ;
         
         NSLog(@"SQL: %@", sql) ;
         
