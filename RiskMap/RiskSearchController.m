@@ -372,10 +372,18 @@
     
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (NSIndexPath *)tableView:(UITableView *)tableView
+  willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSUInteger row = [indexPath row];
+    if(row > 0){
+        AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+        Risk *risk = [self.riskArray objectAtIndex:(row - 1)] ;
+        appDelegate.currDBID = [risk.riskId copy] ;
+        [appDelegate gotoLastMapPage] ;
+    }
     return nil ;
 }
+
 
 #pragma mark -
 #pragma mark UITextFieldDelegate Methods

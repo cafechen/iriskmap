@@ -43,7 +43,7 @@
 {
     [super viewDidLoad];
     [self loadDirectory] ;
-    [self.logoButton setBackgroundImage:[self whiteToTranparent:[UIImage imageNamed:@"5.png"]] forState:UIControlStateNormal] ;
+    [self.logoButton setBackgroundImage:[self whiteToTranparent:[UIImage imageNamed:@"114.png"]] forState:UIControlStateNormal] ;
     // Do any additional setup after loading the view from its nib.
 }
 

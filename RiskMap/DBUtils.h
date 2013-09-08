@@ -36,6 +36,7 @@
 +(NSMutableArray *) getProjectVectorDetail: (NSString *) fatherid ;
 +(NSMutableArray *) getRiskScore: (NSString *) vectorId ;
 +(NSMutableArray *) getRiskCost: (NSString *) projectId ;
++(NSMutableArray *) getRiskRelation: (NSString *) projectId ;
 +(NSMutableArray *) getRiskCostByWhere: (NSString *) where;
 +(NSMutableArray *) getDictype ;
 +(NSMutableArray *) getVector: (NSString *) projectId ;

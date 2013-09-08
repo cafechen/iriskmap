@@ -13,6 +13,8 @@
 #import "DBUtils.h"
 #import "ProjectMap.h"
 #import "MyLongPressGestureRecognizer.h"
+#import "DrawLine.h"
+#import "RiskRelation.h"
 
 @interface MapController ()
 
@@ -56,6 +58,9 @@
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self initTools] ;
     [self initMap] ;
+    
+    //DrawLine *lineView = [[DrawLine alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
+    //[self.view addSubview:lineView];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -81,6 +86,12 @@
     }
     
     [self.toolsArray addObject:@"过滤器"] ;
+    
+    NSMutableArray *relations = [DBUtils getRiskRelation:appDelegate.currProjectMap] ;
+    
+    if(relations.count > 0){
+        [self.toolsArray addObject:@"相关性"] ;
+    }
 }
 
 - (void) initMap
@@ -102,7 +113,10 @@
             UIImage *image1 = [UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.picEmz]] ;
             UIImage *image2 = [self whiteToTranparent:image1] ;
             UIImageView *imageView = [[[UIImageView alloc] initWithImage:image2] autorelease] ;
-            imageView.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
+            //imageView.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
+            
+            imageView.frame = CGRectMake(pm.positionX*self.mSize - (image2.size.width/38.286)*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - (image2.size.height/38.286)*self.mSize/2, (image2.size.width/38.286)*self.mSize, (image2.size.height/38.286)*self.mSize) ;
+            
             if(self.maxX < imageView.frame.origin.x + imageView.frame.size.width){
                 self.maxX = imageView.frame.origin.x + imageView.frame.size.width ;
             }
@@ -115,6 +129,12 @@
             if(self.minY > imageView.frame.origin.y + imageView.frame.size.height || i == 0){
                 self.minY = imageView.frame.origin.y + imageView.frame.size.height ;
             }
+            
+            if([@"相关性" isEqualToString:pm.Obj_maptype]){
+                NSLog(@"######## 相关性 %@", pm.picEmz) ;
+                [imageView setBackgroundColor:[UIColor redColor]] ;
+            }
+            
             [self.mapView addSubview:imageView] ;
         }
         if([@"目标" isEqualToString:pm.Obj_maptype]){
@@ -127,9 +147,10 @@
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isline == NO && (pm.cardPic == nil || [@"" isEqualToString:pm.cardPic])){
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
+            //button.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
             UIImage *image1 = [UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.picEmz]] ;
             UIImage *image2 = [self whiteToTranparent:image1] ;
+            button.frame = CGRectMake(pm.positionX*self.mSize - (image2.size.width/38.286)*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - (image2.size.height/38.286)*self.mSize/2, (image2.size.width/38.286)*self.mSize, (image2.size.height/38.286)*self.mSize) ;
             [button setBackgroundImage:image2 forState:UIControlStateNormal] ;
             [button setBackgroundImage:image2 forState:UIControlStateDisabled] ;
             //button.backgroundColor = [UIColor redColor] ;
@@ -181,9 +202,10 @@
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isline == NO && !(pm.cardPic == nil || [@"" isEqualToString:pm.cardPic])){
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
+            //button.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2, pm.width*self.mSize, pm.height*self.mSize) ;
             UIImage *image1 = [UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.picEmz]] ;
             UIImage *image2 = [self whiteToTranparent:image1] ;
+            button.frame = CGRectMake(pm.positionX*self.mSize - (image2.size.width/38.286)*self.mSize/2, ScreenHeight - pm.positionY*self.mSize - (image2.size.height/38.286)*self.mSize/2, (image2.size.width/38.286)*self.mSize, (image2.size.height/38.286)*self.mSize) ;
             [button setBackgroundImage:image2 forState:UIControlStateNormal] ;
             [button setBackgroundImage:image2 forState:UIControlStateDisabled] ;
             //button.backgroundColor = [UIColor redColor] ;
@@ -481,7 +503,8 @@
             UIImage *image1 = [UIImage imageWithContentsOfFile:[DBUtils findFilePath:pm.picEmz]] ;
             UIImage *image2 = [self whiteToTranparent:image1] ;
             UIImageView *imageView = [[[UIImageView alloc] initWithImage:image2] autorelease] ;
-            imageView.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2 + self.offsetX, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2 + self.offsetY, pm.width*self.mSize, pm.height*self.mSize) ;
+            //imageView.frame = CGRectMake(pm.positionX*self.mSize - pm.width*self.mSize/2 + self.offsetX, ScreenHeight - pm.positionY*self.mSize - pm.height*self.mSize/2 + self.offsetY, pm.width*self.mSize, pm.height*self.mSize) ;
+            imageView.frame = CGRectMake(pm.positionX*self.mSize - (image2.size.width/38.286)*self.mSize/2 + self.offsetX, ScreenHeight - pm.positionY*self.mSize - (image2.size.height/38.286)*self.mSize/2 + self.offsetY, (image2.size.width/38.286)*self.mSize, (image2.size.height/38.286)*self.mSize) ;
             [self.mapView insertSubview:imageView atIndex:0] ;
         }
     }
@@ -539,13 +562,66 @@
     [self initMap] ;
     [self closeToolViewAction:nil];
     
-    [self.backItem setTitle:@"地图"] ;
+    [self.backItem setTitle:@"返回地图列表"] ;
 }
 
 - (IBAction)draw02:(id)sender
 {
     AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
     [appDelegate gotoRiskHotPage] ;
+}
+
+- (IBAction)drawRelation:(id)sender
+{
+    for(int i = 0; i < self.mapView.subviews.count; i++){
+        UIView *v = [self.mapView.subviews objectAtIndex:i] ;
+        [v setAlpha:0.1] ;
+        if([v isKindOfClass:[UIButton class]]){
+            UIButton *b = (UIButton *)v ;
+            b.enabled = NO ;
+        }
+    }
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    NSMutableArray *relations = [DBUtils getRiskRelation:appDelegate.currProjectMap] ;
+    for(int i = 0; i < relations.count; i++){
+        RiskRelation *relation = [relations objectAtIndex:i] ;
+        NSLog(@"#### relation.relationRemark %@", relation.relationRemark) ;
+        UIButton *fromButton = nil ;
+        UIButton *toButton = nil ;
+        for(int j = 0; j < self.objectArray.count; j++){
+            ProjectMap *pm = [self.objectArray objectAtIndex:j] ;
+            if([pm.Obj_data3 isEqualToString:relation.riskFrom]){
+                NSLog(@"#### relation.riskFrom %@", relation.riskFrom) ;
+                fromButton = (UIButton *)[self.mapView viewWithTag:(j+100)] ;
+                fromButton.enabled = NO ;
+                [fromButton setAlpha:1.0] ;
+            }
+            if([pm.Obj_data3 isEqualToString:relation.riskTo]){
+                NSLog(@"#### relation.riskTo %@", relation.riskTo) ;
+                toButton = (UIButton *)[self.mapView viewWithTag:(j+100)] ;
+                toButton.enabled = NO ;
+                [toButton setAlpha:1.0] ;
+            }
+        }
+        
+        DrawLine *lineView = [[DrawLine alloc] initWithFrame:CGRectMake(fromButton.frame.origin.x + fromButton.frame.size.width/2, fromButton.frame.origin.y + fromButton.frame.size.height/2, toButton.frame.origin.x + toButton.frame.size.width/2 - (fromButton.frame.origin.x + fromButton.frame.size.width/2), toButton.frame.origin.y + toButton.frame.size.height/2 - (fromButton.frame.origin.y + fromButton.frame.size.height/2)) From:CGPointMake(fromButton.frame.origin.x + fromButton.frame.size.width/2, fromButton.frame.origin.y + fromButton.frame.size.height/2) To:CGPointMake(toButton.frame.origin.x + toButton.frame.size.width/2, toButton.frame.origin.y + toButton.frame.size.height/2)];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(lineView.frame.origin.x + lineView.frame.size.width/2, lineView.frame.origin.y + lineView.frame.size.height/2, 200, 20)];
+        
+        int fontSize = 10 ;
+        if(isIpad){
+            fontSize = 12 ;
+        }
+        
+        [label setBackgroundColor:[UIColor clearColor]] ;
+        [label setText:[NSString stringWithFormat:@"%@", relation.relationRemark]] ;
+        [label setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
+        
+        [self.mapView addSubview:lineView];
+        [self.mapView addSubview:label];
+    }
+    
+    [self.backItem setTitle:@"返回地图"] ;
 }
 
 - (IBAction)gotoRiskStatis:(id)sender
@@ -650,6 +726,9 @@
     }
     if([@"过滤器" isEqualToString: toolName]){
         [self gotoRiskSearch:nil];
+    }
+    if([@"相关性" isEqualToString: toolName]){
+        [self drawRelation:nil];
     }
 }
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet{

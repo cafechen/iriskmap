@@ -13,6 +13,7 @@
 @property (nonatomic, retain) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) IBOutlet UIView *hotView;
 @property (nonatomic, retain) IBOutlet UIButton *switchButton;
+@property (nonatomic, retain) IBOutlet UIButton *sortButton;
 @property (nonatomic, retain) NSMutableArray *matrixArray;
 @property (nonatomic, retain) NSMutableArray *vectorArray;
 @property (nonatomic, retain) NSMutableArray *matrixTitleArray;

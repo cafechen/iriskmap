@@ -135,6 +135,7 @@
     total.riskType = @"-" ;
     total.beforeGailv = -1 ;
     total.afterGailv = -1 ;
+    total.bilv = -1 ;
     for(int i = 0; i < self.tableArray.count; i++){
         Cost *cost = [self.tableArray objectAtIndex:i] ;
         //total.beforeGailv = total.beforeGailv  + cost.beforeGailv ;
@@ -147,7 +148,7 @@
         total.affectQi = total.affectQi  + cost.affectQi ;
         total.shouyi = total.shouyi  + cost.shouyi ;
         total.jingshouyi = total.jingshouyi  + cost.jingshouyi ;
-        total.bilv = total.bilv  + cost.bilv ;
+        //total.bilv = total.bilv  + cost.bilv ;
     }
     
     [self.tableArray addObject:total] ;
@@ -276,7 +277,11 @@
         cell.shouyiLabel.textColor = [UIColor blackColor] ;
         cell.jingshouyiLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.jingshouyi]] ;
         cell.jingshouyiLabel.textColor = [UIColor blackColor] ;
-        cell.bilvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.bilv]] ;
+        if(cost.bilv < 0){
+            cell.bilvLabel.text = @"-" ;
+        }else{
+            cell.bilvLabel.text = [numberFormatter stringFromNumber: [NSNumber numberWithDouble: cost.bilv]] ;
+        }
         cell.bilvLabel.textColor = [UIColor blackColor] ;
     }else{
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;

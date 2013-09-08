@@ -188,6 +188,8 @@ int IPAD_HEIGHT = 50 ;
         label1.textAlignment = UITextAlignmentLeft;
         label2.text = [title substringFromIndex:5];
         label2.textAlignment = UITextAlignmentRight;
+        [label1 setBackgroundColor:[UIColor clearColor]];
+        [label2 setBackgroundColor:[UIColor clearColor]];
         if(isIpad){
             [label1 setFont:[UIFont fontWithName:@"Arial" size:12]] ;
             [label2 setFont:[UIFont fontWithName:@"Arial" size:12]] ;

@@ -19,6 +19,7 @@
 #import "Dictype.h"
 #import "Project.h"
 #import "Vector.h"
+#import "RiskRelation.h"
 
 @implementation DBUtils
 
@@ -1047,7 +1048,7 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id, projectId, objectId, title, positionX, positionY, width, height, isline, picPng, picEmz, belongPage, Obj_maptype, Obj_belongwho,Obj_remark,Obj_db_id,Obj_riskTypeStr,Obj_other1,Obj_other2,Obj_data1,Obj_data2,Obj_data3,lineType,lineType2,isDel,linkPics, cardPic, fromWho, toWho from projectMap where projectId = '%@'", projectId] ;
+        sql = [NSString stringWithFormat:@"SELECT id, projectId, objectId, title, positionX, positionY, width, height, isline, picPng, picEmz, belongPage, Obj_maptype, Obj_belongwho,Obj_remark,Obj_db_id,Obj_riskTypeStr,Obj_other1,Obj_other2,Obj_data1,Obj_data2,Obj_data3,lineType,lineType2,isDel,linkPics, cardPic, fromWho, toWho from projectMap where projectId = '%@' and Obj_maptype <> '相关性'", projectId] ;
         
         //NSLog(@"SQL: %@", sql) ;
         
@@ -1150,7 +1151,7 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id, title, show_card, show_hot, show_sort, show_chengben, show_static, huobi from project where id = '%@'", projectId] ;
+        sql = [NSString stringWithFormat:@"SELECT id, title, show_card, show_hot, show_sort, show_chengben, show_static, show_after, huobi from project where id = '%@'", projectId] ;
         
         NSLog(@"#### SQL: %@", sql) ;
         
@@ -1161,11 +1162,12 @@
         while ([rs next]) {
             result.projectId = [rs stringForColumn:@"id"] ;
             result.title = [rs stringForColumn:@"title"] ;
-            result.show_cart = [rs intForColumn:@"show_cart"] ;
+            result.show_cart = [rs intForColumn:@"show_card"] ;
             result.show_hot = [rs intForColumn:@"show_hot"] ;
             result.show_sort = [rs intForColumn:@"show_sort"] ;
             result.show_chengben = [rs intForColumn:@"show_chengben"] ;
             result.show_static = [rs intForColumn:@"show_static"] ;
+            result.show_after = [rs intForColumn:@"show_after"] ;
             result.huobi = [rs stringForColumn:@"huobi"] ;
         }
         
@@ -1361,6 +1363,46 @@
             matrix.levelType = [rs stringForColumn:@"levelType"];
             [result addObject:matrix] ;
             [matrix release] ;
+        }
+        
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+    
+    return result ;
+}
+
++(NSMutableArray *) getRiskRelation:(NSString *) projectId
+{
+    
+    NSMutableArray *result = nil ;
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        //拼写SQL
+        NSString *sql = nil ;
+        
+        sql = [NSString stringWithFormat:@"SELECT id, projectid, riskFrom, riskTo, relationRemark from riskRelation where projectid = '%@'", projectId] ;
+        
+        NSLog(@"SQL: %@", sql) ;
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        result = [[[NSMutableArray alloc] init] autorelease];
+        
+        while ([rs next]) {
+            RiskRelation *riskRelation = [[RiskRelation alloc] init] ;
+            riskRelation.relationId = [rs stringForColumn:@"id"] ;
+            riskRelation.projectid = [rs stringForColumn:@"projectid"] ;
+            riskRelation.riskFrom = [rs stringForColumn:@"riskFrom"] ;
+            riskRelation.riskTo = [rs stringForColumn:@"riskTo"] ;
+            riskRelation.relationRemark = [rs stringForColumn:@"relationRemark"] ;
+            [result addObject:riskRelation] ;
+            [riskRelation release] ;
         }
         
         [db close];
