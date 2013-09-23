@@ -189,7 +189,7 @@ int MAX_SIZE = 35 ;
                 
                 NSLog(@"---- %d, %d", yIndex, self.maxX) ;
                 if(yIndex == (int)(self.maxY/2)){
-                    UILabel *label03 = [[UILabel alloc] initWithFrame:CGRectMake(5 , y + self.mSize/2 - 10, 40, 20)];
+                    UILabel *label03 = [[UILabel alloc] initWithFrame:CGRectMake(5 , y + self.mSize/2 - 10, 40, 40)];
                     label03.textAlignment = UITextAlignmentCenter;
                     NSString *title = @"" ;
                     for(int m = 0; m < self.vectorArray.count; m++){
@@ -198,7 +198,14 @@ int MAX_SIZE = 35 ;
                             title = v.title ;
                         }
                     }
-                    [label03 setText:[NSString stringWithFormat:@"%@", title]] ;
+                    label03.lineBreakMode = UILineBreakModeWordWrap; 
+                    label03.numberOfLines = 0 ;
+                    NSString *theTitle = [title substringWithRange:NSMakeRange(0, 1)] ;
+                    for(int i = 1; i < title.length; i++){
+                        theTitle = [NSString stringWithFormat:@"%@\n%@", theTitle, [title substringWithRange:NSMakeRange(i, 1)]];
+                    }
+                    NSLog(@"####**** %@", theTitle) ;
+                    [label03 setText:[NSString stringWithFormat:@"%@", theTitle]] ;
                     [label03 setFont:[UIFont fontWithName:@"Arial" size:fontSize]] ;
                     [label03 setBackgroundColor:[UIColor clearColor]] ;
                     [self.hotView addSubview:label03] ;
