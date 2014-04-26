@@ -516,6 +516,7 @@
                     ProjectMap *pp = [self.objectArray objectAtIndex:j] ;
                     if([pp.objectId isEqualToString:pm.fromWho]){
                         //上一个风险
+                        NSLog(@"#### AAABBB %@", pp.title);
                         NSRange foundObj = [pp.belongLayers rangeOfString:@"风险地图" options:NSCaseInsensitiveSearch];
                         if(!foundObj.length>0) {
                             isContinue = NO ;
@@ -524,7 +525,8 @@
                 }
                 if(isContinue){
                     pm.willShow = YES ;
-                    NSLog(@"--------------before22 [%@]", pm.fromWho) ;
+                    [self markBeforeLine:pm] ;
+                    /*
                     for(int j = 0; j < self.objectArray.count; j++){
                         ProjectMap *pm2 = [self.objectArray objectAtIndex:j];
                         if([pm.fromWho isEqualToString:pm2.toWho]){
@@ -532,6 +534,7 @@
                             [self markBeforeLine:pm2] ;
                         }
                     }
+                     */
                 }
             }
         }
@@ -575,6 +578,8 @@
                 }
                 if(isContinue){
                     pm.willShow = YES ;
+                    [self markAfterLine:pm] ;
+                    /*
                     NSLog(@"--------------after22 [%@]", pm.toWho) ;
                     for(int j = 0; j < self.objectArray.count; j++){
                         ProjectMap *pm2 = [self.objectArray objectAtIndex:j];
@@ -583,6 +588,7 @@
                             [self markAfterLine:pm2] ;
                         }
                     }
+                     */
                 }
             }
         }
