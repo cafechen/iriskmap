@@ -121,6 +121,8 @@
     
     cell.directory = dir.title ;
     
+    cell.directoryLabel.frame = CGRectMake(cell.directoryLabel.frame.origin.x, cell.directoryLabel.frame.origin.y, ScreenWidth - 50, cell.directoryLabel.frame.size.height);
+    
 	return cell;
 }
 
