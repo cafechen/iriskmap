@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CYCustomMultiSelectPickerView.h"
 
-@interface MapController : UIViewController <UIAlertViewDelegate, UIActionSheetDelegate>
+@interface MapController : UIViewController <UIAlertViewDelegate, UIActionSheetDelegate, CYCustomMultiSelectPickerViewDelegate>{
+    CYCustomMultiSelectPickerView *multiPickerView;
+}
 
 @property (nonatomic, retain) NSMutableArray *objectArray;
 @property (nonatomic, retain) NSMutableArray *toolsArray;
@@ -27,7 +30,12 @@
 @property (nonatomic, readwrite) int offsetX;
 @property (nonatomic, readwrite) int offsetY;
 @property (nonatomic, readwrite) int mSize;
-@property (nonatomic, retain) IBOutlet UIView *loadingView ;
+@property (nonatomic, retain) IBOutlet UIView *loadingView;
+@property (nonatomic, retain)  NSMutableArray *layers;
+@property (nonatomic, retain)  NSMutableArray *entries;
+@property (nonatomic, retain)  NSMutableArray *entriesSelected;
+@property (nonatomic, retain)  NSMutableDictionary *selectionStates;
+
 - (void) showObject ;
 
 @end

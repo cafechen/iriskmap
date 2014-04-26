@@ -19,6 +19,7 @@
 #import "Dictype.h"
 #import "Project.h"
 #import "Vector.h"
+#import "Layer.h"
 #import "RiskRelation.h"
 
 @implementation DBUtils
@@ -147,6 +148,15 @@
 {
     [self checkRiskRelationTable] ;
     [self updateRiskRelationData] ;
+    return YES ;
+}
+
++(BOOL) updateProjectMapPageLayer
+{
+    NSLog(@"#### updateProjectMapPageLayer begin") ;
+    [self checkProjectMapPageLayerTable] ;
+    [self updateProjectMapPageLayerData] ;
+    NSLog(@"#### updateProjectMapPageLayer end") ;
     return YES ;
 }
 
@@ -320,7 +330,7 @@
         
         // 如果没有创建表
         if(isExist == 0){
-            [db executeUpdate:@"create table projectMap(id varchar(255) primary key, projectId varchar(255), objectId varchar(255), title varchar(255),positionX varchar(255), positionY varchar(255),width varchar(255), height varchar(255),isline varchar(255), picPng varchar(255),picEmz varchar(255),belongPage varchar(255), Obj_maptype varchar(255), Obj_belongwho varchar(255), Obj_remark varchar(255), Obj_db_id varchar(255), Obj_riskTypeStr varchar(255), Obj_other1 varchar(255), Obj_other2 varchar(255),Obj_data1 varchar(255),Obj_data2 varchar(255),Obj_data3 varchar(255),lineType varchar(255),lineType2 varchar(255),isDel varchar(255),linkPics varchar(255),cardPic varchar(255),fromWho varchar(255),toWho varchar(255))"];
+            [db executeUpdate:@"create table projectMap(id varchar(255) primary key, projectId varchar(255), objectId varchar(255), title varchar(255),positionX varchar(255), positionY varchar(255),width varchar(255), height varchar(255),isline varchar(255), picPng varchar(255),picEmz varchar(255),belongPage varchar(255), Obj_maptype varchar(255), Obj_belongwho varchar(255), Obj_remark varchar(255), Obj_db_id varchar(255), Obj_riskTypeStr varchar(255), Obj_other1 varchar(255), Obj_other2 varchar(255),Obj_data1 varchar(255),Obj_data2 varchar(255),Obj_data3 varchar(255),lineType varchar(255),lineType2 varchar(255),isDel varchar(255),linkPics varchar(255),cardPic varchar(255),fromWho varchar(255),toWho varchar(255), belongLayers varchar(255))"];
         }
         [db close];
         
@@ -350,7 +360,7 @@
     if ([db open]) {
         [db setShouldCacheStatements:YES];
         for (GDataXMLElement *risk in risks) {
-                [db executeUpdate:@"REPLACE INTO projectMap(id, projectId, objectId, title, positionX, positionY, width, height, isline, picPng, picEmz, belongPage, Obj_maptype, Obj_belongwho,Obj_remark,Obj_db_id,Obj_riskTypeStr,Obj_other1,Obj_other2,Obj_data1,Obj_data2,Obj_data3,lineType,lineType2,isDel,linkPics,cardPic,fromWho,toWho) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ,
+                [db executeUpdate:@"REPLACE INTO projectMap(id, projectId, objectId, title, positionX, positionY, width, height, isline, picPng, picEmz, belongPage, Obj_maptype, Obj_belongwho,Obj_remark,Obj_db_id,Obj_riskTypeStr,Obj_other1,Obj_other2,Obj_data1,Obj_data2,Obj_data3,lineType,lineType2,isDel,linkPics,cardPic,fromWho,toWho, belongLayers) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ,
                          [[[risk elementsForName:@"id"] objectAtIndex:0] stringValue],
                          [[[risk elementsForName:@"projectId"] objectAtIndex:0] stringValue],
                          [[[risk elementsForName:@"objectId"] objectAtIndex:0] stringValue],
@@ -379,7 +389,8 @@
                          [[[risk elementsForName:@"linkPics"] objectAtIndex:0] stringValue],
                          [[[risk elementsForName:@"cardPic"] objectAtIndex:0] stringValue],
                          [[[risk elementsForName:@"fromWho"] objectAtIndex:0] stringValue],
-                         [[[risk elementsForName:@"toWho"] objectAtIndex:0] stringValue]
+                         [[[risk elementsForName:@"toWho"] objectAtIndex:0] stringValue],
+                         [[[risk elementsForName:@"belonglayers"] objectAtIndex:0] stringValue]
                          ];
             //NSLog(@"UPDATE PROJECTMAP %d", succ) ;
         }
@@ -980,6 +991,68 @@
     }
 }
 
++(void) checkProjectMapPageLayerTable
+{
+    FMDatabase* db = [DBUtils getFMDB] ;
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        int isExist = 0 ;
+        
+        // 判断表是否存在
+        FMResultSet *rs = [db executeQuery:@"SELECT COUNT(*) as count FROM sqlite_master where type='table' and name='projectMapPageLayer'"];
+        while ([rs next]) {
+            isExist = [rs intForColumn:@"count"] ;
+        }
+        
+        // 如果没有创建表
+        if(isExist == 0){
+            [db executeUpdate:@"create table projectMapPageLayer(id varchar(255) primary key, layerName varchar(255), visible varchar(255), projectId varchar(255), pageIndex varchar(255), belongPage varchar(255))"];
+        }
+        [db close];
+        
+    }else{
+        NSLog(@"Could not open db.");
+    }
+}
+
++ (void)updateProjectMapPageLayerData{
+    //获取工程目录的xml文件
+    NSString *filePath = [DBUtils findFilePath:@"T_project_MapPage_layer.xml"] ;
+    
+    NSLog(@"%@", filePath) ;
+    
+    NSData *xmlData = [[NSData alloc] initWithContentsOfFile:filePath];
+    
+    //使用NSData对象初始化
+    GDataXMLDocument *doc = [[[GDataXMLDocument alloc] initWithData:xmlData  options:0 error:nil] autorelease];
+    
+    //获取根节点（Users）
+    GDataXMLElement *rootElement = [doc rootElement];
+    
+    //获取根节点下的节点（User）
+    NSArray *risks = [rootElement elementsForName:@"Risk"];
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        for (GDataXMLElement *risk in risks) {
+            [db executeUpdate:@"REPLACE INTO projectMapPageLayer(id, layerName, visible, projectId, pageIndex, belongPage) VALUES(?, ?, ?, ?, ?, ?)" ,
+             [[[risk elementsForName:@"id"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"layerName"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"visible"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"projectId"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"pageIndex"] objectAtIndex:0] stringValue],
+             [[[risk elementsForName:@"belongpage"] objectAtIndex:0] stringValue]
+             ];
+            //NSLog(@"UPDATE PROJECTMAP %d", succ) ;
+        }
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+}
+
 +(NSMutableArray *) getDirectory:(NSString *) fatherId
 {
     
@@ -1048,7 +1121,7 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"SELECT id, projectId, objectId, title, positionX, positionY, width, height, isline, picPng, picEmz, belongPage, Obj_maptype, Obj_belongwho,Obj_remark,Obj_db_id,Obj_riskTypeStr,Obj_other1,Obj_other2,Obj_data1,Obj_data2,Obj_data3,lineType,lineType2,isDel,linkPics, cardPic, fromWho, toWho from projectMap where projectId = '%@' and Obj_maptype <> '相关性'", projectId] ;
+        sql = [NSString stringWithFormat:@"SELECT id, projectId, objectId, title, positionX, positionY, width, height, isline, picPng, picEmz, belongPage, Obj_maptype, Obj_belongwho,Obj_remark,Obj_db_id,Obj_riskTypeStr,Obj_other1,Obj_other2,Obj_data1,Obj_data2,Obj_data3,lineType,lineType2,isDel,linkPics, cardPic, fromWho, toWho, belongLayers from projectMap where projectId = '%@' and Obj_maptype <> '相关性'", projectId] ;
         
         //NSLog(@"SQL: %@", sql) ;
         
@@ -1087,6 +1160,7 @@
             pm.cardPic = [rs stringForColumn:@"cardPic"] ;
             pm.fromWho = [rs stringForColumn:@"fromWho"] ;
             pm.toWho = [rs stringForColumn:@"toWho"] ;
+            pm.belongLayers = [rs stringForColumn:@"belongLayers"] ;
             [result addObject:pm] ;
             [pm release] ;
         }
@@ -1723,6 +1797,48 @@
     return result ;
     
 }
+
++(NSMutableArray *) getProjectMapPageLayer:(NSString *)projectId
+{
+    
+    NSMutableArray *result = nil ;
+    
+    FMDatabase* db = [DBUtils getFMDB] ;
+    
+    if ([db open]) {
+        [db setShouldCacheStatements:YES];
+        
+        //拼写SQL
+        NSString *sql = nil ;
+        
+        sql = [NSString stringWithFormat:@"SELECT id, layerName, visible, projectId, pageIndex, belongPage from projectMapPageLayer where visible = '1' order by id"] ;
+        
+        FMResultSet *rs = [db executeQuery:sql];
+        
+        result = [[[NSMutableArray alloc] init] autorelease];
+        
+        while ([rs next]) {
+            Layer *layer = [[Layer alloc] init] ;
+            layer.layerId = [rs stringForColumn:@"id"] ;
+            layer.layerName = [rs stringForColumn:@"layerName"] ;
+            layer.visible = [[rs stringForColumn:@"visible"] intValue];
+            layer.projectId = [rs stringForColumn:@"projectId"] ;
+            layer.pageIndex = [rs stringForColumn:@"pageIndex"] ;
+            layer.belongPage = [rs stringForColumn:@"belongPage"] ;
+            layer.selected = YES;
+            [result addObject:layer] ;
+            [layer release] ;
+        }
+        
+        [db close];
+    }else{
+        NSLog(@"Could not open db.");
+    }
+    
+    return result ;
+    
+}
+
 
 +(NSString *) findFilePath: (NSString *) filename
 {

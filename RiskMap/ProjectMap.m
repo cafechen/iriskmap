@@ -41,10 +41,11 @@
 @synthesize toWho;
 @synthesize isShow;
 @synthesize willShow;
+@synthesize belongLayers;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"[%@][%@][%@][%@][%f][%f][%f][%f][%d][%@][%@][%@][%@][%@][%@][%@][%@][%@][%@][%@][%@][%@][%d][%d][%d][%@][%@]",
+    return [NSString stringWithFormat:@"[%@][%@][%@][%@][%f][%f][%f][%f][%d][%@][%@][%@][%@][%@][%@][%@][%@][%@][%@][%@][%@][%@][%d][%d][%d][%@][%@][%@]",
             self.projectMapId,
             self.projectId,
             self.objectId,
@@ -71,7 +72,8 @@
             self.lineType2,
             self.isDel,
             self.linkPics,
-            self.cardPic] ;
+            self.cardPic,
+            self.belongLayers] ;
 }
 
 @end

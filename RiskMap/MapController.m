@@ -11,6 +11,7 @@
 #import "MapController.h"
 #import "ASDepthModalViewController.h"
 #import "DBUtils.h"
+#import "Layer.h"
 #import "ProjectMap.h"
 #import "MyLongPressGestureRecognizer.h"
 #import "DrawLine.h"
@@ -56,12 +57,27 @@
         self.mSize = 15 ;
     }
     self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self initLayers] ;
     [self initTools] ;
     [self initMap] ;
-    
     //DrawLine *lineView = [[DrawLine alloc] initWithFrame:CGRectMake(0, 0, 320, 100)];
     //[self.view addSubview:lineView];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void) initLayers
+{
+    AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
+    self.layers = [DBUtils getProjectMapPageLayer:appDelegate.currProjectMap];
+    self.entries = [[[NSMutableArray alloc] init] autorelease];
+    self.entriesSelected = [[[NSMutableArray alloc] init] autorelease];
+    self.selectionStates = [[[NSMutableDictionary alloc] init] autorelease];
+    for (Layer *layer in self.layers){
+        [self.entries addObject:layer.pageIndex];
+        [self.entriesSelected addObject:layer.pageIndex];
+        [self.selectionStates setObject:[NSNumber numberWithBool:layer.selected] forKey:layer.pageIndex];
+    }
+
 }
 
 - (void) initTools
@@ -92,6 +108,8 @@
     if(relations.count > 0){
         [self.toolsArray addObject:@"相关性"] ;
     }
+    
+    [self.toolsArray addObject:@"选择图层"] ;
 }
 
 - (void) initMap
@@ -134,6 +152,8 @@
                 NSLog(@"######## 相关性 %@", pm.picEmz) ;
                 [imageView setBackgroundColor:[UIColor redColor]] ;
             }
+            
+            imageView.tag = i + 100 ;
             
             [self.mapView addSubview:imageView] ;
         }
@@ -333,6 +353,12 @@
     
     ProjectMap *pm = [self.objectArray objectAtIndex:([sender tag] - 100)] ;
     
+    //非风险地图不显示
+    NSRange foundObj = [pm.belongLayers rangeOfString:@"风险地图" options:NSCaseInsensitiveSearch];
+    if(!foundObj.length>0) {
+        return ;
+    }
+    
     if(![@"" isEqualToString: pm.cardPic]){
         //这说明是五角星
         for(int i = 0; i < self.objectArray.count; i++){
@@ -344,8 +370,23 @@
         }
     }
     
-    //所有试图变透明
+    //所有风险地图层显示，其它层隐藏
     NSArray *views = [self.mapView subviews] ;
+    for(int i = 0; i < views.count; i++){
+        UIView *v = (UIView *)[views objectAtIndex:i] ;
+        if(v.tag >= 100){
+            ProjectMap *pm = [self.objectArray objectAtIndex:([v tag] - 100)] ;
+            NSRange foundObj = [pm.belongLayers rangeOfString:@"风险地图" options:NSCaseInsensitiveSearch];
+            if(foundObj.length>0) {
+                v.hidden = NO ;
+            }else{
+                v.hidden = YES ;
+            }
+        }
+    }
+    
+    //所有试图变透明
+    views = [self.mapView subviews] ;
     for(int i = 0; i < views.count; i++){
         UIView *v = (UIView *)[views objectAtIndex:i] ;
         [v setAlpha:0.1] ;
@@ -355,10 +396,10 @@
         }
     }
     
-    UIButton *v = (UIButton *)[self.mapView viewWithTag:(self.target + 100)] ;
-    [v setAlpha:1.0] ;
+    //UIButton *v = (UIButton *)[self.mapView viewWithTag:(self.target + 100)] ;
+    //[v setAlpha:1.0] ;
     
-    pm.isShow = !pm.isShow ;
+    pm.isShow = YES ;//!pm.isShow ;
     
     //将所有的线重置
     for(int i = 0; i < self.objectArray.count; i++){
@@ -400,23 +441,51 @@
 
 - (void) markLine:(ProjectMap *)thePM
 {
-    ProjectMap *targetPM = [self.objectArray objectAtIndex:self.target];
-    NSLog(@"targetPM[%@]", targetPM.objectId) ;
+    //ProjectMap *targetPM = [self.objectArray objectAtIndex:self.target];
+    //NSLog(@"targetPM[%@]", targetPM.objectId) ;
     //先找离这个pm最近的线
     for(int i = 0; i < self.objectArray.count; i++){
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isline){
             if([thePM.objectId isEqualToString:pm.fromWho]){
-                pm.willShow = YES ;
-                NSLog(@"--------------after [%@]", pm.objectId) ;
-                [self markAfterLine:pm] ;
-                [self markBeforeLine:pm] ;
+                //后面的线
+                BOOL isContinue = YES ;
+                for(int j = 0; j < self.objectArray.count; j++){
+                    ProjectMap *pp = [self.objectArray objectAtIndex:j] ;
+                    if([pp.objectId isEqualToString:pm.toWho]){
+                        //下一个风险
+                        NSRange foundObj = [pp.belongLayers rangeOfString:@"风险地图" options:NSCaseInsensitiveSearch];
+                        if(!foundObj.length>0) {
+                            isContinue = NO ;
+                        }
+                    }
+                }
+                if(isContinue){
+                    pm.willShow = YES ;
+                    NSLog(@"--------------after [%@]", pm.objectId) ;
+                    [self markAfterLine:pm] ;
+                    [self markBeforeLine:pm] ;
+                }
             }
             if([thePM.objectId isEqualToString:pm.toWho]){
-                pm.willShow = YES ;
-                NSLog(@"--------------before [%@]", pm.objectId) ;
-                [self markBeforeLine:pm] ;
-                [self markAfterLine:pm] ;
+                //前面的线
+                BOOL isContinue = YES ;
+                for(int j = 0; j < self.objectArray.count; j++){
+                    ProjectMap *pp = [self.objectArray objectAtIndex:j] ;
+                    if([pp.objectId isEqualToString:pm.fromWho]){
+                        //上一个风险
+                        NSRange foundObj = [pp.belongLayers rangeOfString:@"风险地图" options:NSCaseInsensitiveSearch];
+                        if(!foundObj.length>0) {
+                            isContinue = NO ;
+                        }
+                    }
+                }
+                if(isContinue){
+                    pm.willShow = YES ;
+                    NSLog(@"--------------before [%@]", pm.objectId) ;
+                    [self markBeforeLine:pm] ;
+                    [self markAfterLine:pm] ;
+                }
             }
         }
     }
@@ -441,13 +510,27 @@
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isline){
             if([beforeObjectId isEqualToString:pm.toWho]){
-                pm.willShow = YES ;
-                NSLog(@"--------------before22 [%@]", pm.fromWho) ;
+                //前面的线
+                BOOL isContinue = YES ;
                 for(int j = 0; j < self.objectArray.count; j++){
-                    ProjectMap *pm2 = [self.objectArray objectAtIndex:j];
-                    if([pm.fromWho isEqualToString:pm2.toWho]){
-                        pm2.willShow = YES ;
-                        [self markBeforeLine:pm2] ;
+                    ProjectMap *pp = [self.objectArray objectAtIndex:j] ;
+                    if([pp.objectId isEqualToString:pm.fromWho]){
+                        //上一个风险
+                        NSRange foundObj = [pp.belongLayers rangeOfString:@"风险地图" options:NSCaseInsensitiveSearch];
+                        if(!foundObj.length>0) {
+                            isContinue = NO ;
+                        }
+                    }
+                }
+                if(isContinue){
+                    pm.willShow = YES ;
+                    NSLog(@"--------------before22 [%@]", pm.fromWho) ;
+                    for(int j = 0; j < self.objectArray.count; j++){
+                        ProjectMap *pm2 = [self.objectArray objectAtIndex:j];
+                        if([pm.fromWho isEqualToString:pm2.toWho]){
+                            pm2.willShow = YES ;
+                            [self markBeforeLine:pm2] ;
+                        }
                     }
                 }
             }
@@ -479,13 +562,26 @@
         ProjectMap *pm = [self.objectArray objectAtIndex:i] ;
         if(pm.isline){
             if([afterObjectId isEqualToString:pm.fromWho]){
-                pm.willShow = YES ;
-                NSLog(@"--------------after22 [%@]", pm.toWho) ;
+                BOOL isContinue = YES ;
                 for(int j = 0; j < self.objectArray.count; j++){
-                    ProjectMap *pm2 = [self.objectArray objectAtIndex:j];
-                    if([pm.toWho isEqualToString:pm2.fromWho]){
-                        pm2.willShow = YES ;
-                        [self markAfterLine:pm2] ;
+                    ProjectMap *pp = [self.objectArray objectAtIndex:j] ;
+                    if([pp.objectId isEqualToString:pm.toWho]){
+                        //下一个风险
+                        NSRange foundObj = [pp.belongLayers rangeOfString:@"风险地图" options:NSCaseInsensitiveSearch];
+                        if(!foundObj.length>0) {
+                            isContinue = NO ;
+                        }
+                    }
+                }
+                if(isContinue){
+                    pm.willShow = YES ;
+                    NSLog(@"--------------after22 [%@]", pm.toWho) ;
+                    for(int j = 0; j < self.objectArray.count; j++){
+                        ProjectMap *pm2 = [self.objectArray objectAtIndex:j];
+                        if([pm.toWho isEqualToString:pm2.fromWho]){
+                            pm2.willShow = YES ;
+                            [self markAfterLine:pm2] ;
+                        }
                     }
                 }
             }
@@ -532,7 +628,8 @@
 - (IBAction) gotoLastPageButtonAction:(id)sender
 {
     if([self.backItem.title isEqualToString:@"返回地图"]){
-        [self draw01:nil] ;
+        [self draw01:Nil];
+        [self repeatMap];
         [self.backItem setTitle:@"返回地图列表"] ;
     }else{
         AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
@@ -542,12 +639,26 @@
 
 - (IBAction)draw01:(id)sender
 {
+    
+    self.scrollView.hidden = NO ;
+    self.scrollView2.hidden = YES ;
+    
     //删除所有的对象
     NSArray *views = [self.mapView subviews] ;
     for(int i = 0; i < views.count; i++){
         UIView *v = (UIView *)[views objectAtIndex:i] ;
-        [v removeFromSuperview] ;
+        if(v.tag < 100){
+            [v removeFromSuperview];
+        }else{
+            v.hidden = NO ;
+            if([v isKindOfClass:[UIButton class]]){
+                UIButton *b = (UIButton *)v ;
+                b.enabled = YES ;
+            }
+            [v setAlpha:1.0] ;
+        }
     }
+    
     
     //将所有的线重置
     for(int i = 0; i < self.objectArray.count; i++){
@@ -559,7 +670,7 @@
         }
     }
     
-    [self initMap] ;
+    //[self initMap] ;
     [self closeToolViewAction:nil];
     
     [self.backItem setTitle:@"返回地图列表"] ;
@@ -622,6 +733,30 @@
     }
     
     [self.backItem setTitle:@"返回地图"] ;
+}
+
+- (IBAction) selectLayers:(id)sender
+{
+    //点击后删除之前的PickerView
+    for (UIView *view in self.view.subviews) {
+        if ([view isKindOfClass:[CYCustomMultiSelectPickerView class]]) {
+            [view removeFromSuperview];
+        }
+    }
+    
+    multiPickerView = [[CYCustomMultiSelectPickerView alloc] initWithFrame:CGRectMake(ScreenWidth/2 - 160,[UIScreen mainScreen].bounds.size.width - 260-20, 320, 260+44)];
+    
+    //  multiPickerView.backgroundColor = [UIColor redColor];
+    multiPickerView.entriesArray = self.entries;
+    multiPickerView.entriesSelectedArray = self.entriesSelected;
+    multiPickerView.multiPickerDelegate = self;
+    
+    [self.view addSubview:multiPickerView];
+    
+    [multiPickerView pickerShow];
+
+    NSLog(@"#### selectLayers");
+    
 }
 
 - (IBAction)gotoRiskStatis:(id)sender
@@ -730,6 +865,9 @@
     if([@"相关性" isEqualToString: toolName]){
         [self drawRelation:nil];
     }
+    if([@"选择图层" isEqualToString: toolName]){
+        [self selectLayers:nil];
+    }
 }
 - (void)actionSheetCancel:(UIActionSheet *)actionSheet{
     NSLog(@"#### actionSheetCancel") ;
@@ -763,6 +901,46 @@
             UIButton *button = (UIButton *)[self.mapView viewWithTag:(i+100)] ;
             button.enabled = NO ;
             [button setAlpha:1.0] ;
+        }
+    }
+}
+
+#pragma mark - Delegate
+//获取到选中的数据
+-(void)returnChoosedPickerString:(NSMutableArray *)selectedEntriesArr
+{
+    self.entriesSelected = [selectedEntriesArr retain];
+    //根据图层重绘
+    [self draw01:Nil];
+    [self repeatMap];
+}
+
+-(void) repeatMap
+{
+    NSArray *views = [self.mapView subviews] ;
+    for(int i = 0; i < views.count; i++){
+        UIView *v = (UIView *)[views objectAtIndex:i] ;
+        if(v.tag >= 100){
+            ProjectMap *pm = [self.objectArray objectAtIndex: (v.tag - 100)] ;
+            v.hidden = YES ;
+            for(int i = 0; i < self.layers.count; i++){
+                Layer *layer = (Layer *)[self.layers objectAtIndex:i] ;
+                layer.selected = NO ;
+                for(int j = 0; j < self.entriesSelected.count; j++){
+                    NSString *pageIndex = [self.entriesSelected objectAtIndex:j];
+                    if([layer.pageIndex isEqualToString:pageIndex]){
+                        //这个图层需要显示
+                        layer.selected = YES ;
+                        break ;
+                    }
+                }
+                if(layer.selected){
+                    NSRange foundObj=[pm.belongLayers rangeOfString:layer.layerName options:NSCaseInsensitiveSearch];
+                    if(foundObj.length > 0) {
+                        v.hidden = NO ;
+                    }
+                }
+            }
         }
     }
 }

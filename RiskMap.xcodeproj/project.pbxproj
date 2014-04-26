@@ -117,6 +117,17 @@
 		B02224DE1792DC5C005C9CF7 /* RiskCostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B02224DD1792DC5B005C9CF7 /* RiskCostCell.m */; };
 		B02224E01792DC71005C9CF7 /* RiskCostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B02224DF1792DC70005C9CF7 /* RiskCostCell.xib */; };
 		B039916D17B498EA00A64DE0 /* blueball.png in Resources */ = {isa = PBXBuildFile; fileRef = B039916C17B498EA00A64DE0 /* blueball.png */; };
+		B063CAD7190B59F6003C0429 /* ALPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B063CAD2190B59F6003C0429 /* ALPickerView.m */; };
+		B063CAD8190B59F6003C0429 /* ALPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B063CAD4190B59F6003C0429 /* ALPickerViewCell.m */; };
+		B063CAD9190B59F6003C0429 /* CYCustomMultiSelectPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B063CAD6190B59F6003C0429 /* CYCustomMultiSelectPickerView.m */; };
+		B063CAE1190B5C69003C0429 /* check_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B063CADA190B5C69003C0429 /* check_selected@2x.png */; };
+		B063CAE2190B5C69003C0429 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B063CADB190B5C69003C0429 /* check@2x.png */; };
+		B063CAE3190B5C69003C0429 /* frame_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B063CADC190B5C69003C0429 /* frame_left@2x.png */; };
+		B063CAE4190B5C69003C0429 /* frame_middle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B063CADD190B5C69003C0429 /* frame_middle@2x.png */; };
+		B063CAE5190B5C69003C0429 /* frame_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B063CADE190B5C69003C0429 /* frame_right@2x.png */; };
+		B063CAE6190B5C69003C0429 /* wheel_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B063CADF190B5C69003C0429 /* wheel_bg@2x.png */; };
+		B063CAE7190B5C69003C0429 /* wheel_shadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B063CAE0190B5C69003C0429 /* wheel_shadow@2x.png */; };
+		B063CAEA190B77B2003C0429 /* Layer.m in Sources */ = {isa = PBXBuildFile; fileRef = B063CAE9190B77B2003C0429 /* Layer.m */; };
 		B088F6A5179E4EE10053806C /* redball.png in Resources */ = {isa = PBXBuildFile; fileRef = B088F6A4179E4EE10053806C /* redball.png */; };
 		B0AE3C491797DB9B00B36295 /* RiskSortController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0AE3C471797DB9B00B36295 /* RiskSortController.m */; };
 		B0AE3C4A1797DB9B00B36295 /* RiskSortController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0AE3C481797DB9B00B36295 /* RiskSortController.xib */; };
@@ -294,6 +305,21 @@
 		B02224DD1792DC5B005C9CF7 /* RiskCostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiskCostCell.m; sourceTree = "<group>"; };
 		B02224DF1792DC70005C9CF7 /* RiskCostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RiskCostCell.xib; sourceTree = "<group>"; };
 		B039916C17B498EA00A64DE0 /* blueball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueball.png; sourceTree = "<group>"; };
+		B063CAD1190B59F6003C0429 /* ALPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPickerView.h; sourceTree = "<group>"; };
+		B063CAD2190B59F6003C0429 /* ALPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALPickerView.m; sourceTree = "<group>"; };
+		B063CAD3190B59F6003C0429 /* ALPickerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALPickerViewCell.h; sourceTree = "<group>"; };
+		B063CAD4190B59F6003C0429 /* ALPickerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALPickerViewCell.m; sourceTree = "<group>"; };
+		B063CAD5190B59F6003C0429 /* CYCustomMultiSelectPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYCustomMultiSelectPickerView.h; sourceTree = "<group>"; };
+		B063CAD6190B59F6003C0429 /* CYCustomMultiSelectPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYCustomMultiSelectPickerView.m; sourceTree = "<group>"; };
+		B063CADA190B5C69003C0429 /* check_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check_selected@2x.png"; sourceTree = "<group>"; };
+		B063CADB190B5C69003C0429 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
+		B063CADC190B5C69003C0429 /* frame_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_left@2x.png"; sourceTree = "<group>"; };
+		B063CADD190B5C69003C0429 /* frame_middle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_middle@2x.png"; sourceTree = "<group>"; };
+		B063CADE190B5C69003C0429 /* frame_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "frame_right@2x.png"; sourceTree = "<group>"; };
+		B063CADF190B5C69003C0429 /* wheel_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wheel_bg@2x.png"; sourceTree = "<group>"; };
+		B063CAE0190B5C69003C0429 /* wheel_shadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wheel_shadow@2x.png"; sourceTree = "<group>"; };
+		B063CAE8190B77B2003C0429 /* Layer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Layer.h; sourceTree = "<group>"; };
+		B063CAE9190B77B2003C0429 /* Layer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Layer.m; sourceTree = "<group>"; };
 		B088F6A4179E4EE10053806C /* redball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redball.png; sourceTree = "<group>"; };
 		B0AE3C461797DB9B00B36295 /* RiskSortController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RiskSortController.h; sourceTree = "<group>"; };
 		B0AE3C471797DB9B00B36295 /* RiskSortController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RiskSortController.m; sourceTree = "<group>"; };
@@ -375,6 +401,8 @@
 		04FEA2D5177EE7FC00872C34 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B063CAE8190B77B2003C0429 /* Layer.h */,
+				B063CAE9190B77B2003C0429 /* Layer.m */,
 				04FEA2D6177EE81B00872C34 /* Directory.h */,
 				04FEA2D7177EE81B00872C34 /* Directory.m */,
 				04FFC5F417B6C66900A91F7C /* Project.h */,
@@ -430,6 +458,13 @@
 		04FEA2FF177F1FAD00872C34 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B063CADA190B5C69003C0429 /* check_selected@2x.png */,
+				B063CADB190B5C69003C0429 /* check@2x.png */,
+				B063CADC190B5C69003C0429 /* frame_left@2x.png */,
+				B063CADD190B5C69003C0429 /* frame_middle@2x.png */,
+				B063CADE190B5C69003C0429 /* frame_right@2x.png */,
+				B063CADF190B5C69003C0429 /* wheel_bg@2x.png */,
+				B063CAE0190B5C69003C0429 /* wheel_shadow@2x.png */,
 				ADA5D90517D78412009E87DC /* 5.png */,
 				ADB1983017D6956C00991E5A /* ipad.png */,
 				ADB1983117D6956C00991E5A /* iphone.png */,
@@ -596,6 +631,7 @@
 		AD582957177B3E4A008A61FC /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				B063CAD0190B59F6003C0429 /* ALPickerView */,
 				04E0BF7017AF68A6002743EF /* ZipArchive.h */,
 				04E0BF7117AF68A6002743EF /* ZipArchive.m */,
 				04E0BF6217AF686B002743EF /* crypt.h */,
@@ -616,6 +652,19 @@
 				ADA5D90817D8205E009E87DC /* DrawLine.m */,
 			);
 			name = Vendor;
+			sourceTree = "<group>";
+		};
+		B063CAD0190B59F6003C0429 /* ALPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				B063CAD1190B59F6003C0429 /* ALPickerView.h */,
+				B063CAD2190B59F6003C0429 /* ALPickerView.m */,
+				B063CAD3190B59F6003C0429 /* ALPickerViewCell.h */,
+				B063CAD4190B59F6003C0429 /* ALPickerViewCell.m */,
+				B063CAD5190B59F6003C0429 /* CYCustomMultiSelectPickerView.h */,
+				B063CAD6190B59F6003C0429 /* CYCustomMultiSelectPickerView.m */,
+			);
+			path = ALPickerView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -674,10 +723,12 @@
 				AD5828EA177B3BD0008A61FC /* MapController.xib in Resources */,
 				04FEA303177F1FAE00872C34 /* Glass_Folder_001.png in Resources */,
 				04FEA304177F1FAE00872C34 /* Glass_Folder_002.png in Resources */,
+				B063CAE6190B5C69003C0429 /* wheel_bg@2x.png in Resources */,
 				04FEA305177F1FAE00872C34 /* Glass_Folder_003.png in Resources */,
 				ADF66418178C60550072973D /* RiskListController.xib in Resources */,
 				ADF6641D178C61D20072973D /* RiskListCell.xib in Resources */,
 				B02224C717925636005C9CF7 /* RiskHotController.xib in Resources */,
+				B063CAE4190B5C69003C0429 /* frame_middle@2x.png in Resources */,
 				B02224D31792CDC8005C9CF7 /* whiteball.png in Resources */,
 				B02224D81792D181005C9CF7 /* RiskCostController.xib in Resources */,
 				B02224E01792DC71005C9CF7 /* RiskCostCell.xib in Resources */,
@@ -686,11 +737,13 @@
 				B0AE3C4F1797E06600B36295 /* RiskStatisController.xib in Resources */,
 				B088F6A5179E4EE10053806C /* redball.png in Resources */,
 				04E0BAB417AF41FB002743EF /* FileController.xib in Resources */,
+				B063CAE5190B5C69003C0429 /* frame_right@2x.png in Resources */,
 				04E0BAE917AF45F7002743EF /* InputController.xib in Resources */,
 				04E0BF4717AF4ED5002743EF /* RiskMap-Info.plist in Resources */,
 				04E0BF4B17AF4F22002743EF /* InfoPlist.strings in Resources */,
 				046A93B217B04FF200693F52 /* MainController_ipad.xib in Resources */,
 				046A93B417B050BA00693F52 /* MapController_ipad.xib in Resources */,
+				B063CAE3190B5C69003C0429 /* frame_left@2x.png in Resources */,
 				046A93B617B051DD00693F52 /* RiskListController_ipad.xib in Resources */,
 				046A93B817B0528600693F52 /* RiskHotController_ipad.xib in Resources */,
 				046A93BA17B053B200693F52 /* RiskCostController_ipad.xib in Resources */,
@@ -715,6 +768,7 @@
 				AD344EBF17CFB4BC00E7A523 /* Default-Landscape~ipad.png in Resources */,
 				AD344EC117CFB4CD00E7A523 /* Default-Landscape@2x~ipad.png in Resources */,
 				AD344EC417CFB55000E7A523 /* Default@2x.png in Resources */,
+				B063CAE1190B5C69003C0429 /* check_selected@2x.png in Resources */,
 				AD344EC617CFB57300E7A523 /* Default-568h@2x.png in Resources */,
 				AD344EC817CFB6CA00E7A523 /* Default-Portrait~ipad.png in Resources */,
 				ADB1982F17D6934900991E5A /* IntroController.xib in Resources */,
@@ -723,11 +777,13 @@
 				ADB1983517D6956C00991E5A /* iphone5.png in Resources */,
 				ADB1983717D695BA00991E5A /* IntroController_iphone5.xib in Resources */,
 				ADB1983917D6960800991E5A /* IntroController_ipad.xib in Resources */,
+				B063CAE2190B5C69003C0429 /* check@2x.png in Resources */,
 				ADA5D90617D78412009E87DC /* 5.png in Resources */,
 				AD4C2B2D17DAAAD100DAE95B /* 57.png in Resources */,
 				AD4C2B2F17DAAAD600DAE95B /* 114.png in Resources */,
 				AD4C2B3117DAAB3600DAE95B /* 72.png in Resources */,
 				AD4C2B3317DAAB3B00DAE95B /* 144.png in Resources */,
+				B063CAE7190B5C69003C0429 /* wheel_shadow@2x.png in Resources */,
 				AD4C2B3517DAAB8600DAE95B /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -739,6 +795,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B063CAD8190B59F6003C0429 /* ALPickerViewCell.m in Sources */,
 				AD5828C5177B314C008A61FC /* AppDelegate.m in Sources */,
 				AD5828DD177B338C008A61FC /* MainController.m in Sources */,
 				AD5828E4177B35BD008A61FC /* DirectoryCell.m in Sources */,
@@ -751,10 +808,12 @@
 				04FEA2E8177EE92900872C34 /* FMDatabaseQueue.m in Sources */,
 				04FEA2EA177EE92900872C34 /* FMResultSet.m in Sources */,
 				04FEA2F6177EF92500872C34 /* GDataXMLNode.m in Sources */,
+				B063CAD9190B59F6003C0429 /* CYCustomMultiSelectPickerView.m in Sources */,
 				04FEA2FE177EFD0F00872C34 /* DBUtils.m in Sources */,
 				04FEA308177F2A6600872C34 /* ProjectMap.m in Sources */,
 				048962B11781C9C6007A8E1D /* MyLongPressGestureRecognizer.m in Sources */,
 				ADF66413178C5F520072973D /* Risk.m in Sources */,
+				B063CAEA190B77B2003C0429 /* Layer.m in Sources */,
 				ADF66417178C60550072973D /* RiskListController.m in Sources */,
 				ADF6641B178C61B60072973D /* RiskListCell.m in Sources */,
 				B02224C617925636005C9CF7 /* RiskHotController.m in Sources */,
@@ -780,6 +839,7 @@
 				04E0BADF17AF4565002743EF /* RegexKitLite.m in Sources */,
 				04E0BAE817AF45F7002743EF /* InputController.m in Sources */,
 				04E0BF4617AF4ED5002743EF /* main.m in Sources */,
+				B063CAD7190B59F6003C0429 /* ALPickerView.m in Sources */,
 				04E0BF6B17AF686B002743EF /* ioapi.c in Sources */,
 				04E0BF6C17AF686B002743EF /* mztools.c in Sources */,
 				04E0BF6D17AF686B002743EF /* unzip.c in Sources */,

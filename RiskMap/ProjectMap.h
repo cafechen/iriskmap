@@ -41,5 +41,6 @@
 @property (copy, nonatomic) NSString *cardPic;
 @property (copy, nonatomic) NSString *fromWho;
 @property (copy, nonatomic) NSString *toWho;
+@property (copy, nonatomic) NSString *belongLayers;
 
 @end

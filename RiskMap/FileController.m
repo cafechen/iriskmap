@@ -177,6 +177,7 @@
             [DBUtils updateProjectVector] ;
             [DBUtils updateRiskRelation] ;
             [DBUtils updateRiskScoreFather] ;
+            [DBUtils updateProjectMapPageLayer] ;
             AppDelegate *appDelegate = [[UIApplication sharedApplication] delegate] ;
             //直接跳转到地图
             [self hideLoading] ;
