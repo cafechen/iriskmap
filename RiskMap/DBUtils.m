@@ -1376,7 +1376,7 @@
         //拼写SQL
         NSString *sql = nil ;
         
-        sql = [NSString stringWithFormat:@"select distinct r.riskTypeId as riskTypeId, d.title as title from risk r, dictype d where r.projectId = '%@' and r.riskTypeId = d.id;", projectId] ;
+        sql = [NSString stringWithFormat:@"select r.riskCode as riskTypeId, d.title as title from risk r left join on dictype d on r.riskTypeId = d.id where r.projectId = '%@';", projectId] ;
         
         NSLog(@"SQL: %@", sql) ;
         

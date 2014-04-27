@@ -101,7 +101,7 @@
         [self.toolsArray addObject:@"风险成本"];
     }
     
-    [self.toolsArray addObject:@"过滤器"] ;
+    //[self.toolsArray addObject:@"过滤器"] ;
     
     NSMutableArray *relations = [DBUtils getRiskRelation:appDelegate.currProjectMap] ;
     
