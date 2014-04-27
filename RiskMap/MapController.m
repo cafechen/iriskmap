@@ -87,13 +87,15 @@
     Project *project = [DBUtils getProjectInfo:appDelegate.currProjectMap] ;
     
     [self.toolsArray addObject:@"返回地图"] ;
-    [self.toolsArray addObject:@"地图信息"] ;
+    //[self.toolsArray addObject:@"地图信息"] ;
     
     NSLog(@"####SHOW HOT %d", project.show_hot) ;
     
+    /*
     if(project.show_hot){
         [self.toolsArray addObject:@"风险热图"];
     }
+    
     if(project.show_static){
         [self.toolsArray addObject:@"分类统计"];
     }
@@ -108,6 +110,7 @@
     if(relations.count > 0){
         [self.toolsArray addObject:@"相关性"] ;
     }
+    */
     
     [self.toolsArray addObject:@"选择图层"] ;
 }
